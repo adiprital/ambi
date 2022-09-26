@@ -4,6 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install-backend": "npm install --prefix backend",
+    "install-client": "npm install --prefix ambi",
+    "install": "npm run install-server && npm run install-client",
+    "backend": "npm run dev --prefix backend",
+    "client": "npm start --prefix ambi",
+    "start": "npm run backend & npm run client",
+    "deploy": "npm run build --prefix ambi && npm start --prefix backend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
