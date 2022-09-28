@@ -1,7 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Hidden from '@mui/material/Hidden';
 
 
@@ -31,6 +32,17 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer(props) {
     const classes = useStyles();
+
+    const products = useSelector((state) => state.productsList).products;
+    let navigate = useNavigate();
+
+    const productsOptions = [{name: 'Products', link: '/products', activeIndex: 2, selectedIndex: 0},
+    ...products.map((product, index) => {
+        return { name: product.name,
+                link: `/${product.name.replace(/\s/g, '').toLowerCase()}`,
+                activeIndex: 2,
+                selectedIndex: index + 1 }
+    })];
 
     return(
         <footer className={classes.footer}>
@@ -62,48 +74,18 @@ export default function Footer(props) {
                     </Grid>
                     <Grid item className={classes.gridItem}>
                         <Grid container direction='column' spacing={2}>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(0)}}
-                                to='/products'
-                                className={classes.link}
-                            >Products</Grid>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(1)}}
-                                to='/caliper'
-                                className={classes.link}
-                            >Caliper</Grid>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(2)}}
-                                to='/measuretape'
-                                className={classes.link}
-                            >Measure Tape</Grid>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(3)}}
-                                to='/ruler'
-                                className={classes.link}
-                            >Ruler</Grid>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(4)}}
-                                to='/scissors'
-                                className={classes.link}
-                            >Scissors</Grid>
-                            <Grid
-                                item
-                                component={Link}
-                                onClick={() => {props.setValue(1); props.setSelectedIndex(5)}}
-                                to='/utilityknife'
-                                className={classes.link}
-                            >Utility Knife</Grid>
+                            {productsOptions.map((option, i) => (
+                                <Grid
+                                    key={`${option}${i}`}
+                                    item
+                                    component={Link}
+                                    to={option.link}
+                                    classes={{root: classes.link}}
+                                    // onClick={() => navigate(option.link)}
+                                >
+                                    {option.name}
+                                </Grid>
+                            ))}
                         </Grid>
                     </Grid>
                     <Grid item className={classes.gridItem}>

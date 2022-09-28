@@ -17,11 +17,9 @@ import Contact from './Contact';
 
 const store = createStore(rootReducer);
 
-
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
-
 
   useEffect(() => {
 
@@ -33,6 +31,7 @@ function App() {
     fetchProducts();
   }, []);
 
+  console.log("store", store)
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,6 +78,7 @@ function App() {
             />
 
 
+            {console.log("store.getState", store.getState())}
 
 
             {/*-----Caliper----- */}

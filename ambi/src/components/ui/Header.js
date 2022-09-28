@@ -25,7 +25,6 @@ import BadgeUnstyled, { badgeUnstyledClasses } from '@mui/base/BadgeUnstyled';
 
 import logo from '../../assets/ambiLogo.jpeg';
 
-
 function ElevationScroll(props) {
     const { children } = props;
 
@@ -207,7 +206,7 @@ export default function Header(props) {
                     link: `/${product.name.replace(/\s/g, '').toLowerCase()}`,
                     activeIndex: 2,
                     selectedIndex: index + 1 }
-    })]
+    })];
 
     const routes = [
         { name: 'Home', link: '/', activeIndex: 0 },
