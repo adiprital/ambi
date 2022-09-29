@@ -20,18 +20,40 @@ const store = createStore(rootReducer);
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
+  const [productsArray, setProducts] = useState([]);
 
   useEffect(() => {
 
     const fetchProducts = async () => {
       const products = await axios.get(`http://localhost:8000/get-products`);
-      store.dispatch({ type: "fetchProducts", products: products.data })
+      store.dispatch({ type: "fetchProducts", products: products.data });
+      setProducts(products.data);
     }
 
     fetchProducts();
   }, []);
 
-  console.log("store", store)
+  const getRouteComponent = (productName) => {
+      switch (productName){
+        case 'Caliper':
+          return (<Caliper setValue={setValue} setSelectedIndex={setSelectedIndex}/>);
+
+        case 'Measure Tape':
+          return (<div style={{height: '1000px'}}>Measure Tape</div>);
+
+        case 'Ruler':
+          return (<div style={{height: '1000px'}}>Ruler</div>);
+
+        case 'Scissors':
+          return (<div style={{height: '1000px'}}>Scissors</div>);
+
+        case 'Utility Knife':
+          return (<div style={{height: '1000px'}}>Utility Knife</div>);
+
+        default:
+            return (<HomePage />);
+        }
+    }
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,23 +99,16 @@ function App() {
               //       />}
             />
 
-
-            {console.log("store.getState", store.getState())}
-
-
-            {/*-----Caliper----- */}
-            <Route
-              exact
-              path='/caliper'
-              element={<Caliper
-                setValue={setValue}
-                setSelectedIndex={setSelectedIndex}
-              />}
-            />
-            <Route exact path='/measuretape' element={<div style={{height: '1000px'}}>Measure Tape</div>} />
-            <Route exact path='/ruler' element={<div style={{height: '1000px'}}>Ruler</div>} />
-            <Route exact path='/scissors' element={<div style={{height: '1000px'}}>Scissors</div>} />
-            <Route exact path='/utilityknife' element={<div style={{height: '1000px'}}>Utility Knife</div>} />
+            {productsArray.map((product, i) => {
+              return (
+                <Route
+                  key={`${product}${i}`}
+                  exact
+                  path={`/${product.name.replace(/\s/g, '').toLowerCase()}`}
+                  element={getRouteComponent(product.name)}
+                />
+              )
+            })}
 
             {/*-----Contact Us----- */}
             <Route
