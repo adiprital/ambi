@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
@@ -18,12 +19,9 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/system';
-import BadgeUnstyled, { badgeUnstyledClasses } from '@mui/base/BadgeUnstyled';
 
 import logo from '../../assets/ambiLogo.jpeg';
+import Cart from '../Cart';
 
 function ElevationScroll(props) {
     const { children } = props;
@@ -130,47 +128,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const StyledBadge = styled(BadgeUnstyled) (({ theme }) =>
-    `
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    list-style: none;
-    font-family: IBM Plex Sans, sans-serif;
-    position: relative;
-    display: inline-block;
-    line-height: 1;
-
-    & .${badgeUnstyledClasses.badge} {
-      z-index: auto;
-      position: absolute;
-      top: 0;
-      right: 0;
-      min-width: 22px;
-      height: 22px;
-      padding: 0.6px;
-      color: ${theme.palette.common.white};
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 22px;
-      white-space: nowrap;
-      text-align: center;
-      border-radius: 12px;
-      background: ${'#007FFF'};
-      transform: translate(50%, -50%);
-      transform-origin: 100% 0;
-    }
-
-    & .${badgeUnstyledClasses.invisible} {
-      display: none;
-    }
-    `,
-  );
-
 export default function Header(props) {
     const classes = useStyles();
     const theme = useTheme();
+    let navigate = useNavigate();
     const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const matches = useMediaQuery(theme.breakpoints.down(('md')));
 
@@ -337,12 +298,11 @@ export default function Header(props) {
                             <img alt='company logo' className={classes.logo} src={logo} />
                         </Button>
 
-                        <Stack spacing={4} direction='row'>
+                        <IconButton aria-label='profile'>
                             <PersonIcon className={classes.accountIcon} />
-                            <StyledBadge badgeContent={10} showZero>
-                                <ShoppingCartIcon className={classes.accountIcon}/>
-                            </StyledBadge>
-                        </Stack>
+                        </IconButton>
+
+                        <Cart/>
 
                         {matches ? drawer : tabs}
                     </Toolbar>
