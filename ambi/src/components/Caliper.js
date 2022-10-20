@@ -1,18 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import Icon from '@mui/material/Icon';
-// import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Hidden from '@mui/material/Hidden';
 import { useNavigate } from "react-router-dom";
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -66,8 +63,12 @@ const useStyles = makeStyles(theme => ({
 export default function Caliper(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+
+    dispatch({ type: 'fetchAddToCart', product: 'Adi' });
 
     // const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));

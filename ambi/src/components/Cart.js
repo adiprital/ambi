@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import TextField from '@mui/material/TextField';
 
 import logo from '../assets/ambiLogo.jpeg';
 
@@ -43,7 +46,12 @@ const cartItemStyle = {
 
 export default function Cart() {
     const classes = useStyles();
+
+    const addToCart = useSelector((state) => state.addToCartList).product;
+    console.log('addToCart', addToCart);
+
     const [openCart, setOpenCart] = useState(false);
+    const [amount, setAmount] = useState(0);
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -57,7 +65,9 @@ export default function Cart() {
         <div>
 
             <IconButton aria-label="cart">
-                <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart}></ShoppingCartIcon>
+                <Badge color="secondary" badgeContent={amount} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                    <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
+                </Badge>
             </IconButton>
             <Modal
                 open={openCart}
@@ -82,11 +92,21 @@ export default function Cart() {
                                 <DeleteForeverIcon/>
                             </IconButton>
 
-                            <IconButton aria-label="reduce-amount">
+                            <IconButton
+                                aria-label="reduce-amount"
+                                onClick={() => {setAmount(Math.max(amount - 1, 0))}}
+                            >
                                 <RemoveIcon/>
                             </IconButton>
 
-                            <IconButton aria-label="increase-amount">
+                            <TextField label={amount}>
+
+                            </TextField>
+
+                            <IconButton
+                                aria-label="increase-amount"
+                                onClick={() => {setAmount(amount + 1)}}
+                            >
                                 <AddIcon/>
                             </IconButton>
 
