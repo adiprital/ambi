@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -47,9 +47,14 @@ const cartItemStyle = {
 export default function Cart() {
     const classes = useStyles();
 
-    const addToCart = useSelector((state) => state.addToCartList).product;
-    console.log('addToCart', addToCart);
+    // const addToCart = useSelector((state) => state.addToCartList).product;
+    const selectedProduct = useSelector((state) => {
+        console.log('***cart state', state)
+        return state.addToCartList
+    }).product;
+    console.log('selectedProduct', selectedProduct);
 
+    const dispatch = useDispatch();
     const [openCart, setOpenCart] = useState(false);
     const [amount, setAmount] = useState(0);
 
@@ -65,7 +70,7 @@ export default function Cart() {
         <div>
 
             <IconButton aria-label="cart">
-                <Badge color="secondary" badgeContent={amount} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                <Badge color="secondary" badgeContent={selectedProduct.amount} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
                 </Badge>
             </IconButton>
@@ -84,8 +89,7 @@ export default function Cart() {
                     <Card sx={{ display: 'flex' }} style={{backgroundColor: 'transparent'}}>
                         <CardContent >
                             <Typography variant="subtitle1">
-                                something something something
-                                something something something
+                                {selectedProduct.productName}
                             </Typography>
 
                             <IconButton aria-label="delete-item">
@@ -94,18 +98,24 @@ export default function Cart() {
 
                             <IconButton
                                 aria-label="reduce-amount"
-                                onClick={() => {setAmount(Math.max(amount - 1, 0))}}
+                                onClick={() => dispatch({
+                                    type: 'removeProductFromCart',
+                                    product: selectedProduct.productName
+                                })}
                             >
                                 <RemoveIcon/>
                             </IconButton>
 
-                            <TextField label={amount}>
+                            <TextField label={selectedProduct.amount}>
 
                             </TextField>
 
                             <IconButton
                                 aria-label="increase-amount"
-                                onClick={() => {setAmount(amount + 1)}}
+                                onClick={() => dispatch({
+                                    type: 'addProductToCart',
+                                    product: selectedProduct.productName
+                                })}
                             >
                                 <AddIcon/>
                             </IconButton>

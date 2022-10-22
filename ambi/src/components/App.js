@@ -36,7 +36,7 @@ function App() {
   const getRouteComponent = (productName) => {
       switch (productName){
         case 'Caliper':
-          return (<Caliper setValue={setValue} setSelectedIndex={setSelectedIndex}/>);
+          return (<Caliper setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Measure Tape':
           return (<div style={{height: '1000px'}}>Measure Tape</div>);

@@ -68,7 +68,7 @@ export default function Caliper(props) {
 
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
-    dispatch({ type: 'fetchAddToCart', product: 'Adi' });
+
 
     // const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
@@ -177,7 +177,9 @@ export default function Caliper(props) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button>Add To Cart</Button>
+                        <Button
+                            onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
+                        >Add To Cart</Button>
                     </CardActions>
                 </Card>
             </Grid>
