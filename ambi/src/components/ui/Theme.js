@@ -38,6 +38,21 @@ export default createTheme({
                 }
             }
         },
+        MuiCardContent:{
+            styleOverrides:{
+                root:{},
+            },
+            variants:[
+                {
+                    props:{variant: 'cart-item'},
+                    style:{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
+                    }
+                }
+            ]
+        },
         MuiPaper: {
             styleOverrides: {
                 root: {

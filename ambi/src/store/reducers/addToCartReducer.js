@@ -1,6 +1,6 @@
 let initial = {
     product: {
-        productName: 'your cart is empty.',
+        productName: undefined,
         amount: 0
     }
 }

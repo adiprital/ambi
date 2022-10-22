@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -8,16 +8,9 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import TextField from '@mui/material/TextField';
 
-import logo from '../assets/ambiLogo.jpeg';
+import CartItem from './CartItem';
 
 const useStyles = makeStyles(theme => ({
     cartIcon: {
@@ -43,20 +36,21 @@ const cartItemStyle = {
     p: 4
   };
 
+const cartContentStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+};
+
 
 export default function Cart() {
     const classes = useStyles();
 
-    // const addToCart = useSelector((state) => state.addToCartList).product;
     const selectedProduct = useSelector((state) => {
-        console.log('***cart state', state)
         return state.addToCartList
     }).product;
-    console.log('selectedProduct', selectedProduct);
 
-    const dispatch = useDispatch();
     const [openCart, setOpenCart] = useState(false);
-    const [amount, setAmount] = useState(0);
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -85,50 +79,12 @@ export default function Cart() {
                     </IconButton>
 
                     <Typography variant='h4'>My Cart</Typography>
-                    <Typography variant='body2'>Cart's items:</Typography>
-                    <Card sx={{ display: 'flex' }} style={{backgroundColor: 'transparent'}}>
-                        <CardContent >
-                            <Typography variant="subtitle1">
-                                {selectedProduct.productName}
-                            </Typography>
+                    <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+                    <Box sx={cartContentStyle}>
+                        {!selectedProduct.productName ? "your cart is empty" : <CartItem selectedProduct={selectedProduct}/>}
+                        <Button sx={{marginTop:"15px"}}>checkout</Button>
+                    </Box>
 
-                            <IconButton aria-label="delete-item">
-                                <DeleteForeverIcon/>
-                            </IconButton>
-
-                            <IconButton
-                                aria-label="reduce-amount"
-                                onClick={() => dispatch({
-                                    type: 'removeProductFromCart',
-                                    product: selectedProduct.productName
-                                })}
-                            >
-                                <RemoveIcon/>
-                            </IconButton>
-
-                            <TextField label={selectedProduct.amount}>
-
-                            </TextField>
-
-                            <IconButton
-                                aria-label="increase-amount"
-                                onClick={() => dispatch({
-                                    type: 'addProductToCart',
-                                    product: selectedProduct.productName
-                                })}
-                            >
-                                <AddIcon/>
-                            </IconButton>
-
-                        </CardContent>
-                        <CardMedia
-                            component='img'
-                            sx={{width: 150}}
-                            image={logo}
-                            alt="ambi logo"
-                        />
-                    </Card>
-                    <Button>checkout</Button>
                 </Box>
             </Modal>
 
