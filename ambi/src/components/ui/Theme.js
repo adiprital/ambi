@@ -38,6 +38,18 @@ export default createTheme({
                 }
             }
         },
+        MuiCard:{
+            variants:[
+                {
+                    props:{variant: 'tabs-container'},
+                    style:{
+                        backgroundColor: 'white',
+                        minHeight: '663px',
+                        height: 'fit-content'
+                    }
+                }
+            ]
+        },
         MuiCardContent:{
             styleOverrides:{
                 root:{},
