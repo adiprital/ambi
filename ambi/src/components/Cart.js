@@ -46,9 +46,10 @@ const cartContentStyle = {
 export default function Cart() {
     const classes = useStyles();
 
-    const selectedProduct = useSelector((state) => {
-        return state.addToCartList
-    }).product;
+    const cart = useSelector((state) => {
+        console.log("state", state);
+        return state.cartList
+    }).cartData;
 
     const [openCart, setOpenCart] = useState(false);
 
@@ -60,11 +61,26 @@ export default function Cart() {
         setOpenCart(false);
     };
 
+    const renderCartItems = () => {
+        const keys = Object.keys(cart);
+        console.log('keys', keys);
+        return keys.map(productName => {
+            if (cart[productName] > 0) {
+                return <CartItem productName={productName} amount={cart[productName]}/>
+            }
+        });
+    };
+
+    const totalAmountInCart = () => {
+        const values = Object.values(cart);
+        return values.reduce((acc, curr) => acc + curr, 0);
+    };
+
     return (
         <div>
 
             <IconButton aria-label="cart">
-                <Badge color="secondary" badgeContent={selectedProduct.amount} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
                 </Badge>
             </IconButton>
@@ -81,7 +97,9 @@ export default function Cart() {
                     <Typography variant='h4'>My Cart</Typography>
                     <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box sx={cartContentStyle}>
-                        {!selectedProduct.productName ? "your cart is empty" : <CartItem selectedProduct={selectedProduct}/>}
+                        {/* {!cart.productName ? "your cart is empty" : <CartItem cart={cart}/>} */}
+
+                        {renderCartItems()}
                         <Button sx={{marginTop:"15px"}}>checkout</Button>
                     </Box>
 

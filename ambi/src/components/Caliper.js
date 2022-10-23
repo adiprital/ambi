@@ -179,7 +179,9 @@ export default function Caliper(props) {
                     <CardActions>
                         <Button
                             onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
-                        >Add To Cart</Button>
+                        >
+                            Add To Cart
+                        </Button>
                     </CardActions>
                 </Card>
             </Grid>

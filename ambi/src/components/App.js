@@ -9,11 +9,12 @@ import rootReducer from '../store/reducers/index';
 import theme from './ui/Theme';
 import Header from './ui/Header';
 import Footer from './ui/Footer';
-import Products from './Products';
-import Caliper from './Caliper';
 import HomePage from './HomePage';
 import About from './About';
 import Contact from './Contact';
+import Products from './Products';
+import Caliper from './Caliper';
+import MeasureTape from './MeasureTape';
 
 const store = createStore(rootReducer);
 
@@ -39,7 +40,7 @@ function App() {
           return (<Caliper setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Measure Tape':
-          return (<div style={{height: '1000px'}}>Measure Tape</div>);
+          return (<MeasureTape setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Ruler':
           return (<div style={{height: '1000px'}}>Ruler</div>);

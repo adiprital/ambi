@@ -16,14 +16,14 @@ import logo from '../assets/ambiLogo.jpeg';
 import { Box } from '@mui/material';
 
 
-export default function CartItem({ selectedProduct }) {
+export default function CartItem({ productName, amount }) {
     const dispatch = useDispatch();
 
     return (
         <Card sx={{ display: 'flex' }} style={{backgroundColor: 'transparent'}}>
         <CardContent variant='cart-item'>
             <Typography variant="subtitle1">
-                {selectedProduct.productName}
+                {productName}
             </Typography>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                 <IconButton aria-label="delete-item">
@@ -33,21 +33,21 @@ export default function CartItem({ selectedProduct }) {
                     aria-label="reduce-amount"
                     onClick={() => dispatch({
                         type: 'removeProductFromCart',
-                        product: selectedProduct.productName
+                        product: productName
                     })}
                 >
                     <RemoveIcon/>
                 </IconButton>
 
                 {/* <TextField label={selectedProduct.amount}/> */}
-                {<div>{selectedProduct.amount}</div>}
+                {<div>{amount}</div>}
 
 
                 <IconButton
                     aria-label="increase-amount"
                     onClick={() => dispatch({
                         type: 'addProductToCart',
-                        product: selectedProduct.productName
+                        product: productName
                     })}
                 >
                     <AddIcon/>
