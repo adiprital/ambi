@@ -42,12 +42,11 @@ const cartContentStyle = {
     alignItems: 'center'
 };
 
-
 export default function Cart() {
     const classes = useStyles();
 
     const cart = useSelector((state) => {
-        console.log("state", state);
+        // console.log("state", state);
         return state.cartList
     }).cartData;
 
@@ -63,7 +62,7 @@ export default function Cart() {
 
     const renderCartItems = () => {
         const keys = Object.keys(cart);
-        console.log('keys', keys);
+        // console.log('keys', keys);
         return keys.map(productName => {
             if (cart[productName] > 0) {
                 return <CartItem productName={productName} amount={cart[productName]}/>
@@ -78,7 +77,6 @@ export default function Cart() {
 
     return (
         <div>
-
             <IconButton aria-label="cart">
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
@@ -89,23 +87,17 @@ export default function Cart() {
                 onClose={handleCloseCart}
             >
                 <Box sx={cartItemStyle}>
-
                     <IconButton>
                         <CloseIcon onClick={handleCloseCart}/>
                     </IconButton>
-
                     <Typography variant='h4'>My Cart</Typography>
                     <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box sx={cartContentStyle}>
-                        {/* {!cart.productName ? "your cart is empty" : <CartItem cart={cart}/>} */}
-
                         {renderCartItems()}
                         <Button sx={{marginTop:"15px"}}>checkout</Button>
                     </Box>
-
                 </Box>
             </Modal>
-
         </div>
     )
 }

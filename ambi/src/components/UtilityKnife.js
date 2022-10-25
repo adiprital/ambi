@@ -4,12 +4,12 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 
 
-export default function MeasureTape(props) {
+export default function UtilityKnife(props) {
     const dispatch = useDispatch();
 
     return (
         <Card variant='tabs-container'>
-            Measure Tape
+            Utility Knife
             <Button
                 onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
             >

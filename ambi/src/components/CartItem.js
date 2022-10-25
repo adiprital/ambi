@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
+import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
 import IconButton from '@mui/material/IconButton';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-
 import logo from '../assets/ambiLogo.jpeg';
-import { Box } from '@mui/material';
-
 
 export default function CartItem({ productName, amount }) {
     const dispatch = useDispatch();
@@ -26,9 +22,6 @@ export default function CartItem({ productName, amount }) {
                 {productName}
             </Typography>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                <IconButton aria-label="delete-item">
-                    {/* <DeleteForeverIcon/> */}
-                </IconButton>
                 <IconButton
                     aria-label="reduce-amount"
                     onClick={() => dispatch({
@@ -38,11 +31,7 @@ export default function CartItem({ productName, amount }) {
                 >
                     <RemoveIcon/>
                 </IconButton>
-
-                {/* <TextField label={selectedProduct.amount}/> */}
                 {<div>{amount}</div>}
-
-
                 <IconButton
                     aria-label="increase-amount"
                     onClick={() => dispatch({
@@ -53,7 +42,6 @@ export default function CartItem({ productName, amount }) {
                     <AddIcon/>
                 </IconButton>
             </Box>
-
 
         </CardContent>
         <CardMedia

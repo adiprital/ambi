@@ -15,6 +15,9 @@ import Contact from './Contact';
 import Products from './Products';
 import Caliper from './Caliper';
 import MeasureTape from './MeasureTape';
+import Ruler from './Ruler';
+import Scissors from './Scissors';
+import UtilityKnife from './UtilityKnife';
 
 const store = createStore(rootReducer);
 
@@ -28,6 +31,7 @@ function App() {
     const fetchProducts = async () => {
       const products = await axios.get(`http://localhost:8000/get-products`);
       store.dispatch({ type: "fetchProducts", products: products.data });
+      store.dispatch({ type: "cartInitialize", cartData: products.data });
       setProducts(products.data);
     }
 
@@ -43,13 +47,13 @@ function App() {
           return (<MeasureTape setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Ruler':
-          return (<div style={{height: '1000px'}}>Ruler</div>);
+          return (<Ruler setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Scissors':
-          return (<div style={{height: '1000px'}}>Scissors</div>);
+          return (<Scissors setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Utility Knife':
-          return (<div style={{height: '1000px'}}>Utility Knife</div>);
+          return (<UtilityKnife setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         default:
             return (<HomePage />);
