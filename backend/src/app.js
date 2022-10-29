@@ -59,7 +59,6 @@ app.post("/buy-products", (req, res) => {
         message = "This product does not exist.";
     }
 
-    console.log(jsonArray);
     res.json({ message, isSuccess });
 });
 

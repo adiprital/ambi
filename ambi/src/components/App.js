@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { legacy_createStore as createStore} from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -29,10 +29,16 @@ function App() {
   useEffect(() => {
 
     const fetchProducts = async () => {
-      const products = await axios.get(`http://localhost:8000/get-products`);
-      store.dispatch({ type: "fetchProducts", products: products.data });
-      store.dispatch({ type: "cartInitialize", cartData: products.data });
-      setProducts(products.data);
+      try{
+        const products = await axios.get(`http://localhost:8000/get-products`);
+        store.dispatch({ type: "fetchProducts", products: products.data });
+        store.dispatch({ type: "cartInitialize", cartData: products.data });
+        setProducts(products.data);
+      }
+      catch(error){
+        console.log('error in fetch prodcuts', error)
+      }
+
     }
 
     fetchProducts();

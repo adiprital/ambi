@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
@@ -44,12 +45,6 @@ const cartContentStyle = {
 
 export default function Cart() {
     const classes = useStyles();
-
-    const cart = useSelector((state) => {
-        // console.log("state", state);
-        return state.cartList
-    }).cartData;
-
     const [openCart, setOpenCart] = useState(false);
 
     const handleOpenCart = () => {
@@ -60,12 +55,15 @@ export default function Cart() {
         setOpenCart(false);
     };
 
+    const cart = useSelector((state) => {
+        return state.cartList
+    }).cartData;
+
     const renderCartItems = () => {
         const keys = Object.keys(cart);
-        // console.log('keys', keys);
-        return keys.map(productName => {
+        return keys.map((productName, index) => {
             if (cart[productName] > 0) {
-                return <CartItem productName={productName} amount={cart[productName]}/>
+                return (<CartItem key={index} productName={productName} amount={cart[productName]}/>);
             }
         });
     };
@@ -73,6 +71,36 @@ export default function Cart() {
     const totalAmountInCart = () => {
         const values = Object.values(cart);
         return values.reduce((acc, curr) => acc + curr, 0);
+    };
+
+    const buyProducts = async () => {
+        const keys = Object.keys(cart);
+
+        //const results = [];
+        // keys.forEach(async (productName) => {
+        //     if (cart[productName] > 0) {
+        //         const result = await axios.post(`http://localhost:8000/buy-products`, {
+        //             name: productName,
+        //             amount: cart[productName]
+        //         })
+        //         results.push(result);
+        //     }
+        // });
+        // console.log('results', results);
+
+        const promises_array = keys.map(async (productName) => {
+            if (cart[productName] > 0) {
+                 return await axios.post(`http://localhost:8000/buy-products`, {
+                    name: productName,
+                    amount: cart[productName]
+                })
+            }
+        });
+
+        const results = await Promise.all(promises_array);
+        console.log('results', results);
+
+
     };
 
     return (
@@ -94,7 +122,7 @@ export default function Cart() {
                     <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box sx={cartContentStyle}>
                         {renderCartItems()}
-                        <Button sx={{marginTop:"15px"}}>checkout</Button>
+                        <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
                     </Box>
                 </Box>
             </Modal>

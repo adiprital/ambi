@@ -8,7 +8,7 @@ const readJsonFile = () => {
 
 const writeToJsonFile = (filename, products) => {
     return new Promise((resolve, reject) => {
-        fs.writeFile(path.join(__dirname, '..', 'data', `${filename}.json`), JSON.stringify(products), 'utf8', async()=>{
+        fs.writeFileSync(path.join(__dirname, '..', 'data', `${filename}.json`), JSON.stringify(products), 'utf8', async()=>{
             console.log(`success write to file`);
             resolve();
         });

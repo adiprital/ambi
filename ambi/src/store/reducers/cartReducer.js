@@ -8,12 +8,10 @@ const cartReducer = (state = initial, action) => {
     switch (action.type){
         case "addProductToCart":
             updatedCartData[action.product] = updatedCartData[action.product] + 1;
-            console.log('state1', state);
             return { ...state, cartData: updatedCartData };
 
         case "removeProductFromCart":
             updatedCartData[action.product] = Math.max(updatedCartData[action.product]-1, 0);
-            console.log('state2', state);
             return { ...state, cartData: updatedCartData };
 
         case "cartInitialize":
@@ -23,7 +21,6 @@ const cartReducer = (state = initial, action) => {
             productArray.forEach((product) => {
                 newCartData[product.name] = 0;
             });
-            console.log('state3', state);
             return { ...state, cartData: newCartData};
 
         default:
