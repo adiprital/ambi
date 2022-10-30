@@ -44,7 +44,7 @@ app.post("/buy-products", (req, res) => {
                     message = `There are only ${product.amount} items in stock.`;
                 } else {
                     product.amount = Math.abs(product.amount-productAmount);
-                    message = `Add to bag ${productAmount} ${productName}.`;
+                    message = `a purchase of ${productAmount} ${productName} was successfully made.`;
                     isSuccess = true;
                 }
             }

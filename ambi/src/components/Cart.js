@@ -11,6 +11,10 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
 
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 import CartItem from './CartItem';
 
 const useStyles = makeStyles(theme => ({
@@ -24,6 +28,10 @@ const useStyles = makeStyles(theme => ({
         }
     }
 }));
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 const cartItemStyle = {
     position: 'absolute',
@@ -46,6 +54,8 @@ const cartContentStyle = {
 export default function Cart() {
     const classes = useStyles();
     const [openCart, setOpenCart] = useState(false);
+    const [openCheckoutSnackbar, setOpenCheckoutSnackbar] = useState(false);
+    const [message, setMessage] = useState('RAZ');
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -53,6 +63,14 @@ export default function Cart() {
 
     const handleCloseCart = () => {
         setOpenCart(false);
+    };
+
+    const handleOpenCheckout = () => {
+        setOpenCheckoutSnackbar(true);
+    };
+
+    const handleCloseCheckout = () => {
+        setOpenCheckoutSnackbar(false);
     };
 
     const cart = useSelector((state) => {
@@ -75,7 +93,6 @@ export default function Cart() {
 
     const buyProducts = async () => {
         const keys = Object.keys(cart);
-
         //const results = [];
         // keys.forEach(async (productName) => {
         //     if (cart[productName] > 0) {
@@ -87,7 +104,6 @@ export default function Cart() {
         //     }
         // });
         // console.log('results', results);
-
         const promises_array = keys.map(async (productName) => {
             if (cart[productName] > 0) {
                  return await axios.post(`http://localhost:8000/buy-products`, {
@@ -98,10 +114,40 @@ export default function Cart() {
         });
 
         const results = await Promise.all(promises_array);
+        const filteredResults = results.filter(result => result !== undefined);
+        const messageToShow = filteredResults.map(obj => {
+            return obj.data;
+        });
+
+        messageToShow.forEach((i, index) => {
+            console.log('here', i);
+            console.log('messageToShow[index].message', messageToShow[index].message);
+            setMessage(messageToShow[index].message);
+        });
+        // setMessage(messageToShow[0].message);
+        console.log('message: ', message);
+        console.log('messageToShow', messageToShow);
+        console.log('filteredResults', filteredResults);
         console.log('results', results);
-
-
     };
+
+    const checkoutSnackbar = (
+        <React.Fragment>
+            <Stack>
+                <Button variant="outlined" onClick={handleOpenCheckout}>
+                    checkout2
+                </Button>
+                <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
+                    <Alert onClose={handleCloseCheckout} severity="error" sx={{ width: '100%' }}>
+                        error
+                    </Alert>
+                </Snackbar>
+                <Alert severity="error">error</Alert>
+                <Alert severity="warning">warning</Alert>
+                <Alert severity="success">success</Alert>
+            </Stack>
+        </React.Fragment>
+    );
 
     return (
         <div>
@@ -123,7 +169,9 @@ export default function Cart() {
                     <Box sx={cartContentStyle}>
                         {renderCartItems()}
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
+                        {checkoutSnackbar}
                     </Box>
+                    {message}
                 </Box>
             </Modal>
         </div>
