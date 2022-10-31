@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
-
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -55,7 +54,8 @@ export default function Cart() {
     const classes = useStyles();
     const [openCart, setOpenCart] = useState(false);
     const [openCheckoutSnackbar, setOpenCheckoutSnackbar] = useState(false);
-    const [message, setMessage] = useState('RAZ');
+    const [message, setMessage] = useState('');
+    const [status, setStatus] = useState([]);
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -93,17 +93,6 @@ export default function Cart() {
 
     const buyProducts = async () => {
         const keys = Object.keys(cart);
-        //const results = [];
-        // keys.forEach(async (productName) => {
-        //     if (cart[productName] > 0) {
-        //         const result = await axios.post(`http://localhost:8000/buy-products`, {
-        //             name: productName,
-        //             amount: cart[productName]
-        //         })
-        //         results.push(result);
-        //     }
-        // });
-        // console.log('results', results);
         const promises_array = keys.map(async (productName) => {
             if (cart[productName] > 0) {
                  return await axios.post(`http://localhost:8000/buy-products`, {
@@ -120,31 +109,50 @@ export default function Cart() {
         });
 
         messageToShow.forEach((i, index) => {
-            console.log('here', i);
-            console.log('messageToShow[index].message', messageToShow[index].message);
             setMessage(messageToShow[index].message);
+            setStatus([]); // not good. every loop inelizing status to empty array
+            status.push(messageToShow[index].isSuccess);
         });
-        // setMessage(messageToShow[0].message);
-        console.log('message: ', message);
+
+        console.log('status: ', status);
         console.log('messageToShow', messageToShow);
         console.log('filteredResults', filteredResults);
         console.log('results', results);
     };
 
-    const checkoutSnackbar = (
+    const purchaseSuccess = (
         <React.Fragment>
             <Stack>
                 <Button variant="outlined" onClick={handleOpenCheckout}>
-                    checkout2
+                    checkout success
+                </Button>
+                <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
+                    <Alert onClose={handleCloseCheckout} severity="success" sx={{ width: '100%' }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            </Stack>
+        </React.Fragment>
+    );
+
+    const purchaseFailed = (
+        <React.Fragment>
+            <Stack>
+                <Button variant="outlined" onClick={handleOpenCheckout}>
+                    checkout failed
                 </Button>
                 <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
                     <Alert onClose={handleCloseCheckout} severity="error" sx={{ width: '100%' }}>
-                        error
+                        {message}
                     </Alert>
                 </Snackbar>
-                <Alert severity="error">error</Alert>
-                <Alert severity="warning">warning</Alert>
-                <Alert severity="success">success</Alert>
+                {/* <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
+                    <Alert onClose={handleCloseCheckout} severity="warning" sx={{ width: '100%' }}>
+                        {message}
+                    </Alert>
+                </Snackbar> */}
+                {/* <Alert severity="error">{message}</Alert>
+                <Alert severity="warning">{message}</Alert> */}
             </Stack>
         </React.Fragment>
     );
@@ -169,9 +177,10 @@ export default function Cart() {
                     <Box sx={cartContentStyle}>
                         {renderCartItems()}
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
-                        {checkoutSnackbar}
+                        {status ? purchaseSuccess : purchaseFailed}
+                        {/* {purchaseSuccess} */}
+                        {/* {purchaseFailed} */}
                     </Box>
-                    {message}
                 </Box>
             </Modal>
         </div>

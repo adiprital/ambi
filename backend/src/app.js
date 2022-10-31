@@ -38,7 +38,7 @@ app.post("/buy-products", (req, res) => {
             if (product.name === productName) {
                 productExists = true;
                 if (product.amount === 0) {
-                    message ="Out of stock.";
+                    message =`${productName} Out of stock.`;
                 }
                 else if ((product.amount-productAmount) < 0) {
                     message = `There are only ${product.amount} items in stock.`;
