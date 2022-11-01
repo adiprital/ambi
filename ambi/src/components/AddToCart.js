@@ -21,11 +21,23 @@ export default function AddToCart(props) {
         }
     });
 
+    const checkDisable = () => {
+        let res = false;
+        productsAmount.forEach(product => {
+            if (props.productName === product.name) {
+                res = product.isDisabled;
+            }
+        })
+        return res;
+    }
+
     console.log('productsAmount', productsAmount);
+    console.log('productName', props.productName);
+    console.log('checkDisable', checkDisable());
 
     return (
         <Button
-            // disabled={productsAmount.isDisabled}
+            disabled={checkDisable()}
             onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
         >
             Add To Cart

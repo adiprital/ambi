@@ -10,13 +10,13 @@ export default function Ruler(props) {
 
     return (
         <Card variant='tabs-container'>
-            Ruler
+            {props.productName}
             {/* <Button
                 onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
             >
                 Add To Cart
             </Button> */}
-            <AddToCart/>
+            <AddToCart productName={props.productName}/>
         </Card>
     )
 }
