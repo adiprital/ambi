@@ -30,6 +30,7 @@ app.post("/buy-products", (req, res) => {
     let productExists = undefined;
     let isSuccess = false;
     let message = "";
+    let warning = false;
 
     if (productAmount <= 0) {
         message ="Invalid amount.";
@@ -41,7 +42,8 @@ app.post("/buy-products", (req, res) => {
                     message =`${productName} Out of stock.`;
                 }
                 else if ((product.amount-productAmount) < 0) {
-                    message = `There are only ${product.amount} items in stock.`;
+                    message = `There are only ${product.amount} ${productName}s in stock.`;
+                    warning = true;
                 } else {
                     product.amount = Math.abs(product.amount-productAmount);
                     message = `a purchase of ${productAmount} ${productName} was successfully made.`;
@@ -59,7 +61,7 @@ app.post("/buy-products", (req, res) => {
         message = "This product does not exist.";
     }
 
-    res.json({ message, isSuccess });
+    res.json({ message, isSuccess, warning });
 });
 
 module.exports = app;

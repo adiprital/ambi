@@ -29,11 +29,7 @@ export default function AddToCart(props) {
             }
         })
         return res;
-    }
-
-    console.log('productsAmount', productsAmount);
-    console.log('productName', props.productName);
-    console.log('checkDisable', checkDisable());
+    };
 
     return (
         <Button

@@ -10,9 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
-import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
 
 import CartItem from './CartItem';
 
@@ -27,10 +25,6 @@ const useStyles = makeStyles(theme => ({
         }
     }
 }));
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
 
 const cartItemStyle = {
     position: 'absolute',
@@ -53,9 +47,11 @@ const cartContentStyle = {
 export default function Cart() {
     const classes = useStyles();
     const [openCart, setOpenCart] = useState(false);
-    const [openCheckoutSnackbar, setOpenCheckoutSnackbar] = useState(false);
-    const [message, setMessage] = useState('');
-    const [status, setStatus] = useState([]);
+    const [resultsArray, setResultsArray] = useState([]);
+
+    const cart = useSelector((state) => {
+        return state.cartList
+    }).cartData;
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -64,18 +60,6 @@ export default function Cart() {
     const handleCloseCart = () => {
         setOpenCart(false);
     };
-
-    const handleOpenCheckout = () => {
-        setOpenCheckoutSnackbar(true);
-    };
-
-    const handleCloseCheckout = () => {
-        setOpenCheckoutSnackbar(false);
-    };
-
-    const cart = useSelector((state) => {
-        return state.cartList
-    }).cartData;
 
     const renderCartItems = () => {
         const keys = Object.keys(cart);
@@ -90,6 +74,21 @@ export default function Cart() {
         const values = Object.values(cart);
         return values.reduce((acc, curr) => acc + curr, 0);
     };
+
+    const renderResults = () => {
+        return resultsArray.map(result => {
+            let severity = result.isSuccess ? "success" :
+                            result.warning ? "warning" : "error"
+            return (
+                    <Alert
+                        severity={severity}
+                        sx={{ width: '100%' }}
+                    >
+                        {result.message}
+                    </Alert>
+                );
+        });
+    }
 
     const buyProducts = async () => {
         const keys = Object.keys(cart);
@@ -108,54 +107,11 @@ export default function Cart() {
             return obj.data;
         });
 
-        messageToShow.forEach((i, index) => {
-            setMessage(messageToShow[index].message);
-            setStatus([]); // not good. every loop inelizing status to empty array
-            status.push(messageToShow[index].isSuccess);
-        });
-
-        console.log('status: ', status);
-        console.log('messageToShow', messageToShow);
-        console.log('filteredResults', filteredResults);
-        console.log('results', results);
+        setResultsArray(messageToShow);
+        setTimeout(() => {
+            setResultsArray([])
+        }, 10000);
     };
-
-    const purchaseSuccess = (
-        <React.Fragment>
-            <Stack>
-                <Button variant="outlined" onClick={handleOpenCheckout}>
-                    checkout success
-                </Button>
-                <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
-                    <Alert onClose={handleCloseCheckout} severity="success" sx={{ width: '100%' }}>
-                        {message}
-                    </Alert>
-                </Snackbar>
-            </Stack>
-        </React.Fragment>
-    );
-
-    const purchaseFailed = (
-        <React.Fragment>
-            <Stack>
-                <Button variant="outlined" onClick={handleOpenCheckout}>
-                    checkout failed
-                </Button>
-                <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
-                    <Alert onClose={handleCloseCheckout} severity="error" sx={{ width: '100%' }}>
-                        {message}
-                    </Alert>
-                </Snackbar>
-                {/* <Snackbar open={openCheckoutSnackbar} autoHideDuration={6000} onClose={handleCloseCheckout}>
-                    <Alert onClose={handleCloseCheckout} severity="warning" sx={{ width: '100%' }}>
-                        {message}
-                    </Alert>
-                </Snackbar> */}
-                {/* <Alert severity="error">{message}</Alert>
-                <Alert severity="warning">{message}</Alert> */}
-            </Stack>
-        </React.Fragment>
-    );
 
     return (
         <div>
@@ -177,9 +133,7 @@ export default function Cart() {
                     <Box sx={cartContentStyle}>
                         {renderCartItems()}
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
-                        {status ? purchaseSuccess : purchaseFailed}
-                        {/* {purchaseSuccess} */}
-                        {/* {purchaseFailed} */}
+                        {renderResults()}
                     </Box>
                 </Box>
             </Modal>

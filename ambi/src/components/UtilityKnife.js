@@ -1,20 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 
+import AddToCart from './AddToCart';
 
 export default function UtilityKnife(props) {
-    const dispatch = useDispatch();
 
     return (
         <Card variant='tabs-container'>
-            Utility Knife
-            <Button
-                onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
-            >
-                Add To Cart
-            </Button>
+            {props.productName}
+            <AddToCart productName={props.productName}/>
         </Card>
     )
 }

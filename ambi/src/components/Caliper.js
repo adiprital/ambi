@@ -15,6 +15,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
+import AddToCart from './AddToCart';
+
 import rightHandedCaliber from '../assets/right-handed-caliber.jpg';
 import leftHandedCaliber from '../assets/left-handed-caliber.jpg';
 
@@ -67,9 +69,6 @@ export default function Caliper(props) {
     const dispatch = useDispatch();
 
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-
-
-
     // const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -94,55 +93,10 @@ export default function Caliper(props) {
                     <Grid item>
                         <Typography align='center' variant='h2'>Caliper</Typography>
                     </Grid>
-                    <Grid item>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
-                            <p dir='rtl'>
-                                הסבר כלשהו על איך קליבר עובד לימניים.
-                            </p>
-                        </Typography>
-                    </Grid>
                 </Grid>
-                {/*-----Right Handed Caliber Card----- */}
-                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                    <CardMedia
-                        className={classes.caliperImage}
-                        component='img'
-                        image={rightHandedCaliber}
-                        alt='right handed caliber'
-                    />
-                    <CardContent>
-                        <Typography align='center' gutterBottom variant='h2'>
-                            Right Handed Caliber
-                        </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
-                            <p dir='rtl'>
-                                נקודות כאב: אין אפשרות למדוד ביד שמאל.
-                                כאשר שמאלי מודד בעזרת יד ימין - המידה לרוב לא נכונה בעקבות אחיזה לא נכונה.
-                            </p>
-                        </Typography>
-                    </CardContent>
-                </Card>
-                {/*-----Left Handed Caliber Card----- */}
-                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                    <CardMedia
-                        className={classes.caliperImage}
-                        component='img'
-                        image={leftHandedCaliber}
-                        alt='left handed caliber'
-                    />
-                    <CardContent>
-                        <Typography align='center' gutterBottom variant='h2'>
-                            Left Handed Caliber
-                        </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
-                            <p dir='rtl'>
-                                בלה בלה בלה
-                            </p>
-                        </Typography>
-                    </CardContent>
-                </Card>
                 {/*-----Ambi's Caliber Card----- */}
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+
                     <CardMedia
                         className={classes.caliperImage}
                         component='img'
@@ -155,7 +109,7 @@ export default function Caliper(props) {
                         </Typography>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
-                                אין לי סבלנות להתחיל לחפש את קבצי ההדמיה.
+                                *****אין לי סבלנות להתחיל לחפש את קבצי ההדמיה.
                             </p>
                         </Typography>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
@@ -177,11 +131,7 @@ export default function Caliper(props) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button
-                            onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
-                        >
-                            Add To Cart
-                        </Button>
+                        <AddToCart productName={props.productName}/>
                     </CardActions>
                 </Card>
             </Grid>
