@@ -81,11 +81,6 @@ export default function Caliper(props) {
                         </Typography>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
-                                *****אין לי סבלנות להתחיל לחפש את קבצי ההדמיה.
-                            </p>
-                        </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
-                            <p dir='rtl'>
                                 השינוי:<br />
                                 הוספת מספרים בצד השני, כך שאפשר למדוד בשתי הידיים.
                             </p>

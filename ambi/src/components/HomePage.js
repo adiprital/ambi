@@ -1,9 +1,11 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import Card from '@mui/material/Card';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Button from '@mui/material/Button';
 
 const useStyles = makeStyles(theme => ({
     textContainer: {
@@ -21,9 +23,6 @@ export default function HomePage(props) {
     const theme = useTheme();
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-
-
-
 
     return (
         <Card variant='tabs-container'>
@@ -52,6 +51,14 @@ export default function HomePage(props) {
                                 מגיע מהמונח אמבידקסטרי שזאת הגדרה לאדם השולט בשתי ידיו במידה שווה, בלי צד דומיננטי.
                                 </p>
                             </Typography>
+                            <Button
+                                component={Link}
+                                to='/about'
+                                variant='outlined'
+                                style={{marginBottom: matchesSM ? '1em' : '5em'}}
+                            >
+                                <span>About us</span>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
