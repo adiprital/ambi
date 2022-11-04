@@ -11,20 +11,10 @@ import CardMedia from '@mui/material/CardMedia';
 import AddToCart from './AddToCart';
 import ArrowIcon from './ArrowIcon';
 
-import leftHandedCaliber from '../assets/left-handed-caliber.jpg';
+import caliper1 from '../assets/Caliper1.jpg';
+import caliper2 from '../assets/Caliper2.jpg';
 
 const useStyles = makeStyles(theme => ({
-    arrowIcon: {
-        color: theme.palette.common.green,
-        marginTop: '0.5em',
-        marginLeft: '2.5em',
-        marginRight: '5em',
-    },
-    arrowContainer: {
-        '&:hover': {
-            backgroundColor: 'transparent'
-        }
-    },
     rowContainer: {
         paddingLeft: '5em',
         paddingRight: '5em',
@@ -51,7 +41,8 @@ const useStyles = makeStyles(theme => ({
     caliperImage: {
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        marginBottom: '20px'
     }
 }));
 
@@ -72,12 +63,17 @@ export default function Caliper(props) {
                 </Grid>
                 {/*-----Ambi's Caliber Card----- */}
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-
                     <CardMedia
                         className={classes.caliperImage}
                         component='img'
-                        image={leftHandedCaliber}
-                        alt='left handed caliber'
+                        image={caliper1}
+                        alt='caliper1'
+                    />
+                    <CardMedia
+                        className={classes.caliperImage}
+                        component='img'
+                        image={caliper2}
+                        alt='caliper2'
                     />
                     <CardContent>
                         <Typography align='center' gutterBottom variant='h2'>
