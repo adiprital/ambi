@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Hidden from '@mui/material/Hidden';
-import { useNavigate } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 import AddToCart from './AddToCart';
+import ArrowIcon from './ArrowIcon';
 
-import rightHandedCaliber from '../assets/right-handed-caliber.jpg';
 import leftHandedCaliber from '../assets/left-handed-caliber.jpg';
 
 const useStyles = makeStyles(theme => ({
@@ -65,29 +58,12 @@ const useStyles = makeStyles(theme => ({
 export default function Caliper(props) {
     const classes = useStyles();
     const theme = useTheme();
-    let navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-    // const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
     return (
         <Grid container direction='column'>
-            <Hidden mdDown>
-                <Box
-                    sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width:'100%'}}
-                 >
-                    <ArrowBackIcon
-                        className={classes.arrowIcon}
-                        onClick={() => navigate("/products")}
-                    />
-                    <ArrowForwardIcon
-                        className={classes.arrowIcon}
-                        onClick={() => navigate("/measuretape")}
-                    />
-                </Box>
-            </Hidden>
+            <ArrowIcon productName={props.productName}/>
             <Grid item container direction='row' className={classes.rowContainer}>
                 <Grid item container direction='column'>
                     <Grid item>

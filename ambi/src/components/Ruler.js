@@ -8,10 +8,7 @@ export default function Ruler(props) {
     return (
         <Card variant='tabs-container'>
             {props.productName}
-            <ArrowIcon
-                // index={props.setSelectedIndex}
-                productName={props.productName}
-            />
+            <ArrowIcon productName={props.productName}/>
             <AddToCart productName={props.productName}/>
         </Card>
     )

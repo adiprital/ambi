@@ -39,22 +39,24 @@ export default function ArrowIcon(props) {
     const products = useSelector((state) => state.productsList).products;
 
     const productsLink = [];
-    productsLink.push({productLink: "/products"});
+    productsLink.push({ name: 'Products', link: "/products"});
 
     products.map(product => {
-        return productsLink.push({ productLink: `/${product.name.replace(/\s/g, '').toLowerCase()}` });
+        return productsLink.push({
+            name: product.name,
+            link: `/${product.name.replace(/\s/g, '').toLowerCase()}`
+        });
     });
 
-    console.log("productsLink", productsLink);
+    const lastIndex = productsLink.length-1;
 
     const checkBack = () => {
         let back = undefined;
-        productsLink.forEach(product => {
-            if (`/${props.productName.replace(/\s/g, '').toLowerCase()}` === product.productLink) {
-                console.log("back: product.productLink: ", product.productLink);
-                console.log("back: props.productName: ", `/${props.productName.replace(/\s/g, '').toLowerCase()}`);
-                back = `${product.productLink}`;
-                console.log("back: ", back);
+        let index = undefined;
+        productsLink.forEach((product, i) => {
+            if (props.productName === product.name) {
+                index = i;
+                back = `${productsLink[index-1].link}`;
             }
         })
         return back;
@@ -62,32 +64,35 @@ export default function ArrowIcon(props) {
 
     const checkForward = () => {
         let forward = undefined;
+        let index = undefined;
         productsLink.forEach((product, i) => {
-            if ((`/${props.productName.replace(/\s/g, '').toLowerCase()}` === product.productLink)) {
-                console.log("forward: product.productLink: ", product.productLink);
-                console.log("forward: props.productName: ", `/${props.productName.replace(/\s/g, '').toLowerCase()}`);
-                // forward = "/products";
-                forward = `${product.productLink}`;
-                console.log("forward: ", forward);
+            if (props.productName === product.name) {
+                index = i;
+                forward = `${productsLink[index+1].link}`;
             }
         })
         return forward;
     };
+
+    const checkLastIndex = () => {
+        if (props.productName !== productsLink[lastIndex].name) {
+            return (
+                <ArrowForwardIcon
+                    className={classes.arrowIcon}
+                    onClick={() => navigate(checkForward())}
+                />
+            );
+        }
+    }
 
     return (
         <Hidden mdDown>
             <Box>
                 <ArrowBackIcon
                     className={classes.arrowIcon}
-                    // onClick={() => navigate("/products")}
                     onClick={() => navigate(checkBack())}
                 />
-
-                <ArrowForwardIcon
-                    className={classes.arrowIcon}
-                    // onClick={() => navigate("/measuretape")}
-                    onClick={() => navigate(checkForward())}
-                />
+                    {checkLastIndex()}
             </Box>
         </Hidden>
     )
