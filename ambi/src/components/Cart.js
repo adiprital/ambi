@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 
 import CartItem from './CartItem';
+import { height } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
     cartIcon: {
@@ -23,6 +24,16 @@ const useStyles = makeStyles(theme => ({
             opacity: 1,
             color: theme.palette.common.white
         }
+    },
+    scrollBox: {
+        height: '75%',
+        // height: 'auto',
+        overflowY: 'scroll'
+    },
+    cartContentStyle: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     }
 }));
 
@@ -35,13 +46,7 @@ const cartItemStyle = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4
-  };
-
-const cartContentStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    p: 4,
 };
 
 export default function Cart() {
@@ -114,7 +119,7 @@ export default function Cart() {
     };
 
     return (
-        <div>
+        <React.Fragment>
             <IconButton aria-label="cart">
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
@@ -124,19 +129,22 @@ export default function Cart() {
                 open={openCart}
                 onClose={handleCloseCart}
             >
-                <Box sx={cartItemStyle}>
+                <Box
+                    className={classes.scrollBox}
+                    sx={cartItemStyle}
+                >
                     <IconButton>
                         <CloseIcon onClick={handleCloseCart}/>
                     </IconButton>
                     <Typography variant='h4'>My Cart</Typography>
                     <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
-                    <Box sx={cartContentStyle}>
+                    <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
                         {renderResults()}
                     </Box>
                 </Box>
             </Modal>
-        </div>
+        </React.Fragment>
     )
 }

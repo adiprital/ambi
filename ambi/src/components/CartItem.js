@@ -12,13 +12,23 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 import logo from '../assets/ambiLogo.jpeg';
 
+const useStyles = makeStyles(theme => ({
+    cardItemContainer: {
+        display: 'flex',
+        width: '340px',
+        height: '120px',
+        marginBottom: '5px'
+    }
+}));
+
 export default function CartItem({ productName, amount }) {
+    const classes = useStyles();
     const dispatch = useDispatch();
 
     return (
-        <Card sx={{ display: 'flex' }} style={{backgroundColor: 'transparent'}}>
+        <Card className={classes.cardItemContainer} style={{backgroundColor: 'transparent'}}>
         <CardContent variant='cart-item'>
-            <Typography variant="subtitle1">
+            <Typography align='center' variant="subtitle1">
                 {productName}
             </Typography>
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
@@ -46,7 +56,7 @@ export default function CartItem({ productName, amount }) {
         </CardContent>
         <CardMedia
             component='img'
-            sx={{width: 150}}
+            sx={{width: '100%', marginLeft: '20px'}}
             image={logo}
             alt="ambi logo"
         />
