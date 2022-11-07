@@ -60,8 +60,6 @@ export default function Products(props) {
                 }
     });
 
-    console.log('products: ', products);
-
     useEffect(() => {
         window.scrollTo(0, 0)
     }, []);

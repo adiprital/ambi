@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 
+import { renderImage } from '../utils/functions';
 import AddToCart from './AddToCart';
 import ArrowIcon from './ArrowIcon';
 
@@ -64,23 +64,15 @@ export default function Product(props) {
             <Grid item container direction='row' className={classes.rowContainer}>
                 <Grid item container direction='column'>
                     <Grid item>
-                        <Typography align='center' variant='h2'>*****Caliper</Typography>
+                        <Typography align='center' variant='h2'>{props.productName}</Typography>
                     </Grid>
                 </Grid>
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                    <CardMedia
-                        className={classes.productImage}
-                        component='img'
-                        image={leftHandedCaliber}
-                        alt='left handed caliber'
-                    />
+                    {renderImage(props.productName, classes)}
                     <CardContent>
-                        <Typography align='center' gutterBottom variant='h2'>
-                            Product's Name
-                        </Typography>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
-                                *****אין לי סבלנות להתחיל לחפש את קבצי ההדמיה.
+                                *****Adi*****
                             </p>
                         </Typography>
                     </CardContent>

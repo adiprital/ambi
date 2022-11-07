@@ -13,7 +13,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 
 import CartItem from './CartItem';
-import { height } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
     cartIcon: {

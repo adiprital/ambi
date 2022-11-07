@@ -13,11 +13,7 @@ import HomePage from './HomePage';
 import About from './About';
 import Contact from './Contact';
 import Products from './Products';
-import Caliper from './Caliper';
-import MeasureTape from './MeasureTape';
-import Ruler from './Ruler';
-import Scissors from './Scissors';
-import UtilityKnife from './UtilityKnife';
+import Product from './Product';
 
 const store = createStore(rootReducer);
 
@@ -47,19 +43,19 @@ function App() {
   const getRouteComponent = (productName) => {
       switch (productName){
         case 'Caliper':
-          return (<Caliper setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
+          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Measure Tape':
-          return (<MeasureTape setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
+          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Ruler':
-          return (<Ruler setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
+          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Scissors':
-          return (<Scissors setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
+          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         case 'Utility Knife':
-          return (<UtilityKnife setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
+          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
 
         default:
             return (<HomePage />);
@@ -103,11 +99,6 @@ function App() {
                 setValue={setValue}
                 setSelectedIndex={setSelectedIndex}
               />}
-              // render={props => <Products
-              //        {...props}
-              //        setValue={setValue}
-              //        setSelectedIndex={setSelectedIndex}
-              //       />}
             />
 
             {productsArray.map((product, i) => {
