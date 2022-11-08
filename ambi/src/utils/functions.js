@@ -14,6 +14,16 @@ import scissors2 from '../assets/Scissors2.jpg';
 import utilityKnife1 from '../assets/UtilityKnife1.jpg';
 import utilityKnife2 from '../assets/UtilityKnife2.jpg';
 
+export const getProductData = (productName, productsArray) => {
+    let result;
+    productsArray.forEach((product) => {
+        if (productName === product.name) {
+            result = product;
+        }
+    })
+    return result;
+}
+
 export const renderImage = (productName, classes) => {
     switch (productName){
         case 'Caliper':

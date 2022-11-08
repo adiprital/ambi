@@ -13,8 +13,7 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'Arial',
         width: '100%',
         zIndex: 1302,
-        position: 'relative'
-        // position: 'absolute'
+        position: 'static'
     },
     mainContainer: {
         backgroundColor: theme.palette.common.green,

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { getProductData } from '../utils/functions';
 import rootReducer from '../store/reducers/index';
 import theme from './ui/Theme';
 import Header from './ui/Header';
@@ -23,7 +24,6 @@ function App() {
   const [productsArray, setProducts] = useState([]);
 
   useEffect(() => {
-
     const fetchProducts = async () => {
       try{
         const products = await axios.get(`http://localhost:8000/get-products`);
@@ -34,32 +34,19 @@ function App() {
       catch(error){
         console.log('error in fetch prodcuts', error)
       }
-
     }
-
     fetchProducts();
   }, []);
 
   const getRouteComponent = (productName) => {
-      switch (productName){
-        case 'Caliper':
-          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
-
-        case 'Measure Tape':
-          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
-
-        case 'Ruler':
-          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
-
-        case 'Scissors':
-          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
-
-        case 'Utility Knife':
-          return (<Product setValue={setValue} setSelectedIndex={setSelectedIndex} productName={productName}/>);
-
-        default:
-            return (<HomePage />);
-        }
+    const productData = getProductData(productName, store.getState().productsList.products);
+    return (
+      <Product 
+        setValue={setValue} 
+        setSelectedIndex={setSelectedIndex} 
+        productName={productName}
+        productData={productData}
+        />);
     }
 
   return (

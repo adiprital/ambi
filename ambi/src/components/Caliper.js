@@ -4,15 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-
-import AddToCart from './AddToCart';
-import ArrowIcon from './ArrowIcon';
-
-import caliper1 from '../assets/Caliper1.jpg';
-import caliper2 from '../assets/Caliper2.jpg';
 
 const useStyles = makeStyles(theme => ({
     rowContainer: {
@@ -37,12 +29,6 @@ const useStyles = makeStyles(theme => ({
             borderRadius: 0,
             width: '100%'
         }
-    },
-    caliperImage: {
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        marginBottom: '20px'
     }
 }));
 
@@ -54,31 +40,10 @@ export default function Caliper(props) {
 
     return (
         <Grid container direction='column'>
-            <ArrowIcon productName={props.productName}/>
             <Grid item container direction='row' className={classes.rowContainer}>
-                <Grid item container direction='column'>
-                    <Grid item>
-                        <Typography align='center' variant='h2'>Caliper</Typography>
-                    </Grid>
-                </Grid>
                 {/*-----Ambi's Caliber Card----- */}
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                    <CardMedia
-                        className={classes.caliperImage}
-                        component='img'
-                        image={caliper1}
-                        alt='caliper1'
-                    />
-                    <CardMedia
-                        className={classes.caliperImage}
-                        component='img'
-                        image={caliper2}
-                        alt='caliper2'
-                    />
                     <CardContent>
-                        <Typography align='center' gutterBottom variant='h2'>
-                            Ambi's Caliber
-                        </Typography>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
                                 השינוי:<br />
@@ -97,9 +62,6 @@ export default function Caliper(props) {
                             </p>
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <AddToCart productName={props.productName}/>
-                    </CardActions>
                 </Card>
             </Grid>
         </Grid>

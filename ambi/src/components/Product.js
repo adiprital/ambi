@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -8,7 +8,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
-import { renderImage } from '../utils/functions';
+import { renderImage, getProductData } from '../utils/functions';
 import AddToCart from './AddToCart';
 import ArrowIcon from './ArrowIcon';
 
@@ -23,13 +23,13 @@ const useStyles = makeStyles(theme => ({
     },
     cardContainer: {
         position: 'center',
+        marginBottom: '35px',
         backgroundColor: 'transparent',
         boxShadow: theme.shadows[10],
         borderRadius: 15,
-        padding: '10em',
         [theme.breakpoints.down('sm')]: {
-            paddingTop: '8em',
-            paddingBottom: '8em',
+            // paddingTop: '8em',
+            // paddingBottom: '8em',
             paddingLeft: 0,
             paddingRight: 0,
             borderRadius: 0,
@@ -47,16 +47,16 @@ const useStyles = makeStyles(theme => ({
 export default function Product(props) {
     const classes = useStyles();
     const theme = useTheme();
+    const productData = props.productData;
+    const [rProduct, setRProduct] = useState({});
 
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const products = useSelector((state) => state.productsList).products;
 
-    const productsOptions = products.map((product, index) => {
-        return { name: product.name,
-                 description: product.description
-                }
-    });
+    useEffect(() => {
+        setRProduct(getProductData(props.productName, products));
+    }, []);
 
     return (
         <Grid container direction='column'>
@@ -64,15 +64,18 @@ export default function Product(props) {
             <Grid item container direction='row' className={classes.rowContainer}>
                 <Grid item container direction='column'>
                     <Grid item>
-                        <Typography align='center' variant='h2'>{props.productName}</Typography>
+                        <Typography align='center' variant='h2'>
+                            {productData ? productData.name : ''}
+                        </Typography>
                     </Grid>
                 </Grid>
+                    
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                    {renderImage(props.productName, classes)}
+                {renderImage(props.productName, classes)}
                     <CardContent>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
-                                *****Adi*****
+                            {productData ? productData.description : ''}
                             </p>
                         </Typography>
                     </CardContent>
