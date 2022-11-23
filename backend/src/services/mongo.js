@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URL = 'mongodb+srv://ambi-api:sHCHKCZda9GUsIG5@ambicluster.iysvpo5.mongodb.net/ambi?retryWrites=true&w=majority';
+const MONGO_URL = 'mongodb+srv://ambi-api:<PASSWORD>@ambicluster.iysvpo5.mongodb.net/ambi?retryWrites=true&w=majority';
 
 mongoose.connection.once('open', () => {
     console.log('MongoDB connection ready!');
