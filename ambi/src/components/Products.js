@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -100,8 +100,6 @@ export default function Products(props) {
                                     <p dir='rtl'>{option.description}</p>
                                 </Typography>
                                 <Button
-                                    // component={Link}
-                                    // to={option.link}
                                     variant='outlined'
                                     className={classes.learnButton}
                                     onClick={() => navigate(option.link)}

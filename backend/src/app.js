@@ -4,25 +4,35 @@ const path = require('path');
 const morgan = require('morgan');
 const { readJsonFile, writeToJsonFile } = require('./helper.js');
 
+// const productsRouter = require('./routes/products/products.controller');
+
 const app = express();
 
 app.use(express.json());
+
 app.use(cors({
     options:{
         origin:'http://localhost:3000'
     }
-}))
-// app.use(express.static(path.join(__dirname, '..', 'public')))
+}));
+
 // app.use(morgan('combined'));
+
+// app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// app.use('/products', productsRouter);
+
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 // });
 
+//remove to controller
 app.get("/get-products", (req, res) => {
     const arr = readJsonFile();
     res.json(arr);
 });
 
+//remove to controller
 app.post("/buy-products", (req, res) => {
     const jsonArray = readJsonFile();
     const productName = req.body.name;
