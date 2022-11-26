@@ -4,7 +4,7 @@ const path = require('path');
 const morgan = require('morgan');
 const { readJsonFile, writeToJsonFile } = require('./helper.js');
 
-// const productsRouter = require('./routes/products/products.controller');
+const productsController = require('./controllers/products/products.controller');
 
 const app = express();
 
@@ -20,21 +20,15 @@ app.use(cors({
 
 // app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// app.use('/products', productsRouter);
+app.use('/get-products', productsController);
 
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 // });
 
 //remove to controller
-app.get("/get-products", (req, res) => {
-    const arr = readJsonFile();
-    res.json(arr);
-});
-
-//remove to controller
 app.post("/buy-products", (req, res) => {
-    const jsonArray = readJsonFile();
+    const jsonArray = readJsonFile('products');
     const productName = req.body.name;
     const productAmount = req.body.amount;
     let productExists = undefined;

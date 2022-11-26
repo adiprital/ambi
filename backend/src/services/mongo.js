@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const MONGO_URL = 'mongodb+srv://ambi-api:<PASSWORD>@ambicluster.iysvpo5.mongodb.net/ambi?retryWrites=true&w=majority';
+require('dotenv').config();
+
+const MONGO_URL = process.env.MONGO_URL;
 
 mongoose.connection.once('open', () => {
     console.log('MongoDB connection ready!');

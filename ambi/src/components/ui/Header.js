@@ -161,6 +161,8 @@ export default function Header(props) {
         setOpenMenu(false);
     };
 
+    console.log('products',products);
+
     const productsOptions = [{name: 'Products', link: '/products', activeIndex: 2, selectedIndex: 0},
         ...products.map((product, index) => {
             return { name: product.name,

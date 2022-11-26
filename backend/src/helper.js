@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs'); // file system
 
-const readJsonFile = () => {
-    let products_string = fs.readFileSync(path.join(__dirname, '..', 'data', 'products.json'));
+const readJsonFile = (fileName) => {
+    let products_string = fs.readFileSync(path.join(__dirname, '..', 'data', `${fileName}.json`));
     return JSON.parse(products_string);
 }
 
