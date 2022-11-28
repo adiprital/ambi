@@ -80,8 +80,8 @@ async function buyProduct(productName, productAmount) {
     if (!productExists && pAmount > 0) {
         message = "This product does not exist.";
     }
-
-    // res.json({ message, isSuccess, warning });
+    
+    return ({ message, isSuccess, warning });
 };
 
 module.exports = {
