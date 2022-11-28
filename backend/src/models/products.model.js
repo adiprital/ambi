@@ -75,14 +75,32 @@ async function buyProduct(productName, productAmount) {
 
     if (isSuccess) {
         writeToJsonFile("products", jsonArray);
+        jsonArray.forEach(async (product) => {
+            await updateProduct(product);
+        });
     }
+
 
     if (!productExists && pAmount > 0) {
         message = "This product does not exist.";
     }
-    
+
     return ({ message, isSuccess, warning });
 };
+
+async function updateProduct(product) {
+    try {
+        await productsDatabase.updateOne({
+            name: product.name
+        }, {
+            amount: product.amount,
+        }, {
+            upsert: true
+        });
+    } catch(err) {
+        console.error(`Could not update product ${err}`);
+    }
+}
 
 module.exports = {
     getAllProducts,
