@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -10,21 +10,32 @@ import CardContent from '@mui/material/CardContent';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-import { renderImage } from '../utils/functions';
+import { renderImage1 } from '../utils/functions';
 import logo from '../assets/ambiLogo.jpeg';
 
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {
         display: 'flex',
         width: '340px',
-        height: '120px',
+        height: '170px',
         marginBottom: '5px'
     }
 }));
 
-export default function CartItem({ productName, amount }) {
+export default function CartItem({ productName, amount, productPrice }) {
     const classes = useStyles();
     const dispatch = useDispatch();
+
+    const products = useSelector((state) => state.productsList).products;
+
+    const productsOptions = [
+    ...products.map((product) => {
+        if (product.name === productName) {
+            productPrice = product.price;
+        }
+        return { name: product.name,
+                price: product.price }
+    })];
 
     return (
         <Card className={classes.cardItemContainer} style={{backgroundColor: 'transparent'}}>
@@ -53,18 +64,13 @@ export default function CartItem({ productName, amount }) {
                     <AddIcon/>
                 </IconButton>
             </Box>
-
+            <Typography align='left' variant="body11">
+                    Price: {amount*productPrice}
+            </Typography>
         </CardContent>
         <CardMedia sx={{width: '100%', marginLeft: '20px'}}>
-            {renderImage(productName, classes)}
+            {renderImage1(productName, classes)}
         </CardMedia>
-        
-        {/* <CardMedia
-            component='img'
-            sx={{width: '100%', marginLeft: '20px'}}
-            image={logo}
-            alt="ambi logo"
-        /> */}
     </Card>
     )
 }

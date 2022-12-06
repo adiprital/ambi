@@ -57,6 +57,17 @@ export default function Cart() {
         return state.cartList
     }).cartData;
 
+    // const products = useSelector((state) => state.productsList).products;
+
+    // const productsOptions = [
+    // ...products.map((product) => {
+    //     return { name: product.name,
+    //             amount: product.amount,
+    //             price: product.price }
+    // })];
+
+    // console.log('productsOptions', productsOptions);
+
     const handleOpenCart = () => {
         setOpenCart(true);
     };
@@ -69,7 +80,12 @@ export default function Cart() {
         const keys = Object.keys(cart);
         return keys.map((productName, index) => {
             if (cart[productName] > 0) {
-                return (<CartItem key={index} productName={productName} amount={cart[productName]}/>);
+                return (<CartItem 
+                    key={index} 
+                    productName={productName} 
+                    amount={cart[productName]}
+                    />
+                );
             }
         });
     };
@@ -139,6 +155,10 @@ export default function Cart() {
                     <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
+                        <Typography align='center' variant="body11">
+                            Total: {totalAmountInCart()}
+                            -- the number of the product's amount and not the total price
+                        </Typography>
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
                         {renderResults()}
                     </Box>

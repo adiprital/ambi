@@ -22,9 +22,83 @@ export const getProductData = (productName, productsArray) => {
         }
     })
     return result;
-}
+};
 
-export const renderImage = (productName, classes) => {
+export const renderImage1 = (productName, classes) => {
+    switch (productName){
+        case 'Caliper':
+            return (
+                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+                    <CardMedia
+                        className={classes.productImage}
+                        component='img'
+                        image={caliper2}
+                        alt='caliper2 image'
+                    />
+                </Card>
+                );
+    
+        case 'Measure Tape':
+            return (
+                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+                    <CardMedia
+                        className={classes.productImage}
+                        component='img'
+                        image={measureTape1}
+                        alt='measureTape1 image'
+                    />
+                </Card>
+                );
+    
+        case 'Ruler':
+            return (
+                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+                    <CardMedia
+                        className={classes.productImage}
+                        component='img'
+                        image={ruler1}
+                        alt='ruler1 image'
+                    />
+                </Card>
+                );
+    
+        case 'Scissors':
+            return (
+                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+                    <CardMedia
+                        className={classes.productImage}
+                        component='img'
+                        image={scissors1}
+                        alt='rulscissors1er1 image'
+                    />
+                </Card>
+                );
+    
+        case 'Utility Knife':
+            return (
+                <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
+                    <CardMedia
+                        className={classes.productImage}
+                        component='img'
+                        image={utilityKnife2}
+                        alt='utilityKnife2 image'
+                    />
+                </Card>
+                );
+    
+        default:
+            return (
+                <CardMedia
+                    className={classes.productImage}
+                    component='img'
+                    image={productsImg}
+                    alt='productsImg image'
+                />
+                );
+    }
+};
+
+export const renderImage2 = (productName, classes) => {
     switch (productName){
         case 'Caliper':
             return (
@@ -125,5 +199,5 @@ export const renderImage = (productName, classes) => {
                     alt='productsImg image'
                 />
                 );
-        }
-    };
+    }
+};

@@ -8,7 +8,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
-import { renderImage, getProductData } from '../utils/functions';
+import { renderImage2, getProductData } from '../utils/functions';
 import AddToCart from './AddToCart';
 import ArrowIcon from './ArrowIcon';
 
@@ -71,7 +71,7 @@ export default function Product(props) {
                 </Grid>
                     
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
-                {renderImage(props.productName, classes)}
+                {renderImage2(props.productName, classes)}
                     <CardContent>
                         <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
                             <p dir='rtl'>
