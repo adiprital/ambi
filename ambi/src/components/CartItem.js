@@ -11,14 +11,14 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 import { renderImage1 } from '../utils/functions';
-import logo from '../assets/ambiLogo.jpeg';
 
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {
         display: 'flex',
         width: '340px',
-        height: '170px',
-        marginBottom: '5px'
+        height: '130px',
+        marginBottom: '5px',
+        padding: 0
     }
 }));
 
@@ -36,6 +36,8 @@ export default function CartItem({ productName, amount, productPrice }) {
         return { name: product.name,
                 price: product.price }
     })];
+
+    let productPriceToPay = amount*productPrice;
 
     return (
         <Card className={classes.cardItemContainer} style={{backgroundColor: 'transparent'}}>
@@ -64,8 +66,8 @@ export default function CartItem({ productName, amount, productPrice }) {
                     <AddIcon/>
                 </IconButton>
             </Box>
-            <Typography align='left' variant="body11">
-                    Price: {amount*productPrice}
+            <Typography align='left' variant="subtitle3">
+                    Price: {productPriceToPay} $
             </Typography>
         </CardContent>
         <CardMedia sx={{width: '100%', marginLeft: '20px'}}>

@@ -73,7 +73,7 @@ export default function Product(props) {
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
                 {renderImage2(props.productName, classes)}
                     <CardContent>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
                             <p dir='rtl'>
                             {productData ? productData.description : ''}
                             </p>

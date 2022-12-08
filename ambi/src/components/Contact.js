@@ -88,7 +88,7 @@ export default function Contact(props) {
                                 Contact Us
                             </Typography>
                             <Typography
-                                    variant='body2'
+                                    variant=''
                                     style={{color: theme.palette.common.green}}
                                     align='center'
                             >
@@ -102,7 +102,7 @@ export default function Contact(props) {
                                     <PhoneIcon className={classes.icon} />
                                     <Typography
                                         align='center'
-                                        variant='body1'
+                                        variant='subtitle1'
                                         style={{color: theme.palette.common.green,
                                                 fontSize: '1rem'}}
                                     >
@@ -121,7 +121,7 @@ export default function Contact(props) {
                                     <MailOutlineIcon className={classes.icon} />
                                     <Typography
                                         align='center'
-                                        variant='body1'
+                                        variant='subtitle1'
                                         style={{color: theme.palette.common.green,
                                             fontSize: '1rem'}}
                                     >

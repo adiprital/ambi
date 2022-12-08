@@ -44,19 +44,19 @@ export default function Caliper(props) {
                 {/*-----Ambi's Caliber Card----- */}
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
                     <CardContent>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
                             <p dir='rtl'>
                                 השינוי:<br />
                                 הוספת מספרים בצד השני, כך שאפשר למדוד בשתי הידיים.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
                             <p dir='rtl'>
                                 הקליבר עשוי נירוסטה ופלסטיק.
                                 מיוצר על ידי - חיתוכי לייזר, עיבוד שבבי, הדפסת  UV והזרקת פלסטיק.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='body2' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
                             <p dir='rtl'>
                                 לוגו מיוצר על ידי צריבה.
                             </p>

@@ -1,6 +1,8 @@
 let initial = {
     cartData: {}
-}
+};
+
+let totalSum = 0;
 
 const cartReducer = (state = initial, action) => {
     const updatedCartData = {...state.cartData};
@@ -13,6 +15,10 @@ const cartReducer = (state = initial, action) => {
         case "removeProductFromCart":
             updatedCartData[action.product] = Math.max(updatedCartData[action.product]-1, 0);
             return { ...state, cartData: updatedCartData };
+
+        // case "updateSumToPay":
+        //     totalSum = updatedCartData[action.product] + 1;
+        //     return { ...state, totalSum: updatedCartData };
 
         case "cartInitialize":
             const productArray = action.cartData;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -50,23 +50,13 @@ const cartItemStyle = {
 
 export default function Cart() {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [openCart, setOpenCart] = useState(false);
     const [resultsArray, setResultsArray] = useState([]);
 
     const cart = useSelector((state) => {
         return state.cartList
     }).cartData;
-
-    // const products = useSelector((state) => state.productsList).products;
-
-    // const productsOptions = [
-    // ...products.map((product) => {
-    //     return { name: product.name,
-    //             amount: product.amount,
-    //             price: product.price }
-    // })];
-
-    // console.log('productsOptions', productsOptions);
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -94,6 +84,11 @@ export default function Cart() {
         const values = Object.values(cart);
         return values.reduce((acc, curr) => acc + curr, 0);
     };
+
+    const totalPriceToPay = () => {
+        const values = Object.values(cart);
+        
+    }   
 
     const renderResults = () => {
         return resultsArray.map(result => {
@@ -152,12 +147,12 @@ export default function Cart() {
                         <CloseIcon onClick={handleCloseCart}/>
                     </IconButton>
                     <Typography variant='h4'>My Cart</Typography>
-                    <Typography variant='body2' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+                    <Typography variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
-                        <Typography align='center' variant="body11">
-                            Total: {totalAmountInCart()}
-                            -- the number of the product's amount and not the total price
+                        <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
+                            Total: {totalAmountInCart()} $
+                            - the number of the product's amount and not the total price
                         </Typography>
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
                         {renderResults()}

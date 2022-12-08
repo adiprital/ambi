@@ -52,7 +52,9 @@ export default createTheme({
         },
         MuiCardContent:{
             styleOverrides:{
-                root:{},
+                root:{
+                    padding: 0
+                },
             },
             variants:[
                 {
@@ -116,24 +118,22 @@ export default createTheme({
             fontWeight: 700
         },
         subtitle1: {
+            fontFamily: 'Arial',
             fontSize: '1.25rem',
             fontWeight: 300,
             color: ambiGrey
         },
         subtitle2: {
+            fontFamily: 'Arial',
             color: ambiWhite,
             fontSize: '1.25rem',
             fontWeight: 300
         },
-        body1: {
+        subtitle3: {
+            fontFamily: 'Arial',
             fontSize: '1rem',
-            color: ambiWhite,
-            fontWeight: 300
-        },
-        body2: {
-            fontSize: '1.25rem',
             color: ambiGrey,
-            fontWeight: 300
+            fontWeight: 200
         },
         learnButton: {
             borderColor: ambiMint,
