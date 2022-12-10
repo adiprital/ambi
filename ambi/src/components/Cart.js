@@ -58,6 +58,10 @@ export default function Cart() {
         return state.cartList
     }).cartData;
 
+    const totalSum = useSelector((state => {
+        return state.cartList
+    })).totalSum;
+
     const handleOpenCart = () => {
         setOpenCart(true);
     };
@@ -83,12 +87,7 @@ export default function Cart() {
     const totalAmountInCart = () => {
         const values = Object.values(cart);
         return values.reduce((acc, curr) => acc + curr, 0);
-    };
-
-    const totalPriceToPay = () => {
-        const values = Object.values(cart);
-        
-    }   
+    };  
 
     const renderResults = () => {
         return resultsArray.map(result => {
@@ -151,8 +150,7 @@ export default function Cart() {
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
                         <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                            Total: {totalAmountInCart()} $
-                            - the number of the product's amount and not the total price
+                            Total:  {totalSum} $
                         </Typography>
                         <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
                         {renderResults()}

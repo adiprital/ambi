@@ -22,20 +22,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function CartItem({ productName, amount, productPrice }) {
+export default function CartItem({ productName, amount }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const products = useSelector((state) => state.productsList).products;
+    let productPrice;
 
-    const productsOptions = [
-    ...products.map((product) => {
+    products.forEach((product) => {
         if (product.name === productName) {
             productPrice = product.price;
         }
-        return { name: product.name,
-                price: product.price }
-    })];
+    });
 
     let productPriceToPay = amount*productPrice;
 

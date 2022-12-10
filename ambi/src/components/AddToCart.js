@@ -34,7 +34,9 @@ export default function AddToCart(props) {
     return (
         <Button
             disabled={checkDisable()}
-            onClick={() => dispatch({ type: 'addProductToCart', product: props.productName })}
+            onClick={() => {
+                dispatch({ type: 'addProductToCart', product: props.productName })
+            }}
         >
             Add To Cart
         </Button>
