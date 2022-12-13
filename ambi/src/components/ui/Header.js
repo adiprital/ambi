@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
@@ -19,6 +18,9 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
 import Cart from '../Cart';
@@ -131,10 +133,8 @@ const useStyles = makeStyles(theme => ({
 export default function Header(props) {
     const classes = useStyles();
     const theme = useTheme();
-    let navigate = useNavigate();
     const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const matches = useMediaQuery(theme.breakpoints.down(('md')));
-
     const [openDrawer, setOpenDrawer] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [openMenu, setOpenMenu] = useState(false);
@@ -196,6 +196,24 @@ export default function Header(props) {
         })
     }, [props.value, productsOptions, props.selectedIndex, routes, props]);
 
+    const search = (
+        <React.Fragment>
+            <Paper
+                component="form" 
+                sx={{ display: 'flex', alignItems: 'center', backgroundColor: 'red' }}
+            >
+                <InputBase
+                    sx={{ ml: 1, flex: 1, color: theme.palette.common.white }}
+                    placeholder="Search...."
+                    inputProps={{ 'aria-label': 'search...' }}
+                />
+                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                    <SearchIcon className={classes.accountIcon}/>
+                </IconButton>  
+            </Paper>
+        </React.Fragment>
+    ); 
+
     const tabs =(
         <React.Fragment>
             <Tabs
@@ -204,6 +222,8 @@ export default function Header(props) {
                 className={classes.tabContainer}
                 indicatorColor='primary'
             >
+                {search}
+
                 {routes.map((route, index) => (
                     <Tab
                         key={`${route}${index}`}
@@ -255,6 +275,7 @@ export default function Header(props) {
             >
                 <div className={classes.toolbarMargin} />
                 <List disablePadding>
+                    {search}
                     {routes.map(route => (
                         <ListItem
                             key={`${route}${route.activeIndex}`}
