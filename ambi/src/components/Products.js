@@ -28,13 +28,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     learnButton: {
-        borderColor: '#A7D9D4',
-        color: '#A7D9D4',
-        borderWidth: 2,
-        textTransform: 'none',
-        borderRadius: 50,
-        fontFamily: 'Arial',
-        fontWeight: 'bold',
+        ...theme.typography.learnButton,
         fontSize: '0.7rem',
         height: 35,
         padding: 5,

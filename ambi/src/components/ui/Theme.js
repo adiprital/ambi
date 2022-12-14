@@ -89,6 +89,34 @@ export default createTheme({
                     }
                 }
             }
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: ambiWhite
+                }
+            }
+        }
+    },
+    Footer:{
+        footer: {
+            backgroundColor: ambiGreen,
+            fontFamily: 'Arial',
+            width: '100%',
+            zIndex: 1302,
+            position: 'static'
+        },
+        mainContainer: {
+            position: 'static'
+        },
+        link: {
+            color: ambiWhite,
+            fontSize: '0.75rem',
+            fontWeight: 'bold',
+            textDecoration: 'none'
+        },
+        gridItem: {
+            margin: '3em'
         }
     },
     typography: {

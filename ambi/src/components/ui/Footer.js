@@ -1,22 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Hidden from '@mui/material/Hidden';
-
 
 const useStyles = makeStyles(theme => ({
     footer: {
         backgroundColor: theme.palette.common.green,
-        color: theme.palette.common.white,
         fontFamily: 'Arial',
         width: '100%',
         zIndex: 1302,
         position: 'static'
     },
     mainContainer: {
-        backgroundColor: theme.palette.common.green,
         position: 'static'
     },
     link: {
@@ -32,9 +29,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer(props) {
     const classes = useStyles();
-
+    const theme = useTheme();
     const products = useSelector((state) => state.productsList).products;
-    let navigate = useNavigate();
 
     const productsOptions = [{name: 'Products', link: '/products', activeIndex: 2, selectedIndex: 0},
     ...products.map((product, index) => {
@@ -81,7 +77,6 @@ export default function Footer(props) {
                                     component={Link}
                                     to={option.link}
                                     classes={{root: classes.link}}
-                                    // onClick={() => navigate(option.link)}
                                 >
                                     {option.name}
                                 </Grid>
@@ -109,6 +104,7 @@ export default function Footer(props) {
                     <Grid
                         item
                         className={classes.link}
+                        // sx={{color: theme.Footer.link}}
                         component={'a'}
                         href='https://www.linkedin.com/in/adi-pri-tal-3829521b3/'
                         rel='development'
