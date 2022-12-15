@@ -1,13 +1,14 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import { Link } from 'react-router-dom';
+import { makeStyles, useTheme } from '@mui/styles';
+
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { makeStyles, useTheme } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -15,11 +16,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
-import PersonIcon from '@mui/icons-material/Person';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
@@ -58,9 +60,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: 'transparent'
         }
     },
-    tabContainer: {
-        marginLeft: 'auto',
-    },
     tab: {
         ...theme.typography.tab,
         minWidth: 10,
@@ -70,6 +69,9 @@ const useStyles = makeStyles(theme => ({
             fontWeight: 'bold',
             color: theme.palette.common.white
         }
+    },
+    tabContainer: {
+        marginLeft: 'auto',
     },
     menu: {
         backgroundColor: theme.palette.common.green,
@@ -100,9 +102,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: 'transparent'
         }
     },
-    drawer: {
-        backgroundColor: theme.palette.common.green
-    },
     drawerItem: {
         ...theme.typography.tab,
         fontFamily: 'Arial',
@@ -119,13 +118,12 @@ const useStyles = makeStyles(theme => ({
             fontWeight: 'bold'
         }
     },
-    accountIcon: {
-        ...theme.typography.tab,
-        minWidth: 10,
-        marginLeft: '25px',
+    searchPaper: {
+        display: 'flex', 
+        alignItems: 'center',
         '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
+            opacity: 0.25,
+            backgroundColor: theme.palette.common.white
         }
     }
 }));
@@ -199,16 +197,21 @@ export default function Header(props) {
     const search = (
         <React.Fragment>
             <Paper
+                className={classes.searchPaper}
                 component="form" 
-                sx={{ display: 'flex', alignItems: 'center', backgroundColor: 'red' }}
+                sx={{ 
+                    backgroundColor: theme.palette.common.white,
+                    opacity: 0.15 
+                }}
             >
                 <InputBase
-                    sx={{ ml: 1, flex: 1, color: theme.palette.common.white }}
-                    placeholder="Search...."
+                    sx={{ ml: 1, flex: 1, color: 'inherit' }}
+                    placeholder="Search..."
                     inputProps={{ 'aria-label': 'search...' }}
                 />
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                    <SearchIcon className={classes.accountIcon}/>
+                    <SearchIcon className={classes.drawerIcon} 
+                        sx={{ color: 'inherit' }}/>
                 </IconButton>  
             </Paper>
         </React.Fragment>
@@ -271,7 +274,6 @@ export default function Header(props) {
                 open={openDrawer}
                 onClose={() => setOpenDrawer(false)}
                 onOpen={() => setOpenDrawer(true)}
-                classes={{paper: classes.drawer}}
             >
                 <div className={classes.toolbarMargin} />
                 <List disablePadding>
@@ -290,7 +292,11 @@ export default function Header(props) {
                                 props.setValue(route.activeIndex);
                             }}
                         >
-                            <ListItemText className={classes.drawerItem} disableTypography>{route.name}</ListItemText>
+                            <ListItemText 
+                                className={classes.drawerItem} 
+                                disableTypography>
+                                    {route.name}
+                                </ListItemText>
                         </ListItem>
                     ))}
                 </List>
@@ -319,8 +325,8 @@ export default function Header(props) {
                             <img alt='company logo' className={classes.logo} src={logo} />
                         </Button>
 
-                        <IconButton aria-label='profile'>
-                            <PersonIcon className={classes.accountIcon} />
+                        <IconButton aria-label='profile' disableRipple>
+                            <PersonIcon className={classes.drawerIcon} />
                         </IconButton>
 
                         <Cart/>

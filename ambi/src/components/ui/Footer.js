@@ -10,10 +10,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.common.green,
         fontFamily: 'Arial',
         width: '100%',
-        zIndex: 1302,
-        position: 'static'
-    },
-    mainContainer: {
         position: 'static'
     },
     link: {
@@ -21,9 +17,6 @@ const useStyles = makeStyles(theme => ({
         fontSize: '0.75rem',
         fontWeight: 'bold',
         textDecoration: 'none'
-    },
-    gridItem: {
-        margin: '3em'
     }
 }));
 
@@ -46,11 +39,10 @@ export default function Footer(props) {
                 <Grid
                     container
                     justifyContent='center'
-                    className={classes.mainContainer}
                     columnSpacing={10}
                     rowSpacing={2}
                 >
-                    <Grid item className={classes.gridItem}>
+                    <Grid item>
                         <Grid container direction='column' spacing={2}>
                             <Grid
                                 item
@@ -68,7 +60,7 @@ export default function Footer(props) {
                             >About Us</Grid>
                         </Grid>
                     </Grid>
-                    <Grid item className={classes.gridItem}>
+                    <Grid item>
                         <Grid container direction='column' spacing={2}>
                             {productsOptions.map((option, i) => (
                                 <Grid
@@ -83,7 +75,7 @@ export default function Footer(props) {
                             ))}
                         </Grid>
                     </Grid>
-                    <Grid item className={classes.gridItem}>
+                    <Grid item>
                         <Grid container direction='column' spacing={2}>
                             <Grid
                                 item
@@ -104,7 +96,6 @@ export default function Footer(props) {
                     <Grid
                         item
                         className={classes.link}
-                        // sx={{color: theme.Footer.link}}
                         component={'a'}
                         href='https://www.linkedin.com/in/adi-pri-tal-3829521b3/'
                         rel='development'

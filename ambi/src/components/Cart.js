@@ -17,7 +17,8 @@ import CartItem from './CartItem';
 const useStyles = makeStyles(theme => ({
     cartIcon: {
         ...theme.typography.tab,
-        minWidth: 10,
+        height: '50px',
+        width: '50px',
         marginLeft: '25px',
         '&:hover': {
             opacity: 1,
@@ -129,7 +130,7 @@ export default function Cart() {
 
     return (
         <React.Fragment>
-            <IconButton aria-label="cart">
+            <IconButton aria-label="cart" disableRipple>
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
                 </Badge>
