@@ -9,11 +9,18 @@ const product = {
 };
 
 async function getAllProducts(skip, limit) {
-    return await productsDatabase
+    let totalProdcutsLength = await productsDatabase.countDocuments({});
+    let totalPages = Math.ceil(totalProdcutsLength/parseInt(limit));
+    let products = await productsDatabase
     .find({}, { '_id': 0, '__v': 0 })
     .sort({ name: -1 })
     .skip(skip)
     .limit(limit);
+
+    return {
+        totalPages,
+        products
+    }
 }
 
 async function loadAllProducts() {

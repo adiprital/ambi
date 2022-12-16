@@ -26,10 +26,10 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try{
-        const products = await axios.get(`http://localhost:8000/get-products`);
-        store.dispatch({ type: "fetchProducts", products: products.data });
-        store.dispatch({ type: "cartInitialize", cartData: products.data });
-        setProducts(products.data);
+        const products = await axios.get(`http://localhost:8000/get-products?limit=5&page=1`);
+        store.dispatch({ type: "fetchProducts", products: products.data.products });
+        store.dispatch({ type: "cartInitialize", cartData: products.data.products });
+        setProducts(products.data.products);
       }
       catch(error){
         console.log('error in fetch prodcuts', error)

@@ -1,5 +1,5 @@
 //in mongo, if we pass in zero as the page limit, mongo will returned all of the documents in the collection
-const DEFAULT_PAGE_LIMIT = 0; 
+const DEFAULT_PAGE_LIMIT = 5; 
 const DEFAULT_PAGE_NUMBER = 1; 
 
 function getPagination(query) {
