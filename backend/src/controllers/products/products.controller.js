@@ -4,10 +4,14 @@ const { getAllProducts,
     existssProduct 
 } = require('../../models/products.model');
 
+const { getPagination } = require('../../services/query');
+
 const productsController = express.Router();
 
 productsController.get('/', async (req, res) => {
-    res.status(200).json(await getAllProducts());
+    const { skip, limit } = getPagination(req.query);
+    const products = await getAllProducts(skip, limit);
+    return res.status(200).json(products);
 });
 
 productsController.post('/', async (req, res) => {

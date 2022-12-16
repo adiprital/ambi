@@ -37,9 +37,9 @@ const useStyles = makeStyles(theme => ({
         }
     },
     productImage: {
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
+        // backgroundPosition: 'center',
+        // backgroundSize: 'cover',
+        // backgroundRepeat: 'no-repeat',
         marginBottom: '20px'
     }
 }));
@@ -48,7 +48,7 @@ export default function Product(props) {
     const classes = useStyles();
     const theme = useTheme();
     const productData = props.productData;
-    const [rProduct, setRProduct] = useState({});
+    const [rProduct, setRProduct] = useState({}); // r = render
 
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -69,7 +69,7 @@ export default function Product(props) {
                         </Typography>
                     </Grid>
                 </Grid>
-                    
+
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
                 {renderImage2(props.productName, classes)}
                     <CardContent>

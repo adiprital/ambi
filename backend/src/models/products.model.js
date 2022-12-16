@@ -8,8 +8,12 @@ const product = {
     price: 5
 };
 
-async function getAllProducts() {
-    return await productsDatabase.find({}, { '_id': 0, '__v': 0 });
+async function getAllProducts(skip, limit) {
+    return await productsDatabase
+    .find({}, { '_id': 0, '__v': 0 })
+    .sort({ name: -1 })
+    .skip(skip)
+    .limit(limit);
 }
 
 async function loadAllProducts() {
