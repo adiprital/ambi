@@ -29,6 +29,7 @@ function App() {
         const products = await axios.get(`http://localhost:8000/get-products?limit=5&page=1`);
         store.dispatch({ type: "fetchProducts", products: products.data.products });
         store.dispatch({ type: "cartInitialize", cartData: products.data.products });
+        store.dispatch({ type: "initialTotalPages", pages: products.data.totalPages });
         setProducts(products.data.products);
       }
       catch(error){

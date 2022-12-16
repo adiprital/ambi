@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import leftHandIcon from '../assets/noun-left-handed-icon.png';
+import PagesButtons from './ui/PagesButtons';
 
 const useStyles = makeStyles(theme => ({
     subtitle: {
@@ -44,6 +45,8 @@ export default function Products(props) {
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     let navigate = useNavigate();
     const products = useSelector((state) => state.productsList).products;
+    const totalPages = useSelector((state) => state.paginationList).totalPages;
+    console.log('totalPages', totalPages);
 
     const productsOptions = products.map((product, index) => {
         return { name: product.name,
@@ -109,6 +112,7 @@ export default function Products(props) {
                     )
                 })}
             </Grid>
+            <PagesButtons totalPages={totalPages}/>
         </Grid>
     );
 };

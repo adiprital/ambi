@@ -96,6 +96,15 @@ export default createTheme({
                     color: ambiWhite
                 }
             }
+        },
+        MuiPagination: {
+            styleOverrides: {
+                root: {
+                    '>ul': {
+                        margin: 'revert'
+                    }
+                }
+            }
         }
     },
     typography: {
