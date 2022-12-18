@@ -26,6 +26,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
 import Cart from '../Cart';
+import WishList from '../WishList';
 
 function ElevationScroll(props) {
     const { children } = props;
@@ -330,6 +331,7 @@ export default function Header(props) {
                         </IconButton>
 
                         <Cart/>
+                        <WishList/>
 
                         {matches ? drawer : tabs}
                     </Toolbar>

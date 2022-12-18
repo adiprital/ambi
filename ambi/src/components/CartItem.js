@@ -11,12 +11,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 import { renderImage1 } from '../utils/functions';
+import AddToWishList from './AddToWishList';
 
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {
         display: 'flex',
         width: '340px',
-        height: '130px',
+        height: '200px',
         marginBottom: '5px',
         padding: 0
     }
@@ -67,6 +68,7 @@ export default function CartItem({ productName, amount }) {
             <Typography align='left' variant="subtitle3">
                     Price: {productPriceToPay} $
             </Typography>
+            <AddToWishList productName={productName}/>
         </CardContent>
         <CardMedia sx={{width: '100%', marginLeft: '20px'}}>
             {renderImage1(productName, classes)}

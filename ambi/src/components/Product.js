@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 
 import { renderImage2, getProductData } from '../utils/functions';
 import AddToCart from './AddToCart';
+import AddToWishList from './AddToWishList';
 import ArrowIcon from './ArrowIcon';
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +82,7 @@ export default function Product(props) {
                     </CardContent>
                     <CardActions>
                         <AddToCart productName={props.productName}/>
+                        <AddToWishList productName={props.productName}/>
                     </CardActions>
                 </Card>
             </Grid>
