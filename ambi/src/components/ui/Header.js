@@ -25,6 +25,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
+import Account from '../Account';
 import Cart from '../Cart';
 import WishList from '../WishList';
 
@@ -326,10 +327,7 @@ export default function Header(props) {
                             <img alt='company logo' className={classes.logo} src={logo} />
                         </Button>
 
-                        <IconButton aria-label='profile' disableRipple>
-                            <PersonIcon className={classes.drawerIcon} />
-                        </IconButton>
-
+                        <Account/>
                         <Cart/>
                         <WishList/>
 
