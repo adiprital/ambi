@@ -46,7 +46,6 @@ export default function Products(props) {
     let navigate = useNavigate();
     const products = useSelector((state) => state.productsList).products;
     const totalPages = useSelector((state) => state.paginationList).totalPages;
-    console.log('totalPages', totalPages);
 
     const productsOptions = products.map((product, index) => {
         return { name: product.name,

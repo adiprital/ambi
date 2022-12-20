@@ -13,7 +13,7 @@ async function getAllProducts(skip, limit) {
     let totalPages = Math.ceil(totalProdcutsLength/parseInt(limit));
     let products = await productsDatabase
     .find({}, { '_id': 0, '__v': 0 })
-    .sort({ name: -1 })
+    .sort({ name: -1 }) // chacnge to 1 --> abc sort
     .skip(skip)
     .limit(limit);
 

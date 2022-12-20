@@ -4,9 +4,13 @@ let initial = {
 }
 
 const paginationReducer = (state = initial, action) => {
+
     switch (action.type){
         case "initialTotalPages":
             return { ...state, totalPages: action.pages };
+
+        case "selectedPage":
+            return{ ...state, currentPage: action.page }
             
         default:
             return state;
