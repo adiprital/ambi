@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
+import { useSelector } from 'react-redux';
 
+import Link from '@mui/material/Link';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -29,6 +31,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    link: {
+        color: theme.palette.common.green,
+        fontSize: '1rem',
+        fontWeight: 'bold',
+        textDecoration: 'none'
     }
 }));
 
@@ -47,6 +55,10 @@ const accountItemStyle = {
 export default function Account() {
     const classes = useStyles();
     const [openAccount, setOpenAccount] = useState(false);
+
+    const totalSum = useSelector((state => {
+        return state.cartList
+    })).totalSum;
 
     const handleOpenAccount = () => {
         setOpenAccount(true);
@@ -74,12 +86,32 @@ export default function Account() {
                     <IconButton>
                         <CloseIcon onClick={handleCloseAccount}/>
                     </IconButton>
-                    <Typography variant='h4'>My Account</Typography>
-                    <Typography variant='subtitle3' sx={{marginBottom: '25px'}}>Account's items:</Typography>
+                    <Typography align='center' variant='h4'>My Account</Typography>
+                    <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>
+                        your balance: {totalSum} $ -- יטופל בהמשך
+                    </Typography>
                     <Box className={classes.accountContentStyle}>
-                        <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                            something to show here
-                        </Typography>
+                        <Link
+                            component="button"
+                            underline="hover"
+                            className={classes.link}
+                        >
+                            {'My orders'}
+                        </Link>
+                        <Link
+                            component="button"
+                            underline="hover"
+                            className={classes.link}
+                        >
+                            {'My products'}
+                        </Link>
+                        <Link
+                            component="button"
+                            underline="hover"
+                            className={classes.link}
+                        >
+                            {'For sale'}
+                        </Link>
                     </Box>
                 </Box>
             </Modal>

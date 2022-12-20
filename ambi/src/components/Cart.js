@@ -146,8 +146,8 @@ export default function Cart() {
                     <IconButton>
                         <CloseIcon onClick={handleCloseCart}/>
                     </IconButton>
-                    <Typography variant='h4'>My Cart</Typography>
-                    <Typography variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+                    <Typography align='center' variant='h4'>My Cart</Typography>
+                    <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
                         <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>

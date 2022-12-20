@@ -102,8 +102,8 @@ export default function WishList() {
                     <IconButton>
                         <CloseIcon onClick={handleCloseWishList}/>
                     </IconButton>
-                    <Typography variant='h4'>My Favorite</Typography>
-                    <Typography variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
+                    <Typography align='center' variant='h4'>My Favorite</Typography>
+                    <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
 
                     <Box className={classes.wishListContentStyle}>
                         {renderFavoriteItems()}
