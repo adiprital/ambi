@@ -53,7 +53,7 @@ export default function WishList() {
     const [openWishList, setOpenWishList] = useState(false);
 
     const favorites = useSelector((state) => {
-        return state.cartList
+        return state.wishList
     }).wishListData;
 
     const handleOpenWishList = () => {

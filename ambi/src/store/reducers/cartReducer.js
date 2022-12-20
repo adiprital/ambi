@@ -1,13 +1,11 @@
 let initial = {
     cartData: {},
     productsPrice: {},
-    totalSum: 0,
-    wishListData: {}
+    totalSum: 0
 };
 
 const cartReducer = (state = initial, action) => {
     const updatedCartData = {...state.cartData};
-    const updatedWishListData = {...state.wishListData};
 
     const calculateTotalSumToPay = (operator, productName) => {
         let price = state.productsPrice[productName];
@@ -26,26 +24,19 @@ const cartReducer = (state = initial, action) => {
             let newTotalSum2 = calculateTotalSumToPay('-', action.product);
             return { ...state, cartData: updatedCartData, totalSum: newTotalSum2 };
 
-        case "addProductToWishList":    
-            updatedWishListData[action.product] = 1;
-            return { ...state, wishListData: updatedWishListData};
-
-        case "removeProductFromWishList":
-            updatedWishListData[action.product] = 0;
-            return { ...state, wishListData: updatedWishListData};
-
         case "cartInitialize":
             const productArray = action.cartData;
             let newCartData = {};
             let newProductsPrice = {};
-            let newWishListData = {};
 
             productArray.forEach((product) => {
                 newCartData[product.name] = 0;
                 newProductsPrice[product.name] = product.price;
-                newWishListData[product.name] = 0;
             });
-            return { ...state, cartData: newCartData, productsPrice: newProductsPrice, wishListData: newWishListData };
+            return { ...state, 
+                cartData: newCartData, 
+                productsPrice: newProductsPrice, 
+            };
 
         default:
             return state;

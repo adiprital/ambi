@@ -6,7 +6,6 @@ let initial = {
 const paginationReducer = (state = initial, action) => {
     switch (action.type){
         case "initialTotalPages":
-            console.log('action', action);
             return { ...state, totalPages: action.pages };
             
         default:

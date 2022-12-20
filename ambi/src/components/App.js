@@ -26,11 +26,12 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try{
-        const products = await axios.get(`http://localhost:8000/get-products?limit=5&page=1`);
-        store.dispatch({ type: "fetchProducts", products: products.data.products });
-        store.dispatch({ type: "cartInitialize", cartData: products.data.products });
-        store.dispatch({ type: "initialTotalPages", pages: products.data.totalPages });
-        setProducts(products.data.products);
+        const response = await axios.get(`http://localhost:8000/get-products?limit=5&page=1`);
+        store.dispatch({ type: "fetchProducts", products: response.data.products });
+        store.dispatch({ type: "cartInitialize", cartData: response.data.products });
+        store.dispatch({ type: "wishListInitialize", wishListData: response.data.products });
+        store.dispatch({ type: "initialTotalPages", pages: response.data.totalPages });
+        setProducts(response.data.products);
       }
       catch(error){
         console.log('error in fetch prodcuts', error)

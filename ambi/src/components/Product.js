@@ -50,10 +50,16 @@ export default function Product(props) {
     const theme = useTheme();
     const productData = props.productData;
     const [rProduct, setRProduct] = useState({}); // r = render
-
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const products = useSelector((state) => state.productsList).products;
+    let productPrice;
+
+    products.forEach((product) => {
+        if (product.name === props.productName) {
+            productPrice = product.price;
+        }
+    });
 
     useEffect(() => {
         setRProduct(getProductData(props.productName, products));
@@ -78,6 +84,9 @@ export default function Product(props) {
                             <p dir='rtl'>
                             {productData ? productData.description : ''}
                             </p>
+                        </Typography>
+                        <Typography align='left' variant="subtitle3">
+                            Price: {productPrice} $
                         </Typography>
                     </CardContent>
                     <CardActions>
