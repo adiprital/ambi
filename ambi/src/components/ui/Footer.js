@@ -74,6 +74,14 @@ export default function Footer(props) {
                                     {option.name}
                                 </Grid>
                             ))}
+                            <Grid item> 
+                                <Grid
+                                    item
+                                    component={Link}
+                                    to='/products'
+                                    className={classes.link}
+                                >Show All</Grid>
+                            </Grid>            
                         </Grid>
                     </Grid>
                     {/* Contact Us */}

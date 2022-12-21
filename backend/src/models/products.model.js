@@ -1,16 +1,9 @@
 const productsDatabase = require('./products.mongo');
 const { readJsonFile, writeToJsonFile } = require('../helper');
 
-const product = {
-    name: "Ambi's product",
-    description: "Ambi's product for right and left handed", 
-    amount: 10,
-    price: 5
-};
-
 async function getAllProducts(skip, limit) {
     let totalProdcutsLength = await productsDatabase.countDocuments({});
-    let totalPages = Math.ceil(totalProdcutsLength/parseInt(limit));
+    let totalPages = Math.ceil(totalProdcutsLength/parseInt(5)); //  5 = limit
     let products = await productsDatabase
     .find({}, { '_id': 0, '__v': 0 })
     .sort({ name: -1 }) // chacnge to 1 --> abc sort

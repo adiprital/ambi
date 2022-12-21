@@ -139,7 +139,7 @@ export default function Contact(props) {
                                 <TextField
                                     label='Name'
                                     id='name'
-                                    fullWidth
+                                    fullwidth
                                     value={name}
                                     onChange={(event) => setName(event.target.value)}
                                 />
@@ -150,7 +150,7 @@ export default function Contact(props) {
                                     error={emailHelper.length !== 0}
                                     helperText={emailHelper}
                                     id='email'
-                                    fullWidth
+                                    fullwidth
                                     value={email}
                                     // onChange={onChange}
                                 />
@@ -161,7 +161,7 @@ export default function Contact(props) {
                                     error={phoneHelper.length !== 0}
                                     helperText={phoneHelper}
                                     id='phone'
-                                    fullWidth
+                                    fullwidth
                                     value={phone}
                                     // onChange={onChange}
                                 />
@@ -174,7 +174,7 @@ export default function Contact(props) {
                                 value={message}
                                 className={classes.message}
                                 multiline
-                                fullWidth
+                                fullwidth
                                 minRows={10}
                                 id='message'
                                 onChange={(event) => setMessage(event.target.value)}
@@ -225,7 +225,7 @@ export default function Contact(props) {
                             <TextField
                                 label='Name'
                                 id='name'
-                                fullWidth
+                                fullwidth
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                             />
@@ -236,7 +236,7 @@ export default function Contact(props) {
                                 error={emailHelper.length !== 0}
                                 helperText={emailHelper}
                                 id='email'
-                                fullWidth
+                                fullwidth
                                 value={email}
                                 // onChange={onChange}
                             />
@@ -247,7 +247,7 @@ export default function Contact(props) {
                                 error={phoneHelper.length !== 0}
                                 helperText={phoneHelper}
                                 id='phone'
-                                fullWidth
+                                fullwidth
                                 value={phone}
                                 // onChange={onChange}
                             />
@@ -259,7 +259,7 @@ export default function Contact(props) {
                             value={message}
                             className={classes.message}
                             multiline
-                            fullWidth
+                            fullwidth
                             minRows={10}
                             id='message'
                             onChange={(event) => setMessage(event.target.value)}

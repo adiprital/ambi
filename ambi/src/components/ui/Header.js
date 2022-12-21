@@ -197,7 +197,6 @@ export default function Header(props) {
     }, [props.value, productsOptions, props.selectedIndex, routes, props]);
 
     const search = (
-        <React.Fragment>
             <Paper
                 className={classes.searchPaper}
                 component="form" 
@@ -216,7 +215,6 @@ export default function Header(props) {
                         sx={{ color: 'inherit' }}/>
                 </IconButton>  
             </Paper>
-        </React.Fragment>
     ); 
 
     const tabs =(
@@ -264,6 +262,13 @@ export default function Header(props) {
                         {option.name}
                     </MenuItem>
                 ))}
+                <MenuItem
+                    component={Link}
+                    to='/products'
+                    classes={{root: classes.menuItem}}
+                >
+                    Show All
+                </MenuItem>      
             </Menu>
         </React.Fragment>
     );
