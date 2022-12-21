@@ -16,7 +16,7 @@ export default function PagesButtons({ totalPages }) {
             try{
               const response = await axios.get(`http://localhost:8000/get-products?limit=5&page=${selectedPage}`);
               dispatch({ type: 'selectedPage', page: selectedPage });
-              dispatch({ type: "fetchProducts", products: response.data.products });
+              dispatch({ type: "updatedProducts", products: response.data.products });
             }
             catch(error){
               console.log('error in fetch prodcuts', error)

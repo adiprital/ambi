@@ -27,7 +27,7 @@ function App() {
     const fetchProducts = async () => {
       try{
         const response = await axios.get(`http://localhost:8000/get-products?limit=5&page=1`);
-        store.dispatch({ type: "fetchProducts", products: response.data.products });
+        store.dispatch({ type: "initialProducts", products: response.data.products });
         store.dispatch({ type: "cartInitialize", cartData: response.data.products });
         store.dispatch({ type: "wishListInitialize", wishListData: response.data.products });
         store.dispatch({ type: "initialTotalPages", pages: response.data.totalPages });

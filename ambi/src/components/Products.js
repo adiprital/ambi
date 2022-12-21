@@ -44,7 +44,7 @@ export default function Products(props) {
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     let navigate = useNavigate();
-    const products = useSelector((state) => state.productsList).products;
+    const products = useSelector((state) => state.productsList).updatedProducts;
     const totalPages = useSelector((state) => state.paginationList).totalPages;
 
     const productsOptions = products.map((product, index) => {

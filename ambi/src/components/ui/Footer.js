@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { makeStyles, useTheme } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom';
 import Hidden from '@mui/material/Hidden';
@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer(props) {
     const classes = useStyles();
-    const theme = useTheme();
     const products = useSelector((state) => state.productsList).products;
 
     const productsOptions = [{name: 'Products', link: '/products', activeIndex: 2, selectedIndex: 0},
@@ -42,6 +41,7 @@ export default function Footer(props) {
                     columnSpacing={10}
                     rowSpacing={2}
                 >
+                    {/* Home + About Us */}
                     <Grid item>
                         <Grid container direction='column' spacing={2}>
                             <Grid
@@ -60,6 +60,7 @@ export default function Footer(props) {
                             >About Us</Grid>
                         </Grid>
                     </Grid>
+                    {/* Products */}
                     <Grid item>
                         <Grid container direction='column' spacing={2}>
                             {productsOptions.map((option, i) => (
@@ -75,7 +76,8 @@ export default function Footer(props) {
                             ))}
                         </Grid>
                     </Grid>
-                    <Grid item>
+                    {/* Contact Us */}
+                    <Grid item> 
                         <Grid container direction='column' spacing={2}>
                             <Grid
                                 item
@@ -88,6 +90,7 @@ export default function Footer(props) {
                     </Grid>
                 </Grid>
             </Hidden>
+            {/* Adi's Link */}
             <Grid
                     container
                     justifyContent='left'
