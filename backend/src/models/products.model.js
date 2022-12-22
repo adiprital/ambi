@@ -6,9 +6,10 @@ async function getAllProducts(skip, limit) {
     let totalPages = Math.ceil(totalProdcutsLength/parseInt(5)); //  5 = limit
     let products = await productsDatabase
     .find({}, { '_id': 0, '__v': 0 })
-    .sort({ name: -1 }) // chacnge to 1 --> abc sort
-    .skip(skip)
-    .limit(limit);
+    .sort({ name: -1 }) // **chacnge to 1. -1 for decended values, 1 for ascending values
+    .skip(skip) // skips over the first 'skip' documents
+    .limit(limit); // to limit the amount of documents that come back from mongo
+    // in this case we'll return the 'limit' documents after we skip the first 'skip'
 
     return {
         totalPages,

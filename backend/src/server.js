@@ -17,7 +17,3 @@ async function startServer() {
 };
 
 startServer();
-
-// server.listen(PORT, () => {
-//     console.log(`listening to port ${PORT}...`)
-// });
