@@ -11,7 +11,6 @@ const productsReducer = (state = initial, action) => {
             return { ...state, products: action.products, updatedProducts: action.products };
 
         case "updatedProducts":
-            console.log('updatedProducts', action.products);
             return { ...state, updatedProducts: action.products };
             
         default:

@@ -21,7 +21,6 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
@@ -169,6 +168,8 @@ export default function Header(props) {
                     selectedIndex: index + 1 }
     })];
 
+    const firstFiveProducts = productsOptions.slice(0, 6);
+
     const routes = [
         { name: 'Home', link: '/', activeIndex: 0 },
         { name: 'About Us', link: '/about', activeIndex: 1 },
@@ -250,7 +251,7 @@ export default function Header(props) {
                 elevation={0}
                 anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
             >
-                {productsOptions.map((option, i) => (
+                {firstFiveProducts.map((option, i) => (
                     <MenuItem
                         key={`${option}${i}`}
                         component={Link}

@@ -3,7 +3,7 @@ const { readJsonFile, writeToJsonFile } = require('../helper');
 
 async function getAllProducts(skip, limit) {
     let totalProdcutsLength = await productsDatabase.countDocuments({});
-    let totalPages = Math.ceil(totalProdcutsLength/parseInt(5)); //  5 = limit
+    let totalPages = Math.ceil(totalProdcutsLength/parseInt(5)); // 5 = limit
     let products = await productsDatabase
     .find({}, { '_id': 0, '__v': 0 })
     .sort({ name: -1 }) // **chacnge to 1. -1 for decended values, 1 for ascending values

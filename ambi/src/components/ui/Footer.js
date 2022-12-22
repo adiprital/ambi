@@ -32,6 +32,8 @@ export default function Footer(props) {
                 selectedIndex: index + 1 }
     })];
 
+    const firstFiveProducts = productsOptions.slice(0, 6);
+
     return(
         <footer className={classes.footer}>
             <Hidden mdDown>
@@ -63,7 +65,7 @@ export default function Footer(props) {
                     {/* Products */}
                     <Grid item>
                         <Grid container direction='column' spacing={2}>
-                            {productsOptions.map((option, i) => (
+                            {firstFiveProducts.map((option, i) => (
                                 <Grid
                                     key={`${option}${i}`}
                                     item
