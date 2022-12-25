@@ -33,6 +33,11 @@ export default function Footer(props) {
     })];
 
     const firstFiveProducts = productsOptions.slice(0, 6);
+    firstFiveProducts.push({ 
+        name: 'Show All',
+        link: '/products',
+        activeIndex: 2,
+        selectedIndex: 6 });
 
     return(
         <footer className={classes.footer}>
@@ -76,14 +81,14 @@ export default function Footer(props) {
                                     {option.name}
                                 </Grid>
                             ))}
-                            <Grid item> 
+                            {/* <Grid item> 
                                 <Grid
                                     item
                                     component={Link}
                                     to='/products'
                                     className={classes.link}
                                 >Show All</Grid>
-                            </Grid>            
+                            </Grid>             */}
                         </Grid>
                     </Grid>
                     {/* Contact Us */}

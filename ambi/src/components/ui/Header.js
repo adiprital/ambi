@@ -144,7 +144,7 @@ export default function Header(props) {
         props.setValue(newValue);
     };
 
-    const handleMenuItemClick = (e, i) => {
+    const handleMenuItemClick = (i) => {
         setAnchorEl(null);
         setOpenMenu(false);
         props.setSelectedIndex(i);
@@ -155,7 +155,7 @@ export default function Header(props) {
         setOpenMenu(true);
     };
 
-    const handleClose = (e) => {
+    const handleClose = () => {
         setAnchorEl(null);
         setOpenMenu(false);
     };
@@ -169,6 +169,11 @@ export default function Header(props) {
     })];
 
     const firstFiveProducts = productsOptions.slice(0, 6);
+    firstFiveProducts.push({ 
+        name: 'Show All',
+        link: '/products',
+        activeIndex: 2,
+        selectedIndex: 6 });
 
     const routes = [
         { name: 'Home', link: '/', activeIndex: 0 },
@@ -251,25 +256,26 @@ export default function Header(props) {
                 elevation={0}
                 anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
             >
-                {firstFiveProducts.map((option, i) => (
+                {firstFiveProducts.map((option) => (
                     <MenuItem
-                        key={`${option}${i}`}
+                        key={`${option}${option.selectedIndex}`}
                         component={Link}
                         to={option.link}
                         classes={{root: classes.menuItem}}
-                        onClick={(event) => {handleMenuItemClick(event, i); props.setValue(1); handleClose()}}
-                        selected={i === props.selectedIndex && props.value === 1}
+                        // selected={option.activeIndex === props.selectedIndex && props.value === 2}
+                        selected={option.activeIndex === props.value}
+                        // selected={props.value === option.selectedIndex}
+                        onClick={() => {
+                            console.log('onClick.option.selectedIndex', option.selectedIndex);
+                            console.log('onClick.props.selectedIndex', props.selectedIndex);
+                            handleMenuItemClick(option.selectedIndex); 
+                            props.setValue(option.activeIndex); 
+                            handleClose()
+                        }}
                     >
                         {option.name}
                     </MenuItem>
                 ))}
-                <MenuItem
-                    component={Link}
-                    to='/products'
-                    classes={{root: classes.menuItem}}
-                >
-                    Show All
-                </MenuItem>      
             </Menu>
         </React.Fragment>
     );
@@ -290,7 +296,6 @@ export default function Header(props) {
                         <ListItem
                             key={`${route}${route.activeIndex}`}
                             divider
-                            button
                             component={Link}
                             to={route.link}
                             selected={props.value === route.activeIndex}
