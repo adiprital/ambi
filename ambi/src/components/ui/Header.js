@@ -74,19 +74,19 @@ const useStyles = makeStyles(theme => ({
     tabContainer: {
         marginLeft: 'auto',
     },
-    menu: {
-        backgroundColor: theme.palette.common.green,
-        color: theme.palette.common.white,
-        borderRadius: '0px'
-    },
-    menuItem: {
-        ...theme.typography.tab,
-        '&:hover': {
-            opacity: 1,
-            fontWeight: 'bold',
-            color: theme.palette.common.white
-        }
-    },
+    // menu: {
+    //     backgroundColor: theme.palette.common.green,
+    //     color: theme.palette.common.white,
+    //     borderRadius: '0px'
+    // },
+    // menuItem: {
+    //     ...theme.typography.tab,
+    //     '&:hover': {
+    //         opacity: 1,
+    //         fontWeight: 'bold',
+    //         color: theme.palette.common.white
+    //     }
+    // },
     drawerIcon: {
         ...theme.typography.tab,
         height: '50px',
@@ -251,7 +251,7 @@ export default function Header(props) {
                 anchorEl={anchorEl}
                 open={openMenu}
                 onClose={handleClose}
-                classes={{paper: classes.menu}}
+                // classes={{paper: classes.menu}}
                 MenuListProps={{onMouseLeave: handleClose}}
                 elevation={0}
                 anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
@@ -261,7 +261,7 @@ export default function Header(props) {
                         key={`${option}${option.selectedIndex}`}
                         component={Link}
                         to={option.link}
-                        classes={{root: classes.menuItem}}
+                        // classes={{root: classes.menuItem}}
                         // selected={option.activeIndex === props.selectedIndex && props.value === 2}
                         selected={option.activeIndex === props.value}
                         // selected={props.value === option.selectedIndex}

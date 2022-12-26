@@ -81,6 +81,21 @@ export default createTheme({
                 }
             }
         },
+        // MuiSvgIcon: {
+        //     styleOverrides: {
+        //         root:{
+        //             color: ambiWhite,
+        //             opacity: 0.7,
+        //             height: '1em',
+        //             width: '1em',
+        //             marginLeft: '25px',
+        //             '&:hover': {
+        //                 opacity: 1,
+        //                 color: ambiWhite
+        //             }
+        //         }
+        //     }
+        // },
         MuiFormControl: {
             styleOverrides: {
                 root: {
@@ -90,10 +105,24 @@ export default createTheme({
                 }
             }
         },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: ambiGreen,
+                    color: ambiWhite,
+                    borderRadius: '0px'
+                }
+            }
+        },
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    color: ambiWhite
+                    color: ambiWhite,
+                    opacity: 0.7,
+                    '&:hover': {
+                        opacity: 1,
+                        fontWeight: 'bold',
+                    }
                 }
             }
         },
