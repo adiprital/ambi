@@ -74,19 +74,6 @@ const useStyles = makeStyles(theme => ({
     tabContainer: {
         marginLeft: 'auto',
     },
-    // menu: {
-    //     backgroundColor: theme.palette.common.green,
-    //     color: theme.palette.common.white,
-    //     borderRadius: '0px'
-    // },
-    // menuItem: {
-    //     ...theme.typography.tab,
-    //     '&:hover': {
-    //         opacity: 1,
-    //         fontWeight: 'bold',
-    //         color: theme.palette.common.white
-    //     }
-    // },
     drawerIcon: {
         ...theme.typography.tab,
         height: '50px',

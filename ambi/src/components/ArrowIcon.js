@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 const useStyles = makeStyles(theme => ({
     arrowIcon: {
         color: theme.palette.common.green,
+        opacity: 0.7,
         marginTop: '0.5em',
         marginLeft: '2.5em',
         marginRight: '5em',

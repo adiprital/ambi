@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles(theme => ({
     message: {
@@ -51,16 +50,42 @@ export default function Contact(props) {
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const [name, setName] = useState('');
-
     const [email, setEmail] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
-
     const [phone, setPhone] = useState('');
     const [phoneHelper, setPhoneHelper] = useState('');
-
     const [message, setMessage] = useState('');
+    const [sendMessage, setSendMessage] = useState(false);
 
-    const [open, setOpen] = useState(false);
+    const checkDisable = () => {
+        let res = false;
+        if ( name.length === 0 ||
+            message.length === 0 ||
+            email.length === 0 ||
+            phone.length === 0 ||
+            phoneHelper.length !== 0 ||
+            emailHelper.length !== 0 ) {
+                res = true;
+            } else {
+            res = false
+        }
+        return res;
+    };
+
+    const renderResults = (severity) => {
+        const messageSentSuccessfully = {alert: 'success', message: 'Message Sent Successfully!'};
+        const messageFailed = {alert: 'error', message: 'Message Failed!'};
+        let alert = severity ? messageSentSuccessfully : messageFailed;
+        return (
+            <Alert
+                severity={alert.alert}
+                sx={{ width: '100%' }}
+            >
+                {alert.message}
+            </Alert>
+        );
+
+    }
 
     return (
         <Grid container direction='row'>
@@ -149,7 +174,7 @@ export default function Contact(props) {
                                     id='email'
                                     fullwidth
                                     value={email}
-                                    // onChange={onChange}
+                                    onChange={(event) => setEmail(event.target.value)}
                                 />
                             </Grid>
                             <Grid item style={{marginBottom: '0.5em'}}>
@@ -160,24 +185,24 @@ export default function Contact(props) {
                                     id='phone'
                                     fullwidth
                                     value={phone}
-                                    // onChange={onChange}
+                                    onChange={(event) => setPhone(event.target.value)}
+                                />
+                            </Grid>
+                            {/*-----Message----- */}
+                            <Grid item style={{maxWidth: '20em'}}>
+                                <TextField
+                                    label='Message'
+                                    InputProps={{disableUnderline: true}}
+                                    value={message}
+                                    className={classes.message}
+                                    multiline
+                                    fullwidth
+                                    minRows={10}
+                                    id='message'
+                                    onChange={(event) => setMessage(event.target.value)}
                                 />
                             </Grid>
                         </Grid>
-                        {/*-----Message----- */}
-                        <Grid item style={{maxWidth: '20em'}}>
-                            <TextField
-                                InputProps={{disableUnderline: true}}
-                                value={message}
-                                className={classes.message}
-                                multiline
-                                fullwidth
-                                minRows={10}
-                                id='message'
-                                onChange={(event) => setMessage(event.target.value)}
-                            />
-                        </Grid>
-
                         <Grid
                             item
                             container
@@ -188,29 +213,39 @@ export default function Contact(props) {
                         >
                             <Grid item>
                                 <Button
-                                    // disabled={ name.length === 0 ||
-                                    //            message.length === 0 ||
-                                    //            phoneHelper.length !== 0 ||
-                                    //            emailHelper.length !== 0 ||
-                                    //            email.length === 0 ||
-                                    //            phone.length === 0
-                                    //         }
+                                    disabled={checkDisable()}
                                     variant='contained'
                                     className={classes.sendButton}
-                                    // onClick={() => setOpen(true)}
+                                    onClick={() => {
+                                        setMessage('');
+                                        setPhone(''); 
+                                        setEmail(''); 
+                                        setName('');
+                                        renderResults(true);
+                                        // setSendMessage(true);
+                                    }}
                                 >
                                     Send Message
                                     <SendIcon style={{marginLeft: '1em'}}/>
                                 </Button>
+                                {renderResults(true)}
                             </Grid>
                             <Grid item>
                                 <Button
                                     style={{fontWeight: 300}}
                                     color='primary'
-                                    // onClick={() => setOpen(false)}
+                                    onClick={() => {
+                                        setMessage('');
+                                        setPhone(''); 
+                                        setEmail(''); 
+                                        setName('');
+                                        renderResults(false);
+                                        // setSendMessage(false);
+                                    }}
                                 >
                                     Cancel
                                 </Button>
+                                {renderResults(false)}
                             </Grid>
                         </Grid>
                     </Grid>
