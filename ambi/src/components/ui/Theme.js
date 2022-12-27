@@ -179,15 +179,6 @@ export default createTheme({
             fontSize: '1rem',
             color: ambiGrey,
             fontWeight: 200
-        },
-        learnButton: {
-            borderColor: ambiMint,
-            color: ambiMint,
-            borderWidth: 2,
-            textTransform: 'none',
-            borderRadius: 50,
-            fontFamily: 'Arial',
-            fontWeight: 'bold'
         }
     }
 });

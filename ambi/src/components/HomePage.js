@@ -15,6 +15,15 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: '1.5em',
             paddingRight: '1.5em',
         }
+    },
+    learnButton: {
+        height: 35,
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: '2em'
+        }
     }
 }));
 
@@ -54,7 +63,9 @@ export default function HomePage(props) {
                             <Button
                                 component={Link}
                                 to='/about'
-                                variant='outlined'
+                                // variant='outlined'
+                                variant='contained'
+                                className={classes.learnButton}
                                 style={{marginBottom: matchesSM ? '1em' : '5em'}}
                             >
                                 <span>About us</span>

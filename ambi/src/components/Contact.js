@@ -21,11 +21,8 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 5
     },
     sendButton: {
-        borderRadius: 50,
         height: 45,
         width: 245,
-        fontSize: '1rem',
-        backgroundColor: theme.palette.common.green,
         '&:hover': {
             backgroundColor: theme.palette.secondary.light
         },

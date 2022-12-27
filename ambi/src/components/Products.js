@@ -29,10 +29,10 @@ const useStyles = makeStyles(theme => ({
         }
     },
     learnButton: {
-        ...theme.typography.learnButton,
-        fontSize: '0.7rem',
         height: 35,
-        padding: 5,
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light
+        },
         [theme.breakpoints.down('sm')]: {
             marginBottom: '2em'
         }
@@ -96,7 +96,8 @@ export default function Products(props) {
                                     <p dir='rtl'>{option.description}</p>
                                 </Typography>
                                 <Button
-                                    variant='outlined'
+                                    // variant='outlined'
+                                    variant='contained'
                                     className={classes.learnButton}
                                     onClick={() => navigate(option.link)}
                                     style={{marginBottom: matchesSM ? '1em' : '5em'}}
