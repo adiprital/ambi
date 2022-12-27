@@ -180,127 +180,45 @@ export default function Contact(props) {
                                 onChange={(event) => setMessage(event.target.value)}
                             />
                         </Grid>
-                        <Grid item container justifyContent='center' style={{marginTop: '2em'}}>
-                            <Button
-                                // disabled={ name.length === 0 ||
-                                //            message.length === 0 ||
-                                //            phoneHelper.length !== 0 ||
-                                //            emailHelper.length !== 0 ||
-                                //            email.length === 0 ||
-                                //            phone.length === 0
-                                //         }
-                                variant='contained'
-                                className={classes.sendButton}
-                                onClick={() => setOpen(true)}
-                                style={{marginBottom: '5em'}}
-                            >
-                                Send Message
-                                <SendIcon style={{marginLeft: '1em'}}/>
-                            </Button>
+
+                        <Grid
+                            item
+                            container
+                            direction={matchesSM ? 'column' : 'row'}
+                            style={{marginTop: '2em', marginBottom: '5em'}}
+                            alignItems='center'
+                            justifyContent='center'
+                        >
+                            <Grid item>
+                                <Button
+                                    // disabled={ name.length === 0 ||
+                                    //            message.length === 0 ||
+                                    //            phoneHelper.length !== 0 ||
+                                    //            emailHelper.length !== 0 ||
+                                    //            email.length === 0 ||
+                                    //            phone.length === 0
+                                    //         }
+                                    variant='contained'
+                                    className={classes.sendButton}
+                                    // onClick={() => setOpen(true)}
+                                >
+                                    Send Message
+                                    <SendIcon style={{marginLeft: '1em'}}/>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    style={{fontWeight: 300}}
+                                    color='primary'
+                                    // onClick={() => setOpen(false)}
+                                >
+                                    Cancel
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            {/*-----Confirm Message----- */}
-            <Dialog
-                style={{zIndex: 1302}}
-                open={open}
-                fullScreen={matchesXS}
-                onClose={() => setOpen(false)}
-                PaperProps={{style: {
-                                    backgroundColor: 'white',
-                                    paddingTop: matchesXS ? '1em' : '5em',
-                                    paddingBottom: matchesXS ? '1em' : '5em',
-                                    paddingLeft: matchesXS ? 0 : matchesSM ? 0 : matchesMD ? '15em' : '25em',
-                                    paddingRight: matchesXS ? 0 : matchesSM ? 0 : matchesMD ? '15em' : '25em'}}}
-            >
-                <DialogContent>
-                    <Grid container direction='column'>
-                        <Grid item>
-                            <Typography align='center' variant='h4' gutterBottom>
-                                Confirm Message
-                            </Typography>
-                        </Grid>
-                        <Grid item style={{marginBottom: '0.5em'}}>
-                            <TextField
-                                label='Name'
-                                id='name'
-                                fullwidth
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item style={{marginBottom: '0.5em'}}>
-                            <TextField
-                                label='Email'
-                                error={emailHelper.length !== 0}
-                                helperText={emailHelper}
-                                id='email'
-                                fullwidth
-                                value={email}
-                                // onChange={onChange}
-                            />
-                        </Grid>
-                        <Grid item style={{marginBottom: '0.5em'}}>
-                            <TextField
-                                label='Phone'
-                                error={phoneHelper.length !== 0}
-                                helperText={phoneHelper}
-                                id='phone'
-                                fullwidth
-                                value={phone}
-                                // onChange={onChange}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid item style={{maxWidth: matchesXS ? '100%' : '20em'}}>
-                        <TextField
-                            InputProps={{disableUnderline: true}}
-                            value={message}
-                            className={classes.message}
-                            multiline
-                            fullwidth
-                            minRows={10}
-                            id='message'
-                            onChange={(event) => setMessage(event.target.value)}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        container
-                        direction={matchesSM ? 'column' : 'row'}
-                        style={{marginTop: '2em'}}
-                        alignItems='center'
-                    >
-                        <Grid item>
-                            <Button
-                                style={{fontWeight: 300}}
-                                color='primary'
-                                onClick={() => setOpen(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                // disabled={ name.length === 0 ||
-                                //            message.length === 0 ||
-                                //            phoneHelper.length !== 0 ||
-                                //            emailHelper.length !== 0 ||
-                                //            email.length === 0 ||
-                                //            phone.length === 0
-                                //         }
-                                variant='contained'
-                                className={classes.sendButton}
-                                // onClick={onConfirm}
-                            >
-                                Send Message
-                                <SendIcon style={{marginLeft: '1em'}}/>
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </DialogContent>
-            </Dialog>
         </Grid>
     );
 };
