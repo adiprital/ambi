@@ -9,9 +9,9 @@ import Box from '@mui/material/Box';
 
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import SendIcon from '@mui/icons-material/Send';
-import Stack from '@mui/material/Stack';
+import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 const useStyles = makeStyles(theme => ({
     message: {
@@ -57,6 +57,15 @@ export default function Contact(props) {
     const [message, setMessage] = useState('');
     const [sendMessage, setSendMessage] = useState(false);
 
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const hendleClickAlert = () => {
+        setOpenAlert(true);
+    };
+    const handleCloseAlert = () => {
+        setOpenAlert(false);
+    };
+
     const checkDisable = () => {
         let res = false;
         if ( name.length === 0 ||
@@ -72,19 +81,29 @@ export default function Contact(props) {
         return res;
     };
 
-    const renderResults = (severity) => {
-        const messageSentSuccessfully = {alert: 'success', message: 'Message Sent Successfully!'};
-        const messageFailed = {alert: 'error', message: 'Message Failed!'};
-        let alert = severity ? messageSentSuccessfully : messageFailed;
-        return (
-            <Alert
-                severity={alert.alert}
-                sx={{ width: '100%' }}
-            >
-                {alert.message}
-            </Alert>
-        );
+    const showMessageDetails = (severity) => {
+        let message = {
+            success: { alert: 'success', message: 'Message Sent Successfully!' },
+            cancel: { alert: 'error', message: 'Message cancelled.' }
+        };
+        let alert = severity ? message.success : message.cancel;
+        console.log('severity', severity);
+        console.log('alert', alert);
 
+        return (          
+            <Snackbar
+                open={openAlert}
+                autoHideDuration={5000}
+                onClose={handleCloseAlert}
+            >
+                <Alert
+                    severity={alert.alert}
+                    sx={{ width: '100%' }}
+                >
+                    {alert.message}
+                </Alert>
+            </Snackbar>
+        );
     }
 
     return (
@@ -178,7 +197,7 @@ export default function Contact(props) {
                                 />
                             </Grid>
                             <Grid item style={{marginBottom: '0.5em'}}>
-                            <TextField
+                                <TextField
                                     label='Phone'
                                     error={phoneHelper.length !== 0}
                                     helperText={phoneHelper}
@@ -211,7 +230,8 @@ export default function Contact(props) {
                             alignItems='center'
                             justifyContent='center'
                         >
-                            <Grid item>
+
+                            <Grid item>                                
                                 <Button
                                     disabled={checkDisable()}
                                     variant='contained'
@@ -221,15 +241,17 @@ export default function Contact(props) {
                                         setPhone(''); 
                                         setEmail(''); 
                                         setName('');
-                                        renderResults(true);
+                                        hendleClickAlert();
+                                        showMessageDetails(true);
                                         // setSendMessage(true);
                                     }}
                                 >
+                                    {/* {showMessageDetails(true)} */}
                                     Send Message
                                     <SendIcon style={{marginLeft: '1em'}}/>
                                 </Button>
-                                {renderResults(true)}
                             </Grid>
+
                             <Grid item>
                                 <Button
                                     style={{fontWeight: 300}}
@@ -239,14 +261,16 @@ export default function Contact(props) {
                                         setPhone(''); 
                                         setEmail(''); 
                                         setName('');
-                                        renderResults(false);
+                                        hendleClickAlert();
+                                        showMessageDetails(false);
                                         // setSendMessage(false);
                                     }}
                                 >
+                                    {/* {showMessageDetails(false)} */}
                                     Cancel
                                 </Button>
-                                {renderResults(false)}
-                            </Grid>
+                            </Grid> 
+
                         </Grid>
                     </Grid>
                 </Grid>
