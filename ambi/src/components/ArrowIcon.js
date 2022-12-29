@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import Hidden from '@mui/material/Hidden';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -19,6 +18,11 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             opacity: 1,
             color: theme.palette.common.green
+        },        
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '0.5em',
+            marginLeft: '0.5em',
+            marginRight: '2.5em'
         }
     },
     arrowContainer: {
@@ -87,14 +91,12 @@ export default function ArrowIcon(props) {
     }
 
     return (
-        <Hidden mdDown>
-            <Box>
-                <ArrowBackIcon
-                    className={classes.arrowIcon}
-                    onClick={() => navigate(checkBack())}
-                />
-                    {checkLastIndex()}
-            </Box>
-        </Hidden>
+        <Box>
+            <ArrowBackIcon
+                className={classes.arrowIcon}
+                onClick={() => navigate(checkBack())}
+            />
+                {checkLastIndex()}
+        </Box>
     )
 };
