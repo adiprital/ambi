@@ -66,6 +66,22 @@ export default function Contact(props) {
         setOpenAlert(false);
     };
 
+    const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
+    const hendleClickSuccessAlert = () => {
+        setOpenSuccessAlert(true);
+    };
+    const handleCloseSuccessAlert = () => {
+        setOpenSuccessAlert(false);
+    };
+
+    const [openErrorAlert, setOpenErrorAlert] = useState(false);
+    const hendleClickErrorAlert = () => {
+        setOpenErrorAlert(true);
+    };
+    const handleCloseErrorAlert = () => {
+        setOpenErrorAlert(false);
+    };
+
     const checkDisable = () => {
         let res = false;
         if ( name.length === 0 ||
@@ -87,24 +103,44 @@ export default function Contact(props) {
             cancel: { alert: 'error', message: 'Message cancelled.' }
         };
         let alert = severity ? message.success : message.cancel;
-        console.log('severity', severity);
-        console.log('alert', alert);
 
         return (          
-            <Snackbar
-                open={openAlert}
-                autoHideDuration={5000}
-                onClose={handleCloseAlert}
-            >
                 <Alert
                     severity={alert.alert}
-                    sx={{ width: '100%' }}
+                    sx={{ width: '100%', vertical: 'bottom', horizontal: 'center' }}
                 >
                     {alert.message}
                 </Alert>
-            </Snackbar>
         );
-    }
+    };
+
+    const checkValidity = event => {
+        let valid;
+        switch (event.target.id) {
+            case 'email':
+                setEmail(event.target.value);
+                valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(event.target.value);
+                if (!valid) {
+                    setEmailHelper('Invalid email');
+                } else {
+                    setEmailHelper('');
+                }
+                break;
+
+            case 'phone':
+                setPhone(event.target.value);
+                valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(event.target.value);
+                if (!valid) {
+                    setPhoneHelper('Invalid phone');
+                } else {
+                    setPhoneHelper('');
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
 
     return (
         <Grid container direction='row'>
@@ -193,7 +229,7 @@ export default function Contact(props) {
                                     id='email'
                                     fullwidth
                                     value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
+                                    onChange={checkValidity}
                                 />
                             </Grid>
                             <Grid item style={{marginBottom: '0.5em'}}>
@@ -204,7 +240,7 @@ export default function Contact(props) {
                                     id='phone'
                                     fullwidth
                                     value={phone}
-                                    onChange={(event) => setPhone(event.target.value)}
+                                    onChange={checkValidity}
                                 />
                             </Grid>
                             {/*-----Message----- */}
@@ -230,7 +266,7 @@ export default function Contact(props) {
                             alignItems='center'
                             justifyContent='center'
                         >
-
+                            {/*-----Send Message----- */}
                             <Grid item>                                
                                 <Button
                                     disabled={checkDisable()}
@@ -241,17 +277,17 @@ export default function Contact(props) {
                                         setPhone(''); 
                                         setEmail(''); 
                                         setName('');
-                                        hendleClickAlert();
-                                        showMessageDetails(true);
+                                        hendleClickSuccessAlert();
+                                        setTimeout(handleCloseSuccessAlert, 5000);
                                         // setSendMessage(true);
                                     }}
                                 >
-                                    {/* {showMessageDetails(true)} */}
                                     Send Message
                                     <SendIcon style={{marginLeft: '1em'}}/>
                                 </Button>
+                                {openSuccessAlert ? showMessageDetails(openSuccessAlert) : null}
                             </Grid>
-
+                            {/*-----Cancel Message----- */}
                             <Grid item>
                                 <Button
                                     style={{fontWeight: 300}}
@@ -261,14 +297,14 @@ export default function Contact(props) {
                                         setPhone(''); 
                                         setEmail(''); 
                                         setName('');
-                                        hendleClickAlert();
-                                        showMessageDetails(false);
+                                        hendleClickErrorAlert();
+                                        setTimeout(handleCloseErrorAlert, 5000);
                                         // setSendMessage(false);
                                     }}
                                 >
-                                    {/* {showMessageDetails(false)} */}
                                     Cancel
                                 </Button>
+                                {openErrorAlert ? showMessageDetails(!openErrorAlert) : null}
                             </Grid> 
 
                         </Grid>
