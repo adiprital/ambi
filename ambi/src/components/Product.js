@@ -11,7 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import { renderImage2, getProductData } from '../utils/functions';
 import AddToCart from './AddToCart';
 import AddToWishList from './AddToWishList';
-import ArrowIcon from './ArrowIcon';
+import ArrowIcon from './ui/ArrowIcon';
 
 const useStyles = makeStyles(theme => ({
     rowContainer: {

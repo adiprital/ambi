@@ -24,7 +24,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
-import Account from '../Account';
+import LogIn from '../LogIn';
 import Cart from '../Cart';
 import WishList from '../WishList';
 
@@ -325,7 +325,7 @@ export default function Header(props) {
                             <img alt='company logo' className={classes.logo} src={logo} />
                         </Button>
 
-                        <Account/>
+                        <LogIn/>
                         <Cart/>
                         <WishList/>
 
