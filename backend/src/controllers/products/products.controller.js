@@ -17,6 +17,8 @@ productsController.get('/', async (req, res) => {
 productsController.post('/', async (req, res) => {
     const productName = req.body.name;
     const productAmount = req.body.amount;
+    console.log('cookie', req.cookies)
+    console.log('cookie set', req.headers['set-cookie'])
     
     const existsProduct = await existssProduct(productName);
 

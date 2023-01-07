@@ -3,8 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
 
-// const bodyparser = require("body-parser"); 
-// var cookieParser = require('cookie-parser'); 
+const bodyparser = require("body-parser"); 
+var cookieParser = require('cookie-parser'); 
 
 const productsController = require('./controllers/products/products.controller');
 const usersController = require('./controllers/users/users.controller');
@@ -12,13 +12,15 @@ const usersController = require('./controllers/users/users.controller');
 const app = express();
 
 app.use(express.json());
+app.use(bodyparser.urlencoded({extended:true}));
+app.use(cookieParser()); 
 
-// app.use(cookieParser()); 
 
 app.use(cors({
-    options:{
-        origin:'http://localhost:3000'
-    }
+        origin:'http://localhost:3000',
+        methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+        credentials: true,
+        exposedHeaders: ["set-cookie"]
 }));
 
 // app.use(bodyparser.urlencoded({ extended: true })); 

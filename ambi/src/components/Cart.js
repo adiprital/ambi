@@ -112,7 +112,7 @@ export default function Cart() {
                  return await axios.post(`http://localhost:8000/buy-products`, {
                     name: productName,
                     amount: cart[productName]
-                })
+                }, { withCredentials: true})
             }
         });
 
