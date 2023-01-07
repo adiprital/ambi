@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -35,6 +37,7 @@ const signInItemStyle = {
 
 export default function SignIn() {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [openSignIn, setOpenSignIn] = useState(false);
     const [email, setEmail] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
@@ -93,6 +96,14 @@ export default function SignIn() {
         }
     };
 
+    const handleSignIn = async () => {
+        let currentUser = await axios.post('http://localhost:8000/auth/signin', {
+            email, password
+        });
+        dispatch({ type: 'updateCurrentUser', user: currentUser.data });
+
+    };
+
     return (
         <React.Fragment>
             <Button aria-label="signin" disableRipple onClick={handleOpenSignIn}>
@@ -134,9 +145,10 @@ export default function SignIn() {
                         className={classes.signInButton}
                         aria-label="signin" 
                         disabled={checkDisable()}
+                        onClick={handleSignIn}
                     >
                         Sign In
-                        {disable ? undefined : <Account/>}
+                        {/* {disable ? undefined : <Account/>} */}
                     </Button>
                 </Box>
             </Modal>

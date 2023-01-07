@@ -15,6 +15,7 @@ import About from './About';
 import Contact from './Contact';
 import Products from './Products';
 import Product from './Product';
+import Account from './Account';
 
 const store = createStore(rootReducer);
 
@@ -110,6 +111,14 @@ function App() {
                 setSelectedIndex={setSelectedIndex}
               />}
             />
+
+              {/*-----Account----- */}
+            <Route
+              exact
+              path='/account'
+              element={<Account/>}
+            />
+            
           </Routes>
           <Footer
             setValue={setValue}

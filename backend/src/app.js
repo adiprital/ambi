@@ -7,7 +7,7 @@ const morgan = require('morgan');
 // var cookieParser = require('cookie-parser'); 
 
 const productsController = require('./controllers/products/products.controller');
-// const usersController = require('./controllers/users/users.controller');
+const usersController = require('./controllers/users/users.controller');
 
 const app = express();
 
@@ -30,7 +30,8 @@ app.use(cors({
 
 app.use('/get-products', productsController);
 app.use('/buy-products', productsController);
-// app.use('/signup', usersController);
+
+app.use('/auth', usersController);
 
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

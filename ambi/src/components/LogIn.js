@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -9,6 +11,9 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import SignIn from './SignIn'; 
 import SignUp from './SignUp';
+import Account from './Account';
+
+import { Button } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     profileIcon: {
@@ -37,7 +42,11 @@ const logInItemStyle = {
 
 export default function LogIn() {
     const classes = useStyles();
+    let navigate = useNavigate();
     const [openLogIn, setOpenLogIn] = useState(false);
+
+    const user = useSelector((state) => state.userAuth).currentUser;
+    console.log('user', user);
 
     const handleOpenLogIn = () => {
         setOpenLogIn(true);
@@ -46,6 +55,19 @@ export default function LogIn() {
     const handleCloseLogIn = () => {
         setOpenLogIn(false);
     };
+
+    const account = (
+        <React.Fragment>
+            <Button
+                onClick={() => {
+                    handleCloseLogIn();
+                    navigate('/account');
+                }}
+            >
+                My Account
+            </Button>
+        </React.Fragment>
+    )
 
     return (
         <React.Fragment>
@@ -62,8 +84,7 @@ export default function LogIn() {
                         <CloseIcon onClick={handleCloseLogIn}/>
                     </IconButton>
                     <Typography align='center' variant='h4' sx={{marginBottom: '25px'}}>Log In</Typography>
-                    <SignIn/>
-                    <SignUp/>
+                    { user ? account : <Box> <SignIn/> <SignUp/> </Box> }
                 </Box>
             </Modal>
         </React.Fragment>
