@@ -5,6 +5,7 @@ const { getAllProducts,
 } = require('../../models/products.model');
 
 const { getPagination } = require('../../services/query');
+const { decodeToken, checkTokenValidity } = require('../../models/users.model');
 
 const productsController = express.Router();
 
@@ -17,9 +18,23 @@ productsController.get('/', async (req, res) => {
 productsController.post('/', async (req, res) => {
     const productName = req.body.name;
     const productAmount = req.body.amount;
-    console.log('cookie', req.cookies)
-    console.log('cookie set', req.headers['set-cookie'])
-    
+    let token = req.headers['token'];
+
+    let {id, exp} = decodeToken(token)
+
+    if(!exp){
+        return res.json({
+            error: 'invalid session token - login again.'
+        })
+    }
+
+    if(!checkTokenValidity(exp)){
+        return res.json({
+            error: 'session token expired - login again.'
+        })
+    }
+
+
     const existsProduct = await existssProduct(productName);
 
     if (!existsProduct) {
@@ -27,6 +42,11 @@ productsController.post('/', async (req, res) => {
             error: "This product does not exist."
         });
     }
+
+    // TO DO - 
+    // use the id form decodeToken response and get the user from mongo
+    // check if he have enuogh balance to complete the buy
+    // if yes, after buyProudct function (if it succeed) update the user balance
 
     const productToBuy = await buyProduct(productName, productAmount);
 

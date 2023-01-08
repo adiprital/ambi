@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@mui/styles';
-
+import { useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,8 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
-
-import Account from './Account';
 
 const useStyles = makeStyles(theme => ({
     signUpButton: {
@@ -36,12 +35,12 @@ const signUpItemStyle = {
 
 export default function SignIn() {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [openSignUp, setOpenSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
     const [password, setPassword] = useState('');
     const [passwordHelper, setPasswordHelper] = useState('');
-    let disable = undefined;
     
     const handleOpenSignUp = () => {
         setOpenSignUp(true);
@@ -58,10 +57,8 @@ export default function SignIn() {
             passwordHelper.length !== 0 ||
             emailHelper.length !== 0 ) {
                 res = true;
-                disable = res;
             } else {
             res = false
-            disable = res;
         }
         return res;
     };
@@ -92,6 +89,17 @@ export default function SignIn() {
             default:
                 break;
         }
+    };
+
+    const handleSignUp = async () => {
+        let currentUser = await axios.post('http://localhost:8000/auth/signup', {
+            email, password
+        });
+        dispatch({ type: 'updateCurrentUser', 
+            user: {
+                email: currentUser.data.user, 
+                balance: currentUser.data.balance
+        }});
     };
 
     return (
@@ -133,9 +141,9 @@ export default function SignIn() {
                         className={classes.signUpButton}
                         aria-label="signup" 
                         disabled={checkDisable()}
+                        onClick={handleSignUp}
                     >
                         Sign Up 
-                        {/* {disable ? undefined : <Account/>} */}
                     </Button>
                 </Box>
             </Modal>

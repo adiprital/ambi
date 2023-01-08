@@ -11,20 +11,20 @@ const usersController = require('./controllers/users/users.controller');
 
 const app = express();
 
-app.use(express.json());
+
 app.use(bodyparser.urlencoded({extended:true}));
+app.use(express.json());
 app.use(cookieParser()); 
 
+app.set('trust proxy', 1);
 
 app.use(cors({
-        origin:'http://localhost:3000',
+        origin:['http://localhost:3000'],
         methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
         credentials: true,
         exposedHeaders: ["set-cookie"]
 }));
 
-// app.use(bodyparser.urlencoded({ extended: true })); 
-// app.use(express.static("public")); 
 
 // app.use(morgan('combined'));
 

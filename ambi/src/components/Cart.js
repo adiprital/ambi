@@ -109,10 +109,13 @@ export default function Cart() {
         const keys = Object.keys(cart);
         const promises_array = keys.map(async (productName) => {
             if (cart[productName] > 0) {
+                let token = localStorage.getItem('token');
                  return await axios.post(`http://localhost:8000/buy-products`, {
                     name: productName,
                     amount: cart[productName]
-                }, { withCredentials: true})
+                }, { withCredentials: true, headers:{
+                    token
+                }});
             }
         });
 

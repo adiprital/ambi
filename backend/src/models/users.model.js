@@ -1,46 +1,12 @@
 const usersDatabase = require('./users.mongo');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 const salt = 10;
 
 require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-// async function saveUser(user) {
-//     try {
-//         await usersDatabase.updateOne({
-//             email: user.email
-//         }, {
-//             email: user.email,
-//             password: user.password
-//         }, {
-//             upsert: true
-//         });
-//     } catch(err) {
-//         console.error(`Could not save user ${err}`);
-//     }
-// };
-
-// async function existssUser(userEmail) {
-//     return await usersDatabase.findOne({
-//         email: userEmail
-//     });
-// }
-
-// async function updateUserPassword(user) {
-//     try {
-//         await usersDatabase.updateOne({
-//             email: user.email
-//         }, {
-//             password: user.password
-//         }, {
-//             upsert: true
-//         });
-//     } catch(err) {
-//         console.error(`Could not update user password ${err}`);
-//     }
-// }
 
 async function signUp(email, password) {
     const user = await usersDatabase.findOne({email});
@@ -53,9 +19,10 @@ async function signUp(email, password) {
         // storing our user data into database
         const response = await usersDatabase.create({
             email,
-            password: encryptedPassword
+            password: encryptedPassword,
+            balance: 100
         })
-        return {success: true, message: 'sign up successfully!'};
+        return {success: true, message: 'sign up successfully!', user: email, balance: response.balance };
     } catch (error) {
         console.log(JSON.stringify(error));
         return {success: false, message: 'something went wrong'};
@@ -81,7 +48,7 @@ async function verifyUserLogin(email, password) {
                                type:'user' }, 
                             JWT_SECRET, 
                             { expiresIn: '2h' });
-            return { success: true, token, user: email }
+            return { success: true, token, user: email, balance: user.balance }
         }
         return {success: false, message: 'invalid password'};
     } catch (error) {
@@ -90,26 +57,34 @@ async function verifyUserLogin(email, password) {
     }
 }
 
-async function verifyToken(token) {
+ function decodeToken(token) {
     try {
         const verify = jwt.verify(token, JWT_SECRET);
-        if (verify.type==='user'){
-            return true;
-        } else {
-            return false;
-        }
+        return { id: verify.id, exp: verify.exp }
     } catch (error) {
         console.log(JSON.stringify(error), "error");
+        return undefined;
+    }
+}
+
+ function checkTokenValidity(exp) {
+    let expiredDate = moment.unix(exp);
+    let now = moment();
+
+    if(now.isBefore(expiredDate)){
+        // token is stil valid becuase current time is before expiration time
+        return true;
+    }
+    else{
+        // token EXPIRED because current time after expiration time
         return false;
     }
 }
 
 module.exports = {
-    // saveUser,
-    // existssUser,
-    // updateUserPassword,
+    checkTokenValidity,
     verifyUserLogin,
-    verifyToken,
+    decodeToken,
     signUp,
     signIn
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -10,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
-import Account from './Account';
 
 const useStyles = makeStyles(theme => ({
     signInButton: {
@@ -43,7 +41,6 @@ export default function SignIn() {
     const [emailHelper, setEmailHelper] = useState('');
     const [password, setPassword] = useState('');
     const [passwordHelper, setPasswordHelper] = useState('');
-    let disable = undefined;
     
     const handleOpenSignIn = () => {
         setOpenSignIn(true);
@@ -60,10 +57,8 @@ export default function SignIn() {
             passwordHelper.length !== 0 ||
             emailHelper.length !== 0 ) {
                 res = true;
-                disable = res;
             } else {
             res = false;
-            disable = res;
         }
         return res;
     };
@@ -100,8 +95,14 @@ export default function SignIn() {
         let currentUser = await axios.post('http://localhost:8000/auth/signin', {
             email, password
         });
-        dispatch({ type: 'updateCurrentUser', user: currentUser.data });
-
+        if (currentUser.data && currentUser.data.success) {
+            localStorage.setItem('token', currentUser.data.token);
+            dispatch({ type: 'updateCurrentUser',  
+                user: {
+                    email: currentUser.data.user, 
+                    balance: currentUser.data.balance
+            }});
+        }
     };
 
     return (
@@ -140,15 +141,12 @@ export default function SignIn() {
                         style={{marginBottom: '0.5em', position: 'relative'}}
                     />
                     <Button
-                        // component={Link}
-                        // to='/account'
                         className={classes.signInButton}
                         aria-label="signin" 
                         disabled={checkDisable()}
                         onClick={handleSignIn}
                     >
                         Sign In
-                        {/* {disable ? undefined : <Account/>} */}
                     </Button>
                 </Box>
             </Modal>
