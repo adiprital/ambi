@@ -81,9 +81,42 @@ async function verifyUserLogin(email, password) {
     }
 }
 
+async function checkUserIdInMongo(id) {
+    try {
+        const user = await usersDatabase.findOne({ _id: id });
+        if(!user){
+            return { success: false, message: 'user not found' };
+        }
+        else { 
+            return { success: true, user: id, email: user.email, balance: user.balance }
+        } 
+    } catch (error) {
+        console.log(error);
+        return { success: false, message: 'something went wrong' };
+    }
+}
+
+async function updateBalance(mongoUser, newBalance) {
+    console.log('updateBalance-mongoUser', mongoUser);
+    console.log('updateBalance-newBalance', newBalance);
+    try {
+        await usersDatabase.updateOne({
+            email: mongoUser.email
+        }, {
+            balance: newBalance,
+        }, {
+            upsert: true
+        });
+    } catch(err) {
+        console.error(`Could not update user's balance ${err}`);
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
     decodeToken,
-    checkTokenValidity
+    checkTokenValidity,
+    checkUserIdInMongo,
+    updateBalance
 }

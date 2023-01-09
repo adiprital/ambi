@@ -1,11 +1,14 @@
 const express = require('express');
 const { getAllProducts, 
     buyProduct, 
-    existssProduct 
+    existssProduct
 } = require('../../models/products.model');
-
 const { getPagination } = require('../../services/query');
-const { decodeToken, checkTokenValidity } = require('../../models/users.model');
+const { decodeToken, 
+    checkTokenValidity, 
+    checkUserIdInMongo,
+    updateBalance
+} = require('../../models/users.model');
 
 const productsController = express.Router();
 
@@ -18,6 +21,7 @@ productsController.get('/', async (req, res) => {
 productsController.post('/', async (req, res) => {
     const productName = req.body.name;
     const productAmount = req.body.amount;
+    const productPrice = req.body.price;
     let token = req.headers['token'];
 
     let {id, exp} = decodeToken(token);
@@ -34,7 +38,6 @@ productsController.post('/', async (req, res) => {
         })
     }
 
-
     const existsProduct = await existssProduct(productName);
 
     if (!existsProduct) {
@@ -44,9 +47,18 @@ productsController.post('/', async (req, res) => {
     }
 
     // TO DO - 
-    // use the id form decodeToken response and get the user from mongo
-    // check if he have enuogh balance to complete the buy
+    // use the id form decodeToken response and get the user from mongo -V
+    // check if he have enuogh balance to complete the buy -V
     // if yes, after buyProudct function (if it succeed) update the user balance
+
+    const mongoUser = await checkUserIdInMongo(id);
+
+    // if ( mongoUser.balance >= productAmount*productPrice) {
+    //     console.log('productAmount*productPrice', productAmount*productPrice);
+    //     const productToBuy = await buyProduct(productName, productAmount);
+    //     newBalance = mongoUser.balance-(productAmount*productPrice);
+    //     updateBalance(mongoUser, newBalance);
+    // } 
 
     const productToBuy = await buyProduct(productName, productAmount);
 
