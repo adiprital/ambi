@@ -20,7 +20,7 @@ productsController.post('/', async (req, res) => {
     const productAmount = req.body.amount;
     let token = req.headers['token'];
 
-    let {id, exp} = decodeToken(token)
+    let {id, exp} = decodeToken(token);
 
     if(!exp){
         return res.json({

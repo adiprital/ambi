@@ -82,9 +82,8 @@ async function verifyUserLogin(email, password) {
 }
 
 module.exports = {
-    checkTokenValidity,
-    verifyUserLogin,
-    decodeToken,
     signUp,
-    signIn
+    signIn,
+    decodeToken,
+    checkTokenValidity
 }

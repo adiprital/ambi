@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
-
 const bodyparser = require("body-parser"); 
 var cookieParser = require('cookie-parser'); 
 
@@ -10,7 +9,6 @@ const productsController = require('./controllers/products/products.controller')
 const usersController = require('./controllers/users/users.controller');
 
 const app = express();
-
 
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.json());
@@ -24,7 +22,6 @@ app.use(cors({
         credentials: true,
         exposedHeaders: ["set-cookie"]
 }));
-
 
 // app.use(morgan('combined'));
 

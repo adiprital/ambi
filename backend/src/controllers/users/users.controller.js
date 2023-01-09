@@ -1,5 +1,5 @@
 const express = require('express');
-const { verifyUserLogin, verifyToken, signUp, signIn } = require('../../models/users.model');
+const { signUp, signIn } = require('../../models/users.model');
 
 const usersController = express.Router();
 
@@ -16,15 +16,6 @@ usersController.post('/signin',async(req,res)=>{
         res.cookie('token',result.token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: true });  // maxAge: 2 hours
     }
     res.json(result);
-})
-
-usersController.get('/', (req, res)=>{
-    const { token } = req.cookies;
-    if(verifyToken(token)){
-        return res.render('home');
-    }else{
-        res.redirect('/login')
-    }
 })
 
 usersController.get('/login', (req, res)=>{
