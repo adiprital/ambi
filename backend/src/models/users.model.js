@@ -97,8 +97,6 @@ async function checkUserIdInMongo(id) {
 }
 
 async function updateBalance(mongoUser, newBalance) {
-    console.log('updateBalance-mongoUser', mongoUser);
-    console.log('updateBalance-newBalance', newBalance);
     try {
         await usersDatabase.updateOne({
             email: mongoUser.email
