@@ -2,7 +2,6 @@ import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Tabs from '@mui/material/Tabs';
@@ -17,16 +16,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SearchIcon from '@mui/icons-material/Search';
 
 import logo from '../../assets/ambiLogo.jpeg';
 import LogIn from '../LogIn';
 import Cart from '../Cart';
 import WishList from '../WishList';
+import Search from './Search';
 
 function ElevationScroll(props) {
     const { children } = props;
@@ -105,14 +101,6 @@ const useStyles = makeStyles(theme => ({
             opacity: 1,
             fontWeight: 'bold'
         }
-    },
-    searchPaper: {
-        display: 'flex', 
-        alignItems: 'center',
-        '&:hover': {
-            opacity: 0.25,
-            backgroundColor: theme.palette.common.white
-        }
     }
 }));
 
@@ -189,27 +177,6 @@ export default function Header(props) {
         })
     }, [props.value, productsOptions, props.selectedIndex, routes, props]);
 
-    const search = (
-            <Paper
-                className={classes.searchPaper}
-                component="form" 
-                sx={{ 
-                    backgroundColor: theme.palette.common.white,
-                    opacity: 0.15 
-                }}
-            >
-                <InputBase
-                    sx={{ ml: 1, flex: 1, color: 'inherit' }}
-                    placeholder="Search..."
-                    inputProps={{ 'aria-label': 'search...' }}
-                />
-                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                    <SearchIcon className={classes.drawerIcon} 
-                        sx={{ color: 'inherit' }}/>
-                </IconButton>  
-            </Paper>
-    ); 
-
     const tabs =(
         <React.Fragment>
             <Tabs
@@ -218,7 +185,7 @@ export default function Header(props) {
                 className={classes.tabContainer}
                 indicatorColor='primary'
             >
-                {search}
+                <Search/>
 
                 {routes.map((route, index) => (
                     <Tab
@@ -278,7 +245,7 @@ export default function Header(props) {
             >
                 <div className={classes.toolbarMargin} />
                 <List disablePadding>
-                    {search}
+                    <Search/>
                     {routes.map(route => (
                         <ListItem
                             key={`${route}${route.activeIndex}`}
