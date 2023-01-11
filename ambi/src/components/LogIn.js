@@ -11,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import SignIn from './SignIn'; 
 import SignUp from './SignUp';
-import Account from './Account';
 
 import { Button } from '@mui/material';
 
@@ -46,7 +45,6 @@ export default function LogIn() {
     const [openLogIn, setOpenLogIn] = useState(false);
 
     const user = useSelector((state) => state.userAuth).currentUser;
-    console.log('user', user);
 
     const handleOpenLogIn = () => {
         setOpenLogIn(true);
@@ -58,6 +56,9 @@ export default function LogIn() {
 
     const account = (
         <React.Fragment>
+            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                Hello {user === undefined ? '' : user.email}
+            </Typography>
             <Button
                 onClick={() => {
                     handleCloseLogIn();
@@ -84,7 +85,10 @@ export default function LogIn() {
                         <CloseIcon onClick={handleCloseLogIn}/>
                     </IconButton>
                     <Typography align='center' variant='h4' sx={{marginBottom: '25px'}}>Log In</Typography>
-                    { user ? account : <Box> <SignIn/> <SignUp/> </Box> }
+                    { user ? account : <Box>
+                                        <SignIn/> 
+                                        <SignUp/> 
+                                       </Box> }
                 </Box>
             </Modal>
         </React.Fragment>

@@ -56,6 +56,8 @@ export default function WishList() {
         return state.wishList
     }).wishListData;
 
+    const user = useSelector((state) => state.userAuth).currentUser;
+
     const handleOpenWishList = () => {
         setOpenWishList(true);
     };
@@ -103,6 +105,9 @@ export default function WishList() {
                         <CloseIcon onClick={handleCloseWishList}/>
                     </IconButton>
                     <Typography align='center' variant='h4'>My Favorite</Typography>
+                    <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                        Hello {user === undefined ? '' : user.email}
+                    </Typography>
                     <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
 
                     <Box className={classes.wishListContentStyle}>

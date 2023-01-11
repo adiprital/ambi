@@ -66,7 +66,8 @@ export default function Cart() {
     const prodcutsPrice = useSelector((state => {
         return state.cartList
     })).productsPrice;
-    console.log('prodcutsPrice', prodcutsPrice);
+
+    const user = useSelector((state) => state.userAuth).currentUser;
 
     const handleOpenCart = () => {
         setOpenCart(true);
@@ -137,6 +138,16 @@ export default function Cart() {
         }, 10000);
     };
 
+    const checkDisable = () => {
+        let res = false;
+        if ( user === undefined ) {
+                res = true;
+        } else {
+            res = false;
+        }
+        return res;
+    };
+
     return (
         <React.Fragment>
             <IconButton aria-label="cart" disableRipple>
@@ -156,13 +167,21 @@ export default function Cart() {
                         <CloseIcon onClick={handleCloseCart}/>
                     </IconButton>
                     <Typography align='center' variant='h4'>My Cart</Typography>
+                    <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                        Hello {user === undefined ? '' : user.email}
+                    </Typography>
                     <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
                         <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
                             Total:  {totalSum} $
                         </Typography>
-                        <Button sx={{marginTop:"15px"}} onClick={buyProducts}>checkout</Button>
+                        <Button 
+                            sx={{marginTop:"15px"}} 
+                            disabled={checkDisable()} 
+                            onClick={buyProducts}
+                        >checkout
+                        </Button>
                         {renderResults()}
                     </Box>
                 </Box>
