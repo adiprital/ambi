@@ -27,9 +27,7 @@ app.use(cors({
 
 // app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use('/get-products', productsController);
-app.use('/buy-products', productsController);
-
+app.use('/', productsController);
 app.use('/auth', usersController);
 
 // app.get('/*', (req, res) => {

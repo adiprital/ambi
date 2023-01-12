@@ -33,25 +33,24 @@ export default function Search() {
     const theme = useTheme();
 
     const products = useSelector((state) => state.productsList).products;
-    console.log('products', products);
 
     const [searchText, setSearchText] = useState('');
-    console.log('searchText', searchText);
 
-    const searchProducts = async (searchText) => {
-        // const keys = Object.keys(cart);
-        // const promises_array = keys.map(async (productName) => {
-        //     if (cart[productName] > 0) {
-        //         let token = localStorage.getItem('token');
-        //          return await axios.post(`http://localhost:8000/buy-products`, {
-        //             name: productName,
-        //             amount: cart[productName],
-        //             price: prodcutsPrice[productName]
-        //         }, { withCredentials: true, headers:{
-        //             token
-        //         }});
-        //     }
-        // });
+    products.forEach((productName) => {
+        let searchingProducts = productName.name;
+        // let searchingProducts = productName.name.toLowerCase();
+        if (searchingProducts.includes(searchText)) {
+            console.log('searchText', searchText);
+            console.log('searchingProducts', searchingProducts);
+        }
+    });
+
+    const searchProducts = async () => {
+        try {
+            await axios.get(`http://localhost:8000/search?name=${searchText}`);
+        } catch(error) {
+            console.log('error in search prodcuts', error);
+        }
     };
 
     return (
@@ -71,7 +70,7 @@ export default function Search() {
                     value={searchText} //
                     onChange={(event) => setSearchText(event.target.value)} //
                 />
-                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={searchProducts}>
                     <SearchIcon className={classes.searchIcon}
                         sx={{ color: 'inherit' }}/>
                 </IconButton>  

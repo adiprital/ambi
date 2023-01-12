@@ -107,9 +107,19 @@ async function updateProduct(product) {
     }
 }
 
+async function searchProducts(searchText) {
+    console.log('searchText', searchText.name);
+    try {
+        return await productsDatabase.find({ name: searchText.name});
+    } catch(err) {
+        console.error(`Could not find product ${err}`);
+    }
+}
+
 module.exports = {
     getAllProducts,
     loadAllProducts,
     buyProduct,
-    existssProduct
+    existssProduct,
+    searchProducts
 }

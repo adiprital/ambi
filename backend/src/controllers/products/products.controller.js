@@ -1,7 +1,8 @@
 const express = require('express');
 const { getAllProducts, 
     buyProduct, 
-    existssProduct
+    existssProduct,
+    searchProducts
 } = require('../../models/products.model');
 const { getPagination } = require('../../services/query');
 const { decodeToken, 
@@ -12,13 +13,20 @@ const { decodeToken,
 
 const productsController = express.Router();
 
-productsController.get('/', async (req, res) => {
+productsController.get('/get-products', async (req, res) => {
     const { skip, limit } = getPagination(req.query);
     const products = await getAllProducts(skip, limit);
     return res.status(200).json(products);
 });
 
-productsController.post('/', async (req, res) => {
+productsController.get('/search', async (req, res) => {
+    console.log('productsController.get - req.query', req.query);
+    const products = await searchProducts(req.query);
+    console.log('productsController.get - products', products);
+    return res.status(200).json(products);
+});
+
+productsController.post('/buy-products', async (req, res) => {
     const productName = req.body.name;
     const productAmount = req.body.amount;
     const productPrice = req.body.price;
