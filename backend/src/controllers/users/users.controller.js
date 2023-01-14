@@ -18,7 +18,7 @@ usersController.post('/signin',async(req, res)=>{
     const { email, password } = req.body;
     let result = await signIn(email, password);
     if (result.success) {
-        res.cookie('token',result.token,{ maxAge: 60 * 1000, httpOnly: true });  // maxAge: 2 hours
+        res.cookie('token',result.token,{ maxAge: 10 * 60 * 1000, httpOnly: true });  // maxAge: 2 hours
     }
     res.json(result);
 });
