@@ -29,10 +29,24 @@ productsController.get('/search', async (req, res) => {
 productsController.post('/buy-products', async (req, res) => {
     const productName = req.body.name;
     const productAmount = req.body.amount;
-    const productPrice = req.body.price;
+
     let token = req.headers['token'];
 
-    let { id, exp } = decodeToken(token);
+    if(!token){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let resultDecode = decodeToken(token);
+
+    if(!resultDecode) {
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let { id, exp } = resultDecode;
 
     if(!exp){
         return res.json({
@@ -47,6 +61,7 @@ productsController.post('/buy-products', async (req, res) => {
     }
 
     const existsProduct = await existssProduct(productName);
+    const productPrice = existsProduct.price;
 
     if (!existsProduct) {
         return res.status(404).json({
@@ -54,29 +69,35 @@ productsController.post('/buy-products', async (req, res) => {
         });
     }
 
-    // TO DO - 
-    // use the id from decodeToken response and get the user from mongo -V
-    // check if he have enuogh balance to complete the purchase -V
-    // if yes, after buyProudct function (if it succeed) update the user balance -V
-
     const mongoUser = await checkUserIdInMongo(id);
     const productToBuy = await buyProduct(productName, productAmount);
     let totalToPay = productAmount*productPrice;
 
-    if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
-        try {
+        let updatedUser;
+        if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
+            try {
                 let newBalance = mongoUser.balance-totalToPay;
-                updateBalance(mongoUser, newBalance);
-        } catch(err) {
-            console.error(`Payment is not available. Not enough funds on balance. ${err}`);
-        }
-    }
+                await updateBalance(mongoUser, newBalance);
+                updatedUser = await checkUserIdInMongo(id)
+                return res.status(200).json({
+                    isSuccess: productToBuy.isSuccess,
+                    warning: productToBuy.warning,
+                    message: productToBuy.message,
+                    email: updatedUser.email,
+                    balance: updatedUser.balance
+                });
 
-    return res.status(200).json({
-        isSuccess: productToBuy.isSuccess,
-        warning: productToBuy.warning,
-        message: productToBuy.message
-    });
+            } catch(err) {
+                console.error(`Payment is not available. Not enough funds on balance. ${err}`);
+                return res.status(404).json({
+                    error: "Payment is not available. Not enough funds on balance. ${err}"
+                });
+            }
+        }
+    
+    
+
+
 });
 
 module.exports = productsController;
