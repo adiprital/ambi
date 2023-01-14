@@ -40,8 +40,8 @@ export default function Search() {
         let searchingProducts = productName.name;
         // let searchingProducts = productName.name.toLowerCase();
         if (searchingProducts.includes(searchText)) {
-            console.log('searchText', searchText);
-            console.log('searchingProducts', searchingProducts);
+            // console.log('searchText', searchText);
+            // console.log('searchingProducts', searchingProducts);
         }
     });
 

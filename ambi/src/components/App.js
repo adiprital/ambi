@@ -38,7 +38,26 @@ function App() {
         console.log('error in fetch prodcuts', error)
       }
     }
+  
+    const validateAuthToken = async () => {
+      let token = localStorage.getItem('token');
+      console.log('token', token);
+      if (token) {
+        let result = await axios.post('http://localhost:8000/auth/validatetoken', { token });
+        if (!result.data.user) {
+            localStorage.setItem('token', undefined);
+        } else {
+            store.dispatch({ type: 'updateCurrentUser',  
+            user: {
+              email: result.data.user.email,
+              balance: result.data.user.balance
+          }});
+        }
+      }
+    }
+
     fetchProducts();
+    validateAuthToken();
   }, []);
 
   const getRouteComponent = (productName) => {
@@ -50,7 +69,7 @@ function App() {
         productName={productName}
         productData={productData}
         />);
-    }
+  }
 
   return (
     <ThemeProvider theme={theme}>

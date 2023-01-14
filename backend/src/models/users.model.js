@@ -47,7 +47,7 @@ async function verifyUserLogin(email, password) {
                                username: user.email, 
                                type:'user' }, 
                             JWT_SECRET, 
-                            { expiresIn: '2h' });
+                            { expiresIn: '1m' });
             return { success: true, token, user: email, balance: user.balance }
         }
         return {success: false, message: 'invalid password'};
