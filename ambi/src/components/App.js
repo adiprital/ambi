@@ -41,7 +41,6 @@ function App() {
   
     const validateAuthToken = async () => {
       let token = localStorage.getItem('token');
-      console.log('token', token);
       if (token) {
         let result = await axios.post('http://localhost:8000/auth/validatetoken', { token });
         if (!result.data.user) {

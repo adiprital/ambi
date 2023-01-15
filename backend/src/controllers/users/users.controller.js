@@ -14,16 +14,16 @@ usersController.post('/signup', async (req, res) => {
     res.json(result);
 });
 
-usersController.post('/signin',async(req, res)=>{
+usersController.post('/signin', async (req, res)=>{
     const { email, password } = req.body;
     let result = await signIn(email, password);
     if (result.success) {
-        res.cookie('token',result.token,{ maxAge: 10 * 60 * 1000, httpOnly: true });  // maxAge: 2 hours
+        res.cookie('token',result.token,{ maxAge: 30 * 60 * 1000, httpOnly: true });  // maxAge: 30 minutes
     }
     res.json(result);
 });
 
-usersController.post('/validatetoken',async(req, res)=>{
+usersController.post('/validatetoken', async (req, res)=>{
     try{
         const { token } = req.body;
         let decodeResult = decodeToken(token);

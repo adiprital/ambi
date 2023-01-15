@@ -20,13 +20,13 @@ productsController.get('/get-products', async (req, res) => {
 });
 
 productsController.get('/search', async (req, res) => {
-    console.log('productsController.get - req.query', req.query);
     const products = await searchProducts(req.query);
-    console.log('productsController.get - products', products);
     return res.status(200).json(products);
 });
 
 productsController.post('/buy-products', async (req, res) => {
+    console.log('req.body', req.body);
+    
     const productName = req.body.name;
     const productAmount = req.body.amount;
 
@@ -71,32 +71,39 @@ productsController.post('/buy-products', async (req, res) => {
 
     const mongoUser = await checkUserIdInMongo(id);
     const productToBuy = await buyProduct(productName, productAmount);
+
+    console.log('productToBuy', productToBuy);
+
     let totalToPay = productAmount*productPrice;
 
-        let updatedUser;
-        if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
-            try {
-                let newBalance = mongoUser.balance-totalToPay;
-                await updateBalance(mongoUser, newBalance);
-                updatedUser = await checkUserIdInMongo(id)
-                return res.status(200).json({
-                    isSuccess: productToBuy.isSuccess,
-                    warning: productToBuy.warning,
-                    message: productToBuy.message,
-                    email: updatedUser.email,
-                    balance: updatedUser.balance
-                });
-
-            } catch(err) {
-                console.error(`Payment is not available. Not enough funds on balance. ${err}`);
-                return res.status(404).json({
-                    error: "Payment is not available. Not enough funds on balance. ${err}"
-                });
-            }
+    let updatedUser;
+    if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
+         try {
+            let newBalance = mongoUser.balance-totalToPay;
+            await updateBalance(mongoUser, newBalance);
+            updatedUser = await checkUserIdInMongo(id)
+            return res.status(200).json({
+                isSuccess: productToBuy.isSuccess,
+                warning: productToBuy.warning,
+                message: productToBuy.message,
+                email: updatedUser.email,
+                balance: updatedUser.balance
+            });
+        } catch(err) {
+            console.error(`Payment is not available. Not enough funds on balance. ${err}`);
+            return res.status(404).json({
+                error: "Payment is not available. Not enough funds on balance. ${err}"
+            });
         }
-    
-    
+    }
 
+    return res.status(200).json({
+        isSuccess: productToBuy.isSuccess,
+        warning: productToBuy.warning,
+        message: productToBuy.message,
+        email: mongoUser.email,
+        balance: mongoUser.balance
+    });
 
 });
 

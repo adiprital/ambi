@@ -108,7 +108,6 @@ async function updateProduct(product) {
 }
 
 async function searchProducts(searchText) {
-    console.log('searchText', searchText.name);
     try {
         return await productsDatabase.find({ name: searchText.name});
     } catch(err) {

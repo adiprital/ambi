@@ -58,14 +58,11 @@ export default function Cart() {
     const cart = useSelector((state) => {
         return state.cartList
     }).cartData;
+    // console.log('cart', cart);
 
     const totalSum = useSelector((state => {
         return state.cartList
     })).totalSum;
-
-    const prodcutsPrice = useSelector((state => {
-        return state.cartList
-    })).productsPrice;
 
     const user = useSelector((state) => state.userAuth).currentUser;
 
@@ -112,24 +109,37 @@ export default function Cart() {
     }
 
     const buyProducts = async () => {
-        const keys = Object.keys(cart);
-        const promises_array = keys.map(async (productName) => {
-            if (cart[productName] > 0) {
-                let token = localStorage.getItem('token');
-                 return await axios.post(`http://localhost:8000/buy-products`, {
-                    name: productName,
-                    amount: cart[productName]
-                }, { withCredentials: true, headers:{
-                    token
-                }});
-            }
-        });
+        console.log('here');
 
-        const results = await Promise.all(promises_array);
+        let token = localStorage.getItem('token');
+        let result = await axios.post(`http://localhost:8000/buy-products`, { cart}, 
+                                        { withCredentials: true, 
+                                          headers: {token} });
+        console.log('result', result);
+
+        // const keys = Object.keys(cart);
+        // const promises_array = keys.map(async (productName) => {
+        //     if (cart[productName] > 0) {
+        //         let token = localStorage.getItem('token');
+        //          return await axios.post(`http://localhost:8000/buy-products`, {
+        //             name: productName,
+        //             amount: cart[productName]
+        //         }, { withCredentials: true, headers:{
+        //             token
+        //         }});
+        //     }
+        // });
+
+        const results = await Promise.all(result);
+        // const results = await Promise.all(promises_array);
         const filteredResults = results.filter(result => result !== undefined);
         const messageToShow = filteredResults.map(obj => {
             return obj.data;
         });
+
+        console.log('results', results);
+        console.log('filteredResults', filteredResults);
+        console.log('messageToShow', messageToShow);
 
         setResultsArray(messageToShow);
         setTimeout(() => {
