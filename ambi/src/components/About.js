@@ -42,17 +42,17 @@ export default function About(props) {
                     <Grid item style={{marginLeft: matchesSM ? 0 : '5em',
                                        textAlign: matchesSM ? 'center' : undefined}}
                     >
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 היי אני יעל, ואני מתרגשת להציג לכם את פרויקט הגמר שלי:
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 AMBI - העוסק בכלים אמבידקסטרים - לימניים ושמאליים כאחד.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 הצורך בכלים בעיצוב מכליל מגיע בעקבות היותי שמאלית.<br />
                                 מגיל צעיר, נאלצתי להתאים את עצמי לסביבה של ימניים בעיקר מחוסר מודעות,
@@ -60,34 +60,34 @@ export default function About(props) {
                                 בתור שמאלית, נתקלתי במצבים לא נעימים בהם הבנתי שאין מספיק מוצרים התואמים לשימוש נכון של שמאליים.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 התחלתי להבין יותר את העניין של להיות שמאלית בעולם של ימניים.<br />
                                 כשהתחלתי לחקור יותר לעומק את הנושא של שמאליים,
                                 התחלתי לשים לב לפיצול בין ימניים ושמאליים כמעט בכל סביבה:
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 בסביבה ביתית - מכשירי חשמל, ידיות של דלתות, ברזים.<br />
                                 פנאי - תפעול מצלמה, מגוון כלי נגינה, שלטי גיימינג.<br />
                                 ובסביבת סדנת עבודה - מגוון רחב של כלי עבודה ומהסביבה הזאת יצאתי לפרויקט.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 התחלתי לחקור מוצרים ובעצם כמעט כל המוצרים הקיימים היום בשוק מיועדים לימניים
                                 ואם במידה קיימים מוצרים לשמאליים, הם יקרים משמעותית עקב חוסר בביקוש.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 דבר שגרם לכך ששמאליים "אימנו" את המוח שלהם להשתמש במוצרים המיועדים לימנים.
                                 בזמן השימוש במוצרים שמיועדים לימניים - שמאליים מבצעים
                                  את הפעולה עם כלי שלא תואם להם כי האחיזה הפוכה וזה גורם לשמאלי לבצע פעולה לא נכונה.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 בעקבות סקר שערכתי בקרב שמאליים - ראיתי שיש שמאליים נוספים שגם להם
                                  מפריע שאין להם כלים שמתאימים להם וזה נתן לי תוקף לכך שהתאמת הכלים לשמאליים חשובה.<br />
@@ -98,14 +98,14 @@ export default function About(props) {
                                 ובנוסף הם הכלים שהכי מתסכלים שמאלי בזמן השימוש בהם.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 המטרה של הפרויקט שלי היא:<br />
                                 לעצב כלים אמבידקסטרים שיתאימו לשימוש של שמאליים וימניים
                                 מכיוון שרוב הכלים היום מתאימים לשימוש של ימניים בלבד.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 מטרה נוספת:<br />
                                 היא לאפשר לימני להחליף ידיים: בעצם תנועה חוזרנית גורמת לעומס
@@ -113,7 +113,7 @@ export default function About(props) {
                                 ובנוסף רווח פיזיולוגי וקוגנטיבי (יכולות שכליות) - בעיקר לימני כי שמאלי רגיל להחליף ידיים כל חייו.
                             </p>
                         </Typography>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
                                 בפרויקט שלי - בחרתי מוצרים קיימים בשוק ובעזרת שינויים קטנים התאמתי
                                  את הכלים במטרה שיתאימו גם למשתמשים שמאליים.

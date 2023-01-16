@@ -125,7 +125,7 @@ export default function SignIn() {
                         error={emailHelper.length !== 0}
                         helperText={emailHelper}
                         id='email'
-                        fullwidth
+                        fullwidth="true"
                         value={email}
                         onChange={checkValidity}
                         style={{marginBottom: '0.5em'}}
@@ -135,7 +135,7 @@ export default function SignIn() {
                         error={passwordHelper.length !== 0}
                         helperText={passwordHelper}
                         id='password'
-                        fullwidth
+                        fullwidth="true"
                         value={password}
                         onChange={checkValidity}
                         style={{marginBottom: '0.5em', position: 'relative'}}

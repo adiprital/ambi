@@ -44,17 +44,17 @@ export default function HomePage(props) {
                         <Grid item style={{marginLeft: matchesSM ? 0 : '5em',
                                         textAlign: matchesSM ? 'center' : undefined}}
                         >
-                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                                 <p dir='rtl'>
                                     עוסק בכלים אמבידקסטרים - לימניים ושמאליים כאחד.
                                 </p>
                             </Typography>
-                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                                 <p dir='rtl'>
                                     עיצוב כלים אמבידקסטרים המתאימים לשימוש של שמאליים וימניים.
                                 </p>
                             </Typography>
-                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                            <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                                 <p dir='rtl'>
                                 אז מה זה בעצם Ambi? <br />
                                 מגיע מהמונח אמבידקסטרי שזאת הגדרה לאדם השולט בשתי ידיו במידה שווה, בלי צד דומיננטי.

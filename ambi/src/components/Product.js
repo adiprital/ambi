@@ -80,9 +80,9 @@ export default function Product(props) {
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
                 {renderImage2(props.productName, classes)}
                     <CardContent>
-                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1' paragraph>
+                        <Typography align={matchesMD ? 'center' : undefined} variant='subtitle1'>
                             <p dir='rtl'>
-                            {productData ? productData.description : ''}
+                                {productData ? productData.description : ''}
                             </p>
                         </Typography>
                         <Typography align='left' variant="subtitle3">
