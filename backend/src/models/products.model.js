@@ -1,5 +1,6 @@
 const productsDatabase = require('./products.mongo');
 const { readJsonFile, writeToJsonFile } = require('../helper');
+const {checkUserIdInMongo, updateBalance} = require('../models/users.model')
 
 async function getAllProducts(skip, limit) {
     let totalProdcutsLength = await productsDatabase.countDocuments({});
@@ -45,6 +46,59 @@ async function existssProduct(productName) {
     return await productsDatabase.findOne({
         name: productName
     });
+}
+
+async function handleSingleProductBuy(name, cart, id){
+    if (cart[name] > 0) {
+        let productName = name;
+        let productAmount = cart[productName];
+        const existsProduct = await existssProduct(productName);
+        const productPrice = existsProduct.price;
+                    
+        if (!existsProduct) {
+            return ({
+                error: "This product does not exist."
+            });
+        }
+
+        const mongoUser = await checkUserIdInMongo(id);
+        console.log('productName', productName)
+        const productToBuy = await buyProduct(productName, productAmount);
+        let totalToPay = productAmount*productPrice;
+
+
+        let updatedUser;
+        if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
+            console.log('true or false: ', mongoUser.balance >= totalToPay && productToBuy.isSuccess);
+            
+             try {
+                // let newBalance = mongoUser.balance-totalToPay;
+                // console.log('newBalance', newBalance)
+                // await updateBalance(mongoUser, newBalance);
+                // updatedUser = await checkUserIdInMongo(id);
+                return ({
+                    isSuccess: productToBuy.isSuccess,
+                    warning: productToBuy.warning,
+                    message: productToBuy.message,
+                    // email: updatedUser.email,
+                    totalToPay
+                });
+            } catch(err) {
+                console.error(`Payment is not available. Not enough funds on balance. ${err}`);
+                return ({
+                    error: "Payment is not available. Not enough funds on balance. ${err}"
+                });
+            }
+        }
+
+        return ({
+            isSuccess: productToBuy.isSuccess,
+            warning: productToBuy.warning,
+            message: productToBuy.message,
+            email: mongoUser.email,
+            balance: mongoUser.balance
+        });
+    }
 }
 
 async function buyProduct(productName, productAmount) {
@@ -120,5 +174,6 @@ module.exports = {
     loadAllProducts,
     buyProduct,
     existssProduct,
-    searchProducts
+    searchProducts,
+    handleSingleProductBuy
 }
