@@ -116,8 +116,8 @@ export default function SignIn() {
                 onClose={handleCloseSignIn}
             >
                 <Box sx={signInItemStyle}>
-                    <IconButton>
-                        <CloseIcon onClick={handleCloseSignIn}/>
+                    <IconButton onClick={handleCloseSignIn}>
+                        <CloseIcon />
                     </IconButton>
                     <Typography align='center' variant='h4' sx={{marginBottom: '25px'}}>Sign In</Typography>
                     <TextField 

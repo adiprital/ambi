@@ -159,9 +159,9 @@ export default function Cart() {
 
     return (
         <React.Fragment>
-            <IconButton aria-label="cart" disableRipple>
+            <IconButton onClick={handleOpenCart} aria-label="cart" disableRipple>
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-                    <ShoppingCartIcon className={classes.cartIcon} onClick={handleOpenCart} />
+                    <ShoppingCartIcon className={classes.cartIcon}  />
                 </Badge>
             </IconButton>
             <Modal
@@ -172,8 +172,8 @@ export default function Cart() {
                     className={classes.scrollBox}
                     sx={cartItemStyle}
                 >
-                    <IconButton>
-                        <CloseIcon onClick={handleCloseCart}/>
+                    <IconButton onClick={handleCloseCart}>
+                        <CloseIcon />
                     </IconButton>
                     <Typography align='center' variant='h4'>My Cart</Typography>
                     <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>

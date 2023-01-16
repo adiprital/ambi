@@ -72,8 +72,8 @@ export default function LogIn() {
 
     return (
         <React.Fragment>
-            <IconButton aria-label="login" disableRipple>
-                <PersonIcon className={classes.profileIcon} onClick={handleOpenLogIn}/>
+            <IconButton onClick={handleOpenLogIn} aria-label="login" disableRipple>
+                <PersonIcon className={classes.profileIcon} />
             </IconButton>
 
             <Modal
@@ -81,8 +81,8 @@ export default function LogIn() {
                 onClose={handleCloseLogIn}
             >
                 <Box sx={logInItemStyle}>
-                    <IconButton>
-                        <CloseIcon onClick={handleCloseLogIn}/>
+                    <IconButton onClick={handleCloseLogIn}>
+                        <CloseIcon />
                     </IconButton>
                     <Typography align='center' variant='h4' sx={{marginBottom: '25px'}}>Log In</Typography>
                     { user ? account : <Box>

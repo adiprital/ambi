@@ -86,13 +86,13 @@ export default function WishList() {
 
     return (
         <React.Fragment>
-            <IconButton aria-label="wish-list" disableRipple>
+            <IconButton onClick={handleOpenWishList} aria-label="wish-list" disableRipple>
                 <Badge 
                     color="secondary" 
                     badgeContent={totalAmountInWishList()} 
                     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 >
-                   <FavoriteIcon className={classes.favoriteIcon} onClick={handleOpenWishList}/> 
+                   <FavoriteIcon className={classes.favoriteIcon} /> 
                 </Badge>
             </IconButton>
 
@@ -101,8 +101,8 @@ export default function WishList() {
                 onClose={handleCloseWishList}
             >
                 <Box className={classes.scrollBox} sx={wishListItemStyle}>
-                    <IconButton>
-                        <CloseIcon onClick={handleCloseWishList}/>
+                    <IconButton onClick={handleCloseWishList}>
+                        <CloseIcon />
                     </IconButton>
                     <Typography align='center' variant='h4'>My Favorite</Typography>
                     <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
