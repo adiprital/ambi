@@ -55,9 +55,7 @@ export default function FavoriteItem({ productName }) {
                     >
                         <DeleteIcon/>
                     </IconButton>
-                    <IconButton>
-                        <AddToCart productName={productName}/>
-                    </IconButton>
+                    <AddToCart productName={productName}/>
                 </Box>
             </CardContent>
             <CardMedia sx={{width: '100%', marginLeft: '20px'}}>

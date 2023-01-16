@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -22,21 +22,8 @@ export default function AddToWishList(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.userAuth).currentUser;
-
-    const checkDisable = () => {
-        let res = false;
-        if ( user === undefined ) {
-                res = true;
-        } else {
-            res = false;
-        }
-        return res;
-    };
-
     return (
         <IconButton
-            // disabled={checkDisable()} 
             onClick={() => {
                 dispatch({ type: 'addProductToWishList', product: props.productName })
             }}
