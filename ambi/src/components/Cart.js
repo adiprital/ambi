@@ -58,7 +58,6 @@ export default function Cart() {
     const cart = useSelector((state) => {
         return state.cartList
     }).cartData;
-    // console.log('cart', cart);
 
     const totalSum = useSelector((state => {
         return state.cartList
@@ -109,13 +108,16 @@ export default function Cart() {
     }
 
     const buyProducts = async () => {
-        console.log('here');
-
         let token = localStorage.getItem('token');
-        let result = await axios.post(`http://localhost:8000/buy-products`, { cart}, 
+        const promises_array = await axios.post(`http://localhost:8000/buy-products`, { cart }, 
                                         { withCredentials: true, 
                                           headers: {token} });
-        console.log('result', result);
+
+        // console.log('promises_array: ', promises_array);
+        // console.log('promises_array.data: ', promises_array.data);
+        console.log('promises_array.data.balance: ', promises_array.data.balance);
+        console.log('promises_array.data.email:', promises_array.data.email);
+        console.log('promises_array.data.filteredResults: ', promises_array.data.filteredResults);
 
         // const keys = Object.keys(cart);
         // const promises_array = keys.map(async (productName) => {
@@ -130,8 +132,7 @@ export default function Cart() {
         //     }
         // });
 
-        const results = await Promise.all(result);
-        // const results = await Promise.all(promises_array);
+        const results = await Promise.all(promises_array);
         const filteredResults = results.filter(result => result !== undefined);
         const messageToShow = filteredResults.map(obj => {
             return obj.data;
@@ -183,7 +184,7 @@ export default function Cart() {
                     <Box className={classes.cartContentStyle}>
                         {renderCartItems()}
                         <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                            Total:  {totalSum} $
+                            Total:  { totalSum < 0 ? '0': totalSum} $
                         </Typography>
                         <Button 
                             sx={{marginTop:"15px"}} 
