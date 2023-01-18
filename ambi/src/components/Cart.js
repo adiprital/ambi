@@ -92,12 +92,13 @@ export default function Cart() {
         return values.reduce((acc, curr) => acc + curr, 0);
     };  
 
-    const renderResults = () => {
-        return resultsArray.map(result => {
+    const purchaseResults = () => {
+        return resultsArray.map((result, i)=> {
             let severity = result.isSuccess ? "success" :
                             result.warning ? "warning" : "error"
             return (
                     <Alert
+                        key={i} 
                         severity={severity}
                         sx={{ width: '100%' }}
                     >
@@ -112,37 +113,16 @@ export default function Cart() {
         const promises_array = await axios.post(`http://localhost:8000/buy-products`, { cart }, 
                                         { withCredentials: true, 
                                           headers: {token} });
-
-        // console.log('promises_array: ', promises_array);
-        // console.log('promises_array.data: ', promises_array.data);
-        console.log('promises_array.data.balance: ', promises_array.data.balance);
-        console.log('promises_array.data.email:', promises_array.data.email);
-        console.log('promises_array.data.filteredResults: ', promises_array.data.filteredResults);
-
-        // const keys = Object.keys(cart);
-        // const promises_array = keys.map(async (productName) => {
-        //     if (cart[productName] > 0) {
-        //         let token = localStorage.getItem('token');
-        //          return await axios.post(`http://localhost:8000/buy-products`, {
-        //             name: productName,
-        //             amount: cart[productName]
-        //         }, { withCredentials: true, headers:{
-        //             token
-        //         }});
-        //     }
-        // });
-
-        const results = await Promise.all(promises_array);
+        dispatch({ type: 'updateCurrentUser',  
+                   user: {
+                        email: promises_array.data.email, 
+                        balance: promises_array.data.balance
+                }});
+        
+        const results = await Promise.all(promises_array.data.filteredResults);
         const filteredResults = results.filter(result => result !== undefined);
-        const messageToShow = filteredResults.map(obj => {
-            return obj.data;
-        });
 
-        console.log('results', results);
-        console.log('filteredResults', filteredResults);
-        console.log('messageToShow', messageToShow);
-
-        setResultsArray(messageToShow);
+        setResultsArray(filteredResults);
         setTimeout(() => {
             setResultsArray([])
         }, 10000);
@@ -192,7 +172,7 @@ export default function Cart() {
                             onClick={buyProducts}
                         >checkout
                         </Button>
-                        {renderResults()}
+                        {purchaseResults()}
                     </Box>
                 </Box>
             </Modal>

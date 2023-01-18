@@ -68,27 +68,15 @@ productsController.post('/buy-products', async (req, res) => {
     });
 
     const mongoUser = await checkUserIdInMongo(id);
-    let updatedUser;
     let newBalance = mongoUser.balance-totalSumToPay;
     await updateBalance(mongoUser, newBalance);
-    updatedUser = await checkUserIdInMongo(id);
-    
+    let updatedUser = await checkUserIdInMongo(id);
 
     return res.json({
-        // isSuccess: filteredResults.isSuccess,
-        // warning: filteredResults.warning,
-        // message: filteredResults.message,
         filteredResults,
         email: updatedUser.email,
         balance: updatedUser.balance
     });
-
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    // user balanced was not updated yet.
-    // every result in filteredResults contain field of totalToPay
-    // you need to sum all this values and reduce the sum from user balance
-    // and finally return to the frontend response with email, balance, isSuccess and message
-
 });
 
 module.exports = productsController;

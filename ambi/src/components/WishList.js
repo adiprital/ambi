@@ -71,9 +71,7 @@ export default function WishList() {
         return keys.map((productName, index) => {
             if (favorites[productName] > 0) {
                 return (
-                    <React.Fragment>
-                        <WishListItem productName={productName} />
-                    </React.Fragment>
+                    <WishListItem key={index} productName={productName} />
                 );
             }
         });
