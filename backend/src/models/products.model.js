@@ -6,7 +6,7 @@ async function getAllProducts(skip, limit) {
     let totalProdcutsLength = await productsDatabase.countDocuments({});
     let totalPages = Math.ceil(totalProdcutsLength/parseInt(5)); // 5 = limit
     let products = await productsDatabase
-    .find({}, { '_id': 0, '__v': 0 })
+    .find({}, { '__v': 0 })
     .sort({ name: -1 }) // **chacnge to 1. -1 for decended values, 1 for ascending values
     .skip(skip) // skips over the first 'skip' documents
     .limit(limit); // to limit the amount of documents that come back from mongo
@@ -58,18 +58,22 @@ async function handleSingleProductToBuy(name, cart, id){
         let totalToPay = productAmount*productPrice;
 
         if( mongoUser.balance < totalToPay ){
-            return res.json({
-                error: 'Payment is not available. Not enough funds on balance.'
+            return ({
+                isSuccess: false,
+                warning: false,
+                message: 'Payment is not available. Not enough funds on balance.'
             });
         }
 
         if (!existsProduct) {
             return ({
-                error: "This product does not exist."
+                isSuccess: false,
+                warning: false,
+                message: "This product does not exist."
             });
         }
 
-        const productToBuy = await buyProduct(productName, productAmount);
+        const productToBuy = await buyProduct(productAmount, existsProduct);
         
         if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
              try {
@@ -80,9 +84,10 @@ async function handleSingleProductToBuy(name, cart, id){
                     totalToPay
                 });
             } catch(err) {
-                console.error(`Payment is not available. Not enough funds on balance. ${err}`);
                 return ({
-                    error: "Payment is not available. Not enough funds on balance. ${err}"
+                    isSuccess: false,
+                    warning: false,
+                    message: `Payment is not available. Not enough funds on balance. ${err}`
                 });
             }
         }
@@ -97,47 +102,38 @@ async function handleSingleProductToBuy(name, cart, id){
     }
 }
 
-async function buyProduct(productName, productAmount) {
-    const jsonArray = readJsonFile('products');
-    const pName = productName;
+async function buyProduct(productAmount, existsProduct) {
+    let product = existsProduct;
+
+    //amount to buy
     const pAmount = productAmount;
 
-    let productExists = undefined;
     let isSuccess = false;
     let message = "";
     let warning = false;
 
+    if (!product) {
+        return ({ message: 'product does not exists', isSuccess, warning });
+    }
+
     if (pAmount <= 0) {
-        message ="Invalid amount.";
+        message ="Invalid amount requested by the user.";
     } else {
-        jsonArray.forEach(product => {
-            if (product.name === pName) {
-                productExists = true;
-                if (product.amount === 0) {
-                    message =`${pName} Out of stock.`;
-                }
-                else if ((product.amount-pAmount) < 0) {
-                    message = `There are only ${product.amount} ${pName}s in stock.`;
-                    warning = true;
-                } else {
-                    product.amount = Math.abs(product.amount-pAmount);
-                    message = `a purchase of ${pAmount} ${pName} was successfully made.`;
-                    isSuccess = true;
-                }
-            }
-        });
+        if (product.amount === 0) {
+            message =`${product.name} Out of stock.`;
+        }
+        else if ((product.amount-pAmount) < 0) {
+            message = `There are only ${product.amount} ${product.name}s in stock.`;
+            warning = true;
+        } else {
+            product.amount = Math.abs(product.amount-pAmount);
+            message = `a purchase of ${pAmount} ${product.name} was successfully made.`;
+            isSuccess = true;
+        }
     }
 
     if (isSuccess) {
-        writeToJsonFile("products", jsonArray);
-        jsonArray.forEach(async (product) => {
-            await updateProduct(product);
-        });
-    }
-
-
-    if (!productExists && pAmount > 0) {
-        message = "This product does not exist.";
+        await updateProduct(product);
     }
 
     return ({ message, isSuccess, warning });
