@@ -25,13 +25,22 @@ app.use(cors({
 
 // app.use(morgan('combined'));
 
-// app.use(express.static(path.join(__dirname, '..', 'public')));
+let express_static_path = process.env.NODE_ENV === 'prod' ?
+        path.join(__dirname, '../../ambi', 'build') :
+        path.join(__dirname, '..', 'public')
+
+app.use(express.static(express_static_path));
 
 app.use('/', productsController);
 app.use('/auth', usersController);
 
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-// });
+
+let html_path = process.env.NODE_ENV === 'prod' ?
+        path.join(__dirname, '../../ambi', 'build', 'index.html') :
+        path.join(__dirname, '..', 'public', 'index.html')
+
+app.get('/*', (req, res) => {
+    res.sendFile(html_path);
+});
 
 module.exports = app;

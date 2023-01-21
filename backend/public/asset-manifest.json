@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/static/js/main.1f9de9d3.js",
+    "static/js/787.e083c3bc.chunk.js": "/static/js/787.e083c3bc.chunk.js",
+    "static/media/Caliper1.jpg": "/static/media/Caliper1.c2f53ee32c92e0125439.jpg",
+    "static/media/Ruler1.jpg": "/static/media/Ruler1.78913633b22bac1bfcd0.jpg",
+    "static/media/MeasureTape1.jpg": "/static/media/MeasureTape1.264fbb3877dc455fc097.jpg",
+    "static/media/Scissors1.jpg": "/static/media/Scissors1.04976c9c55ce67df6707.jpg",
+    "static/media/UtilityKnife1.jpg": "/static/media/UtilityKnife1.86dd3a0941eaeac85ff5.jpg",
+    "static/media/Scissors2.jpg": "/static/media/Scissors2.78cf1259e199ba36f89f.jpg",
+    "static/media/UtilityKnife2.jpg": "/static/media/UtilityKnife2.5e14bf4d9faff53dda6e.jpg",
+    "static/media/MeasureTape2.jpg": "/static/media/MeasureTape2.62bf6a18475bdff964e0.jpg",
+    "static/media/Products1.jpg": "/static/media/Products1.89078f8d598b78db33bd.jpg",
+    "static/media/Ruler2.jpg": "/static/media/Ruler2.4c61842a9eada43599c0.jpg",
+    "static/media/Caliper2.jpg": "/static/media/Caliper2.4744656ee9e9b36a2578.jpg",
+    "static/media/ambiLogo.jpeg": "/static/media/ambiLogo.f33b5ed6220fcacdc5f1.jpeg",
+    "static/media/noun-left-handed-icon.png": "/static/media/noun-left-handed-icon.5879995a7d4f68d95de1.png",
+    "index.html": "/index.html",
+    "main.1f9de9d3.js.map": "/static/js/main.1f9de9d3.js.map",
+    "787.e083c3bc.chunk.js.map": "/static/js/787.e083c3bc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.1f9de9d3.js"
+  ]
+}

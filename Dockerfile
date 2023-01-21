@@ -1,13 +1,15 @@
 FROM  node:lts-alpine 
 
 WORKDIR /app
+ENV NODE_ENV=prod
 
-COPY package*.json ./
+COPY package.json ./
 
-COPY ambi/package*.json ambi/
-RUN npm run install-client --omit=dev
+COPY ambi/package.json ambi/
+RUN npm run install-client --force --omit=dev
 
-COPY backend/package*.json backend/
+COPY backend/package.json backend/
+RUN npm i mongoose
 RUN npm run install-backend --omit=dev
 
 COPY ambi/ ambi/
