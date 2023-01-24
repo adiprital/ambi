@@ -11,7 +11,6 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
 
 const useStyles = makeStyles(theme => ({
     message: {
@@ -45,7 +44,6 @@ const useStyles = makeStyles(theme => ({
 export default function Contact(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -56,15 +54,6 @@ export default function Contact(props) {
     const [phoneHelper, setPhoneHelper] = useState('');
     const [message, setMessage] = useState('');
     const [sendMessage, setSendMessage] = useState(false);
-
-
-    const [openAlert, setOpenAlert] = useState(false);
-    const hendleClickAlert = () => {
-        setOpenAlert(true);
-    };
-    const handleCloseAlert = () => {
-        setOpenAlert(false);
-    };
 
     const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
     const hendleClickSuccessAlert = () => {

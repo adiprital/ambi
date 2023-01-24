@@ -4,7 +4,6 @@ import { createTheme } from '@mui/material/styles';
 // const amniRightHand = "#FFFBB3";
 const ambiGreen = '#02735E';
 const ambiWhite = "#FFFFFF";
-const ambiMint = '#A7D9D4';
 const ambiGrey = '#868686';
 
 export default createTheme({

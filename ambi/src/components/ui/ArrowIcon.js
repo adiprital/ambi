@@ -1,8 +1,7 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -35,11 +34,6 @@ const useStyles = makeStyles(theme => ({
 export default function ArrowIcon(props) {
     const classes = useStyles();
     let navigate = useNavigate();
-    const theme = useTheme();
-
-    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
     const products = useSelector((state) => state.productsList).products;
 
