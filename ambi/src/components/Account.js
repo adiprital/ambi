@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import SignOut from './SignOut';
+
 const useStyles = makeStyles(theme => ({
     accountContentStyle: {
         display: 'flex',
@@ -51,6 +53,7 @@ export default function Account() {
                         <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
                             Hello {user === undefined ? '' : user.email}
                         </Typography>
+                        <SignOut/>
                     </Grid>
                     <Grid item style={{marginLeft: matchesSM ? 0 : '5em',
                                     textAlign: matchesSM ? 'center' : undefined}}

@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import SignIn from './SignIn'; 
 import SignUp from './SignUp';
+import SignOut from './SignOut';
 
 import { Button } from '@mui/material';
 
@@ -67,6 +68,7 @@ export default function LogIn() {
             >
                 My Account
             </Button>
+            <SignOut/>
         </React.Fragment>
     )
 
