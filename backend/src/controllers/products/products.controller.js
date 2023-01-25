@@ -20,6 +20,7 @@ productsController.get('/get-products', async (req, res) => {
 
 productsController.get('/search', async (req, res) => {
     const products = await searchProducts(req.query);
+    console.log('products', products);
     return res.status(200).json(products);
 });
 

@@ -22,7 +22,7 @@ import logo from '../../assets/ambiLogo.jpeg';
 import LogIn from '../LogIn';
 import Cart from '../Cart';
 import WishList from '../WishList';
-import Search from './Search';
+import SearchBar from './SearchBar';
 
 function ElevationScroll(props) {
     const { children } = props;
@@ -185,7 +185,7 @@ export default function Header(props) {
                 className={classes.tabContainer}
                 indicatorColor='primary'
             >
-                <Search/>
+                <SearchBar/>
 
                 {routes.map((route, index) => (
                     <Tab
@@ -245,7 +245,7 @@ export default function Header(props) {
             >
                 <div className={classes.toolbarMargin} />
                 <List disablePadding>
-                    <Search/>
+                    <SearchBar/>
                     {routes.map(route => (
                         <ListItem
                             key={`${route}${route.activeIndex}`}

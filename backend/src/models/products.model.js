@@ -154,8 +154,10 @@ async function updateProduct(product) {
 }
 
 async function searchProducts(searchText) {
+    console.log('searchProducts - searchText: ', searchText.name);
     try {
-        return await productsDatabase.find({ name: searchText.name});
+        //works only for product's full name - NOT GOOD
+        return await productsDatabase.find({$text: {$search: searchText.name}});
     } catch(err) {
         console.error(`Could not find product ${err}`);
     }

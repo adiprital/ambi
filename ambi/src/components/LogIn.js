@@ -8,12 +8,11 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
 
 import SignIn from './SignIn'; 
 import SignUp from './SignUp';
 import SignOut from './SignOut';
-
-import { Button } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     profileIcon: {
