@@ -10,8 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-import { renderImage1 } from '../utils/functions';
-import AddToWishList from './AddToWishList';
+import { renderImage1 } from '../../utils/functions';
+import AddToWishList from '../wishList/AddToWishList';
 
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {

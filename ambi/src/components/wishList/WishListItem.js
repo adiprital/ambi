@@ -9,8 +9,8 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import AddToCart from './AddToCart';
-import { renderImage1 } from '../utils/functions';
+import AddToCart from '../cart/AddToCart';
+import { renderImage1 } from '../../utils/functions';
 
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {

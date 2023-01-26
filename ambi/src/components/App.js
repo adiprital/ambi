@@ -15,8 +15,8 @@ import About from './About';
 import Contact from './Contact';
 import Products from './Products';
 import Product from './Product';
-import Account from './Account';
-import SearchPage from './SearchPage';
+import Account from './account/Account';
+import SearchPage from './search/SearchPage';
 
 const store = createStore(rootReducer);
 
@@ -137,6 +137,7 @@ function App() {
               path='/account'
               element={<Account/>}
             />
+            
 
             {/*-----Search----- */}
             <Route

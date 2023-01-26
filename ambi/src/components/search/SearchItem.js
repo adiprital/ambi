@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import leftHandIcon from '../assets/noun-left-handed-icon.png';
+import leftHandIcon from '../../assets/noun-left-handed-icon.png';
 
 const useStyles = makeStyles(theme => ({
     subtitle: {

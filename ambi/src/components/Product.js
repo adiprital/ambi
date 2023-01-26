@@ -9,8 +9,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
 import { renderImage2, getProductData } from '../utils/functions';
-import AddToCart from './AddToCart';
-import AddToWishList from './AddToWishList';
+import AddToCart from './cart/AddToCart';
+import AddToWishList from './wishList/AddToWishList';
 import ArrowIcon from './ui/ArrowIcon';
 
 const useStyles = makeStyles(theme => ({

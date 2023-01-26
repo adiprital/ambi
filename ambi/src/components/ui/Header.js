@@ -19,10 +19,10 @@ import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import logo from '../../assets/ambiLogo.jpeg';
-import LogIn from '../LogIn';
-import Cart from '../Cart';
-import WishList from '../WishList';
-import SearchBar from './SearchBar';
+import LogIn from '../account/LogIn';
+import Cart from '../cart/Cart';
+import WishList from '../wishList/WishList';
+import SearchBar from '../search/SearchBar';
 
 function ElevationScroll(props) {
     const { children } = props;
