@@ -8,6 +8,7 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import AddToCart from '../cart/AddToCart';
 import { renderImage1 } from '../../utils/functions';
@@ -55,7 +56,17 @@ export default function FavoriteItem({ productName }) {
                     >
                         <DeleteIcon/>
                     </IconButton>
-                    <AddToCart productName={productName}/>
+
+                    <IconButton
+                        aria-label="add-to-cart"
+                        onClick={() => dispatch({
+                            type: 'addProductToCart',
+                            product: productName
+                        })}
+                    >
+                        <ShoppingCartIcon/>
+                    </IconButton>
+                    {/* <AddToCart productName={productName}/> */}
                 </Box>
             </CardContent>
             <CardMedia sx={{width: '100%', marginLeft: '20px'}}>

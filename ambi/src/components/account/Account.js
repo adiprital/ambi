@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: '25px'
+        marginTop: '25px',
+        marginBottom: '25px'
     },
     learnButton: {
         height: 35,
@@ -39,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 export default function Account() {
     const classes = useStyles();
     const theme = useTheme();
+    let navigate = useNavigate();
 
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -63,29 +65,26 @@ export default function Account() {
                         </Typography>
                         <Box className={classes.accountContentStyle}> 
                             <Button
-                                component={Link}
-                                to='/myorders'
                                 variant='contained'
                                 className={classes.learnButton}
                                 style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
+                                onClick={() => { navigate('/myorders')}}
                             >
                                 <span>My Orders</span>
                             </Button>
                             <Button
-                                component={Link}
-                                to='/myproducts'
                                 variant='contained'
                                 className={classes.learnButton}
                                 style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
+                                onClick={() => { navigate('/myproducts')}}
                             >
                                 <span>My Products</span>
                             </Button>
                             <Button
-                                component={Link}
-                                to='/forsale'
                                 variant='contained'
                                 className={classes.learnButton}
                                 style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
+                                onClick={() => { navigate('/forsale')}}
                             >
                                 <span>For Sale</span>
                             </Button>
