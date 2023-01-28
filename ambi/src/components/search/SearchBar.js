@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import Paper from '@mui/material/Paper';
@@ -41,25 +40,12 @@ export default function SearchBar() {
     const classes = useStyles();
     const theme = useTheme();
     let navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const products = useSelector((state) => state.productsList).products;
 
     const [searchText, setSearchText] = useState('');
 
     const searchProducts = async () => {
-        products.forEach((productName) => {
-            let searchingProducts = productName.name;
-            // let searchingProducts = productName.name.toLowerCase();
-            if (searchingProducts.includes(searchText)) {
-                dispatch({ type: 'searchedProducts', searchedProducts: searchingProducts})
-                // console.log('searchingProducts', searchingProducts);
-            }
-        });
-
         try {
             let results = await axios.get(`http://localhost:8000/search?name=${searchText}`);
-            // console.log('results', results.data);
         } catch(error) {
             console.log('error in search prodcuts', error);
         }
@@ -86,11 +72,8 @@ export default function SearchBar() {
                     type="button" 
                     sx={{ p: '10px' }} 
                     aria-label="search" 
-                    onClick={() => {
-                        // dispatch({
-                        //     type: 'searchedProducts',
-                        //     searchedProducts: searchText});
-                        searchProducts();
+                    onClick={async () => {
+                        await searchProducts();
                         navigate('/search');
                     }}
                 >

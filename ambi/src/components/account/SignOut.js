@@ -32,10 +32,8 @@ export default function SignOut() {
     const handleSignOut = async () => {
         localStorage.setItem('token', undefined);
         dispatch({ type: 'updateCurrentUser',  
-            user: {
-                email: undefined, 
-                balance: 0
-        }});
+            user: undefined
+        });
     };
 
     return (

@@ -24,7 +24,6 @@ export default function SearchPage() {
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     const products = useSelector((state) => state.productsList).searchedProducts;
-    console.log('products', products);
 
     const renderSearchItems = () => {
         const keys = Object.keys(products);

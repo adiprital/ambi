@@ -22,7 +22,7 @@ async function signUp(email, password) {
             password: encryptedPassword,
             balance: 100
         })
-        return {success: true, message: 'sign up successfully!', user: email, balance: response.balance };
+        return {success: true, message: 'sign up successfully! - please Sign In.', user: email, balance: response.balance };
     } catch (error) {
         console.log(JSON.stringify(error));
         return {success: false, message: 'something went wrong'};
