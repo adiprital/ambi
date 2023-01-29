@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -43,17 +43,15 @@ export default function SearchItem(props) {
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     let navigate = useNavigate();
-    const products = useSelector((state) => state.productsList).updatedProducts;
-    
-    const productsOptions = products.map((product, index) => {
+
+    const searchProducts = useSelector((state) => state.productsList).searchProducts;
+
+    const productsOptions = searchProducts.map((product, index) => {
         return { name: product.name,
                  link: `/${product.name.replace(/\s/g, '').toLowerCase()}`,
-                 description: product.description,
-                 activeIndex: 2,
-                 selectedIndex: index
+                 description: product.description
                 }
     });
-    // console.log('productsOptions', productsOptions);
 
     return (
         <Grid container direction='column'>
@@ -63,8 +61,8 @@ export default function SearchItem(props) {
                         marginTop: matchesSM ? '1em' : '2em'}}
             >
             </Grid>
-            <Grid item>
-                {productsOptions.map((option, i) => {
+                <Grid item>
+                    {productsOptions.map((option, i) => {
                     return (
                         <Grid
                             key={`${option}${i}`}

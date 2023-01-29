@@ -1,7 +1,7 @@
 let initial = {
     products: [],
     updatedProducts: [],
-    searchedProducts: {}
+    searchProducts: []
 }
 
 const productsReducer = (state = initial, action) => {
@@ -11,6 +11,10 @@ const productsReducer = (state = initial, action) => {
 
         case "updatedProducts":
             return { ...state, updatedProducts: action.products };
+
+        case "searchProducts":
+            return { ...state, searchProducts: action.searchProducts };
+
             
         default:
             return state;

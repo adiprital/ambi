@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import Paper from '@mui/material/Paper';
@@ -40,12 +41,29 @@ export default function SearchBar() {
     const classes = useStyles();
     const theme = useTheme();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [searchText, setSearchText] = useState('');
 
     const searchProducts = async () => {
         try {
+            let firstLetterToUpperCase = searchText.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+            let firstLetterTextToLowerCase = searchText.replace(/(^\w|\s\w)/g, m => m.toLowerCase());
+
+            console.log('searchText', searchText);
+            console.log('firstLetterToUpperCase', firstLetterToUpperCase);
+            console.log('firstLetterTextToLowerCase', firstLetterTextToLowerCase);
+
             let results = await axios.get(`http://localhost:8000/search?name=${searchText}`);
+            let results2 = await axios.get(`http://localhost:8000/search?name=${firstLetterToUpperCase}`);
+            let results3 = await axios.get(`http://localhost:8000/search?name=${firstLetterTextToLowerCase}`);
+
+            // UpperCase: result = result2, LowerCase: result = result3
+            console.log('results', results.data);
+            console.log('results2', results2.data);
+            console.log('results3', results3.data);
+
+            dispatch({ type: 'searchProducts', searchProducts: results.data });
         } catch(error) {
             console.log('error in search prodcuts', error);
         }
@@ -65,8 +83,8 @@ export default function SearchBar() {
                     sx={{ ml: 1, flex: 1, color: 'inherit' }}
                     placeholder="Search..."
                     inputProps={{ 'aria-label': 'search...' }}
-                    value={searchText} //
-                    onChange={(event) => setSearchText(event.target.value)} //
+                    value={searchText} 
+                    onChange={(event) => setSearchText(event.target.value)} 
                 />
                 <IconButton 
                     type="button" 

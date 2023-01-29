@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -23,21 +23,12 @@ export default function SearchPage() {
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const products = useSelector((state) => state.productsList).searchedProducts;
+    const searchProducts = useSelector((state) => state.productsList).searchProducts;
 
     const renderSearchItems = () => {
-        const keys = Object.keys(products);
-        // console.log('keys', keys);
-        // return keys.map((productName, index) => {
-        //     if (products[productName] > 0) {
-        //         return (
-        //             <SearchItem 
-        //                 key={index} 
-        //                 productName={productName} 
-        //             />
-        //         );
-        //     }
-        // });
+        if (searchProducts) {
+            return ( <SearchItem/> );
+        }
     };
 
     return (
@@ -46,16 +37,19 @@ export default function SearchPage() {
                 <Grid item container direction='column'>
                     <Grid item>
                         <Typography align='center' variant='h2'>Search</Typography>
-                        <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                            Hello
-                        </Typography>
+
+                        {searchProducts.length === 0 ? 
+                        <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
+                            no matches items
+                        </Typography> :  
+                        <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
+                            found {searchProducts.length} products matching your search
+                        </Typography> } 
+
                     </Grid>
                     <Grid item style={{marginLeft: matchesSM ? 0 : '5em',
                                     textAlign: matchesSM ? 'center' : undefined}}
                     >
-                        <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>
-                            your balance:  $
-                        </Typography>
                         {renderSearchItems()}
                     </Grid>
                 </Grid>

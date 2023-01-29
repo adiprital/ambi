@@ -154,7 +154,6 @@ async function updateProduct(product) {
 }
 
 async function searchProducts(searchText) {
-    console.log('searchProducts - searchText: ', searchText.name);
     try {
         return await productsDatabase.find({'name': {$regex: searchText.name}});
     } catch(err) {
