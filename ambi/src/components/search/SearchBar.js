@@ -47,23 +47,27 @@ export default function SearchBar() {
 
     const searchProducts = async () => {
         try {
-            let firstLetterToUpperCase = searchText.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
-            let firstLetterTextToLowerCase = searchText.replace(/(^\w|\s\w)/g, m => m.toLowerCase());
+            // CALI => Cali, cali => Cali, Cali => Cali, a => A, A => A
+            let firstLetterToUpperCase = searchText.toLowerCase().replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+
+            // CALI => cALI, cali => cALI, Cali => cALI, a => a, A => a
+            // need to use only for one letter
+            let firstLetterTextToLowerCase = searchText.toUpperCase().replace(/(^\w|\s\w)/g, m => m.toLowerCase());
 
             console.log('searchText', searchText);
             console.log('firstLetterToUpperCase', firstLetterToUpperCase);
             console.log('firstLetterTextToLowerCase', firstLetterTextToLowerCase);
-
-            let results = await axios.get(`http://localhost:8000/search?name=${searchText}`);
+            
+            let results1 = await axios.get(`http://localhost:8000/search?name=${searchText}`);
             let results2 = await axios.get(`http://localhost:8000/search?name=${firstLetterToUpperCase}`);
             let results3 = await axios.get(`http://localhost:8000/search?name=${firstLetterTextToLowerCase}`);
 
-            // UpperCase: result = result2, LowerCase: result = result3
-            console.log('results', results.data);
+            // UpperCase: result1 = result2, LowerCase: result = result3
+            console.log('results1', results1.data);
             console.log('results2', results2.data);
             console.log('results3', results3.data);
 
-            dispatch({ type: 'searchProducts', searchProducts: results.data });
+            dispatch({ type: 'searchProducts', searchProducts: results1.data });
         } catch(error) {
             console.log('error in search prodcuts', error);
         }
