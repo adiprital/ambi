@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import Card from '@mui/material/Card';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 export default function HomePage(props) {
     const classes = useStyles();
     const theme = useTheme();
+    let navigate = useNavigate();
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -61,12 +62,10 @@ export default function HomePage(props) {
                                 </p>
                             </Typography>
                             <Button
-                                component={Link}
-                                to='/about'
-                                // variant='outlined'
                                 variant='contained'
                                 className={classes.learnButton}
                                 style={{marginBottom: matchesSM ? '1em' : '5em'}}
+                                onClick={() => { navigate('/about')}}
                             >
                                 <span>About us</span>
                             </Button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -107,6 +107,7 @@ const useStyles = makeStyles(theme => ({
 export default function Header(props) {
     const classes = useStyles();
     const theme = useTheme();
+    let navigate = useNavigate();
     const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const matches = useMediaQuery(theme.breakpoints.down(('md')));
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -284,10 +285,9 @@ export default function Header(props) {
                 <AppBar position='fixed' color='primary'>
                     <Toolbar disableGutters>
                         <Button
-                            component={Link}
-                            to='/'
                             disableRipple
                             className={classes.logoContainer}
+                            onClick={() => { navigate('/')}}
                         >
                             <img alt='company logo' className={classes.logo} src={logo} />
                         </Button>

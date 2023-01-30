@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 export default function About(props) {
     const classes = useStyles();
     const theme = useTheme();
+    let navigate = useNavigate();
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -128,11 +129,10 @@ export default function About(props) {
                             </p>
                         </Typography>
                         <Button
-                            component={Link}
-                            to='/products'
                             variant='contained'
                             className={classes.learnButton}
                             style={{marginBottom: matchesSM ? '1em' : '5em'}}
+                            onClick={() => { navigate('/products')}}
                         >
                             <span>Products</span>
                         </Button>
