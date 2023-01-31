@@ -50,24 +50,37 @@ export default function SearchBar() {
             // CALI => Cali, cali => Cali, Cali => Cali, a => A, A => A
             let firstLetterToUpperCase = searchText.toLowerCase().replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 
-            // CALI => cALI, cali => cALI, Cali => cALI, a => a, A => a
+            // a => a, A => a
             // need to use only for one letter
             let firstLetterTextToLowerCase = searchText.toUpperCase().replace(/(^\w|\s\w)/g, m => m.toLowerCase());
 
-            console.log('searchText', searchText);
-            console.log('firstLetterToUpperCase', firstLetterToUpperCase);
-            console.log('firstLetterTextToLowerCase', firstLetterTextToLowerCase);
-            
+            // works for Ali, ALI
+            let allLettersToLowerCase = searchText.toLowerCase();
+
             let results1 = await axios.get(`http://localhost:8000/search?name=${searchText}`);
             let results2 = await axios.get(`http://localhost:8000/search?name=${firstLetterToUpperCase}`);
             let results3 = await axios.get(`http://localhost:8000/search?name=${firstLetterTextToLowerCase}`);
+            let results4 = await axios.get(`http://localhost:8000/search?name=${allLettersToLowerCase}`);
+            
+            let results5 = [];
 
             // UpperCase: result1 = result2, LowerCase: result = result3
-            console.log('results1', results1.data);
-            console.log('results2', results2.data);
-            console.log('results3', results3.data);
+            if (searchText === ''){
+                results5 = [];
+                // console.log('results5 = []', results5);
+            } else if ( results2.data.length === 0 && results3.data.length === 0 ) {
+                results5 = [ ...results1.data ];
+                // console.log('results5 = [ ...results1.data ]', results5);
+                if (results1.data.length === 0){
+                    results5 = [ ...results4.data ];
+                    // console.log('results5 = [ ...results4.data ]', results5);
+                }
+            } else {
+                results5 = [ ...results2.data, ...results3.data ];
+                // console.log('results5 = [ ...results2.data, ...results3.data ]', results5);
+            }
 
-            dispatch({ type: 'searchProducts', searchProducts: results1.data });
+            dispatch({ type: 'searchProducts', searchProducts: results5 });
         } catch(error) {
             console.log('error in search prodcuts', error);
         }
@@ -97,6 +110,7 @@ export default function SearchBar() {
                     onClick={async () => {
                         await searchProducts();
                         navigate('/search');
+                        setSearchText('');
                     }}
                 >
                     <SearchIcon className={classes.searchIcon}
