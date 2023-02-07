@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@mui/styles';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -36,7 +36,6 @@ const signUpItemStyle = {
 
 export default function SignIn() {
     const classes = useStyles();
-    const dispatch = useDispatch();
     const [openSignUp, setOpenSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
@@ -80,9 +79,9 @@ export default function SignIn() {
 
             case 'password':
                 setPassword(event.target.value);
-                valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(event.target.value);
+                valid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(event.target.value);
                 if (!valid) {
-                    setPasswordHelper('Incorrect Password');
+                    setPasswordHelper('Invalid Password. Password must contain minimum 8 characters, at least one letter and one number.');
                 } else {
                     setPasswordHelper('');
                 }
@@ -147,10 +146,12 @@ export default function SignIn() {
                         style={{marginBottom: '0.5em'}}
                     />
                     <TextField 
-                        label='Password'
+                        id="password"
+                        label="password"
+                        type="password"
+                        autoComplete="current-password"
                         error={passwordHelper.length !== 0}
                         helperText={passwordHelper}
-                        id='password'
                         fullwidth="true"
                         value={password}
                         onChange={checkValidity}

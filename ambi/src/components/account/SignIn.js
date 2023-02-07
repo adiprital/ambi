@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -41,7 +42,8 @@ export default function SignIn() {
     const [emailHelper, setEmailHelper] = useState('');
     const [password, setPassword] = useState('');
     const [passwordHelper, setPasswordHelper] = useState('');
-    
+    const [signInResult, setSignInResult] = useState(undefined);
+
     const handleOpenSignIn = () => {
         setOpenSignIn(true);
     };
@@ -78,9 +80,9 @@ export default function SignIn() {
 
             case 'password':
                 setPassword(event.target.value);
-                valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(event.target.value);
+                valid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(event.target.value);
                 if (!valid) {
-                    setPasswordHelper('Incorrect Password');
+                    setPasswordHelper('Password must contain minimum 8 characters, at least one letter and one number.');
                 } else {
                     setPasswordHelper('');
                 }
@@ -103,7 +105,24 @@ export default function SignIn() {
                     balance: currentUser.data.balance
             }});
         }
+        setSignInResult(currentUser.data);
+
+        setTimeout(() => {setSignInResult(undefined)}, 5000);
     };
+
+    const renderResult = () => {
+        if (signInResult) {
+            let severity = signInResult.success ? "success" : "error";
+            return (
+                <Alert
+                    severity={severity}
+                    sx={{ width: '100%' }}
+                >
+                    {signInResult.message}
+                </Alert>
+            );
+        }
+    }
 
     return (
         <React.Fragment>
@@ -131,10 +150,12 @@ export default function SignIn() {
                         style={{marginBottom: '0.5em'}}
                     />
                     <TextField 
-                        label='Password'
+                        id="password"
+                        label="password"
+                        type="password"
+                        autoComplete="current-password"
                         error={passwordHelper.length !== 0}
                         helperText={passwordHelper}
-                        id='password'
                         fullwidth="true"
                         value={password}
                         onChange={checkValidity}
@@ -148,6 +169,7 @@ export default function SignIn() {
                     >
                         Sign In
                     </Button>
+                    {renderResult()}
                 </Box>
             </Modal>
         </React.Fragment>
