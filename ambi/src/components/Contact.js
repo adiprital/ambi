@@ -53,7 +53,6 @@ export default function Contact(props) {
     const [phone, setPhone] = useState('');
     const [phoneHelper, setPhoneHelper] = useState('');
     const [message, setMessage] = useState('');
-    const [sendMessage, setSendMessage] = useState(false);
 
     const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
     const hendleClickSuccessAlert = () => {
@@ -236,7 +235,6 @@ export default function Contact(props) {
                             <Grid item style={{maxWidth: '20em'}}>
                                 <TextField
                                     label='Message'
-                                    InputProps={{disableUnderline: true}}
                                     value={message}
                                     className={classes.message}
                                     multiline
