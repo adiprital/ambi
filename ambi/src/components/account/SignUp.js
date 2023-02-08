@@ -161,7 +161,11 @@ export default function SignIn() {
                         className={classes.signUpButton}
                         aria-label="signup" 
                         disabled={checkDisable()}
-                        onClick={handleSignUp}
+                        onClick={() => {
+                            handleSignUp();
+                            setEmail('');
+                            setPassword('');
+                        }}
                     >
                         Sign Up 
                     </Button>

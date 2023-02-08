@@ -115,6 +115,7 @@ export default function Header(props) {
     const [openMenu, setOpenMenu] = useState(false);
 
     const products = useSelector((state) => state.productsList).products;
+    console.log('props', props);
 
     const handleChange = (newValue) => {
         props.setValue(newValue);
@@ -206,7 +207,6 @@ export default function Header(props) {
                 anchorEl={anchorEl}
                 open={openMenu}
                 onClose={handleClose}
-                // classes={{paper: classes.menu}}
                 MenuListProps={{onMouseLeave: handleClose}}
                 elevation={0}
                 anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
@@ -216,13 +216,8 @@ export default function Header(props) {
                         key={`${option}${option.selectedIndex}`}
                         component={Link}
                         to={option.link}
-                        // classes={{root: classes.menuItem}}
-                        // selected={option.activeIndex === props.selectedIndex && props.value === 2}
                         selected={option.activeIndex === props.value}
-                        // selected={props.value === option.selectedIndex}
                         onClick={() => {
-                            console.log('onClick.option.selectedIndex', option.selectedIndex);
-                            console.log('onClick.props.selectedIndex', props.selectedIndex);
                             handleMenuItemClick(option.selectedIndex); 
                             props.setValue(option.activeIndex); 
                             handleClose()

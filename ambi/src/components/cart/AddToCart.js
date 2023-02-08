@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 
 const useStyles = makeStyles(theme => ({
     learnButton: {
-        height: 35,
         '&:hover': {
             backgroundColor: theme.palette.secondary.light
         },
