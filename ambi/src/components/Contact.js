@@ -172,9 +172,9 @@ export default function Contact(props) {
                                         style={{color: theme.palette.common.green,
                                                 fontSize: '1rem'}}
                                     >
-                                        <a href='tel:972527245135'
+                                        <a href='tel:972527245136'
                                             style={{textDecoration: 'none', color: 'inherit'}}>
-                                            (+972)-52-724-5135
+                                            (+972)-52-724-5136
                                         </a>
                                     </Typography>
                                 </Box>
@@ -191,9 +191,9 @@ export default function Contact(props) {
                                         style={{color: theme.palette.common.green,
                                             fontSize: '1rem'}}
                                     >
-                                        <a href='mailto:pritalyael@gmail.com'
+                                        <a href='mailto:adiprital@gmail.com'
                                             style={{textDecoration: 'none', color: 'inherit'}}>
-                                                pritalyael@gmail.com
+                                                contact@ambi.com
                                         </a>
                                     </Typography>
                                 </Box>
