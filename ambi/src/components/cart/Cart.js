@@ -110,7 +110,8 @@ export default function Cart() {
 
     const buyProducts = async () => {
         let token = localStorage.getItem('token');
-        const promises_array = await axios.post(`http://localhost:8000/buy-products`, { cart }, 
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        const promises_array = await axios.post(`http://${baseUrl}:8000/buy-products`, { cart }, 
                                         { withCredentials: true, 
                                           headers: {token} });
         dispatch({ type: 'updateCurrentUser',  

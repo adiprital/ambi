@@ -1,0 +1,28 @@
+version: '3'
+services:
+  client:
+    image: myambiid/ambi-client:latest
+    depends_on:
+      - server
+    ports:
+      - 3000:3000
+    expose:
+      - "3000"
+      - "8000"
+
+  server:
+    image: myambiid/ambi-server:latest
+    ports:
+      - 8000:8000
+    expose:
+      - "3000"
+      - "8000"
+  nginx:
+    image: myambiid/ambi-nginx:latest
+    ports:
+      - 80:80
+    links:
+      - client:client
+      - server:server
+
+

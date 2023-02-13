@@ -57,10 +57,12 @@ export default function SearchBar() {
             // works for Ali, ALI
             let allLettersToLowerCase = searchText.toLowerCase();
 
-            let results1 = await axios.get(`http://localhost:8000/search?name=${searchText}`);
-            let results2 = await axios.get(`http://localhost:8000/search?name=${firstLetterToUpperCase}`);
-            let results3 = await axios.get(`http://localhost:8000/search?name=${firstLetterTextToLowerCase}`);
-            let results4 = await axios.get(`http://localhost:8000/search?name=${allLettersToLowerCase}`);
+            let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+
+            let results1 = await axios.get(`http://${baseUrl}:8000/search?name=${searchText}`);
+            let results2 = await axios.get(`http://${baseUrl}:8000/search?name=${firstLetterToUpperCase}`);
+            let results3 = await axios.get(`http://${baseUrl}:8000/search?name=${firstLetterTextToLowerCase}`);
+            let results4 = await axios.get(`http://${baseUrl}:8000/search?name=${allLettersToLowerCase}`);
             
             let results5 = [];
 

@@ -107,7 +107,8 @@ export default function SignIn() {
     }
 
     const handleSignUp = async () => {
-        const currentUser = await axios.post('http://localhost:8000/auth/signup', {
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        const currentUser = await axios.post(`http://${baseUrl}:8000/auth/signup`, {
             email, password
         });
 

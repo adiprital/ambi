@@ -1,0 +1,23 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./ambi
+    ports:
+      - 3000:3000
+
+  server:
+    build:
+      context: ./backend
+    ports:
+      - 8000:8000
+  
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 80:80
+    links:
+      - client:client
+      - server:server
+
