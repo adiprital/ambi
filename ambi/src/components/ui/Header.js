@@ -12,7 +12,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -68,7 +68,10 @@ const useStyles = makeStyles(theme => ({
         }
     },
     tabContainer: {
-        marginLeft: 'auto',
+        marginLeft: 'auto'
+        // '& .Mui-selected': {
+        //     selected: true
+        // }
     },
     drawerIcon: {
         ...theme.typography.tab,
@@ -115,9 +118,9 @@ export default function Header(props) {
     const [openMenu, setOpenMenu] = useState(false);
 
     const products = useSelector((state) => state.productsList).products;
-    console.log('props', props);
+    // console.log('props', props);
 
-    const handleChange = (newValue) => {
+    const handleChange = (event, newValue) => {
         props.setValue(newValue);
     };
 
@@ -182,8 +185,8 @@ export default function Header(props) {
     const tabs =(
         <React.Fragment>
             <Tabs
-                value={props.value}
                 onChange={handleChange}
+                value={props.value}
                 className={classes.tabContainer}
                 indicatorColor='primary'
             >
@@ -199,6 +202,12 @@ export default function Header(props) {
                         aria-owns={route.ariaOwns}
                         aria-haspopup={route.ariaPopup}
                         onMouseOver={route.mouseOver}
+                        // selected={props.value === route.activeIndex}
+                        // onClick={() => {
+                        //     console.log('route.activeIndex', route.activeIndex);
+                        //     console.log('props.value', props.value);
+                        //     console.log('option.activeIndex === props.value', route.activeIndex === props.value);
+                        // }}
                     />
                 ))}
             </Tabs>
@@ -218,9 +227,12 @@ export default function Header(props) {
                         to={option.link}
                         selected={option.activeIndex === props.value}
                         onClick={() => {
+                            // console.log('option.activeIndex', option.activeIndex);
+                            // console.log('props.value', props.value);
+                            // console.log('option.activeIndex === props.value', option.activeIndex === props.value);
                             handleMenuItemClick(option.selectedIndex); 
                             props.setValue(option.activeIndex); 
-                            handleClose()
+                            handleClose();
                         }}
                     >
                         {option.name}
@@ -243,7 +255,7 @@ export default function Header(props) {
                 <List disablePadding>
                     <SearchBar/>
                     {routes.map(route => (
-                        <ListItem
+                        <ListItemButton 
                             key={`${route}${route.activeIndex}`}
                             divider
                             component={Link}
@@ -259,8 +271,8 @@ export default function Header(props) {
                                 className={classes.drawerItem} 
                                 disableTypography>
                                     {route.name}
-                                </ListItemText>
-                        </ListItem>
+                            </ListItemText>
+                        </ListItemButton>
                     ))}
                 </List>
             </SwipeableDrawer>

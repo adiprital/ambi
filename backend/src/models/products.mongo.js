@@ -17,13 +17,10 @@ const productsSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    // image: [{
-    //         type: String
-    //     }, 
-    //     {
-    //         type: String
+    // img: {
+    //     type: String,
+    //     contentType: String
     //     }
-    // ]
 });
 
 // connects productsSchema with the "products" collection.
