@@ -57,7 +57,7 @@ export default function SearchBar() {
             // works for Ali, ALI
             let allLettersToLowerCase = searchText.toLowerCase();
 
-            let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+            let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
 
             let results1 = await axios.get(`http://${baseUrl}:8000/search?name=${searchText}`);
             let results2 = await axios.get(`http://${baseUrl}:8000/search?name=${firstLetterToUpperCase}`);

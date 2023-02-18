@@ -107,7 +107,7 @@ export default function SignIn() {
     }
 
     const handleSignUp = async () => {
-        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
         const currentUser = await axios.post(`http://${baseUrl}:8000/auth/signup`, {
             email, password
         });

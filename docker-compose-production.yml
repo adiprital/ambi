@@ -1,28 +1,31 @@
-version: '3'
+version: '3.6'
 services:
   client:
+    container_name: client
     image: myambiid/ambi-client:latest
+    environment:
+      - HOST=client
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
     depends_on:
       - server
+    networks:
+      - gateway
     ports:
       - 3000:3000
-    expose:
-      - "3000"
-      - "8000"
+    restart:
+      on-failure
 
   server:
+    container_name: server
     image: myambiid/ambi-server:latest
+    networks:
+      - gateway
     ports:
       - 8000:8000
-    expose:
-      - "3000"
-      - "8000"
-  nginx:
-    image: myambiid/ambi-nginx:latest
-    ports:
-      - 80:80
-    links:
-      - client:client
-      - server:server
+    restart:
+      on-failure
+networks:
+  gateway: {}
+
 
 

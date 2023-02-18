@@ -30,11 +30,11 @@ function App() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+      let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
       console.log('***BASE_URL', baseUrl)
 
       try{
-        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
         const response = await axios.get(`http://${baseUrl}:8000/get-products?limit=0&page=1`);
         store.dispatch({ type: "initialProducts", products: response.data.products });
         store.dispatch({ type: "cartInitialize", cartData: response.data.products });
@@ -50,7 +50,7 @@ function App() {
     const validateAuthToken = async () => {
       let token = localStorage.getItem('token');
       if (token) {
-        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
         let result = await axios.post(`http://${baseUrl}:8000/auth/validatetoken`, { token });
         if (!result.data.user) {
             localStorage.setItem('token', undefined);

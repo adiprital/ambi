@@ -110,7 +110,7 @@ export default function Cart() {
 
     const buyProducts = async () => {
         let token = localStorage.getItem('token');
-        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
         const promises_array = await axios.post(`http://${baseUrl}:8000/buy-products`, { cart }, 
                                         { withCredentials: true, 
                                           headers: {token} });

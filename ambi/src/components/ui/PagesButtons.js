@@ -14,7 +14,7 @@ export default function PagesButtons({ totalPages }) {
           onClick={async (event) => {
             let selectedPage = event.target.textContent;
             try{
-              let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'server';
+              let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
               const response = await axios.get(`http://${baseUrl}:8000/get-products?limit=5&page=${selectedPage}`);
               dispatch({ type: 'selectedPage', page: selectedPage });
               dispatch({ type: "updatedProducts", products: response.data.products });

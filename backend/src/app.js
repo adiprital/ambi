@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.set('trust proxy', 1);
 
 app.use(cors({
-        origin:['http://localhost:3000'],
+        origin:['http://localhost:3000','http://ec2-44-203-23-164.compute-1.amazonaws.com:3000'],
         methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
         credentials: true,
         exposedHeaders: ["set-cookie"]
