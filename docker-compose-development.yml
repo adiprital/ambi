@@ -1,23 +1,33 @@
-version: '3'
+version: '3.6'
 services:
   client:
+    container_name: client
     build:
       context: ./ambi
+    environment:
+      - HOST=client
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
+    depends_on:
+      - server
+    networks:
+      - gateway
     ports:
       - 3000:3000
+    restart:
+      on-failure
 
   server:
+    container_name: server
     build:
       context: ./backend
+    networks:
+      - gateway
     ports:
       - 8000:8000
-  
-  nginx:
-    build:
-      context: ./nginx
-    ports:
-      - 80:80
-    links:
-      - client:client
-      - server:server
+    restart:
+      on-failure
+networks:
+  gateway: {}
+
+
 

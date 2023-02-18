@@ -16,9 +16,11 @@ The application is packaged as a **docker** image and run as a docker container 
 1. In the root directory run 'npm run install' to install both client and server node modules.
 2. In the root directory run 'npm run deploy' to start both server and client. The Browser will be opened with the client, and the server will be ready to listen to requests. <br />
 
-#### run with docker container:
-1. create an image with the command: docker built -t ${imageName} .
-2.  run the container with the command: docker run -it -p 8000:8000 ${imageName}
+#### run locally with docker container: (building the images or pull them for docker hub)
+##### for building the images:
+In the root directory run 'docker-compose -f docker-compose-development.yml up' for building the images and run the services in containers.<br />
+##### pull images from docker hub:
+In the root directory run 'docker-compose -f docker-compose-production.yml up' for pulling the images from docker hub and run the services in containers.<br />
 
 
 
