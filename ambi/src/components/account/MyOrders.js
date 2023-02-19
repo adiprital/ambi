@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -29,9 +29,10 @@ const useStyles = makeStyles(theme => ({
 export default function MyOrders() {
     const classes = useStyles();
     const theme = useTheme();
-    const dispatch = useDispatch();
     let navigate = useNavigate();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const user = useSelector((state) => state.userAuth).currentUser;
 
     return (
         <Grid container direction='column'>
@@ -40,7 +41,7 @@ export default function MyOrders() {
                     <Grid item>
                         <Typography align='center' variant='h2'>My Orders</Typography>
                         <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                            Hello
+                            Hello {user === undefined ? '' : user.email}
                         </Typography>
                         <Button
                             variant='contained'
@@ -55,9 +56,9 @@ export default function MyOrders() {
                     >
                         <Box className={classes.contentStyle}>
                             <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>
-                                your balance:  $
+                                your balance: {user === undefined ? '0' : user.balance} $
                             </Typography>
-                            {/* {renderSearchItems()} */}
+                            {/* {renderMyOrdersItems()} */}
                         </Box>
                     </Grid>
                 </Grid>
