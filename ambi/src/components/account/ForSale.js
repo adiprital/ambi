@@ -16,15 +16,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: '25px',
         marginBottom: '25px'
     },
-    learnButton: {
-        height: 35,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: '2em'
-        }
-    },
     textContainer: {
         paddingLeft: '5em',
         paddingRight: '5em',
@@ -53,7 +44,6 @@ export default function MyOrders() {
                         </Typography>
                         <Button
                             variant='contained'
-                            className={classes.learnButton}
                             style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
                             onClick={() => { navigate('/account')}}
                         >

@@ -85,7 +85,7 @@ export default function SearchItem(props) {
                                 </Typography>
                                 <Button
                                     variant='contained'
-                                    className={classes.learnButton}
+                                    // className={classes.learnButton}
                                     onClick={() => navigate(option.link)}
                                     style={{marginBottom: matchesSM ? '1em' : '5em'}}
                                 >

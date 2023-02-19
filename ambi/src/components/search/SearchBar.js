@@ -17,16 +17,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.common.white
         }
     },
-    searchIcon: {
-        ...theme.typography.tab,
-        height: '50px',
-        width: '50px',
-        marginLeft: '25px',
-        '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
-        }
-    },
     textContainer: {
         paddingLeft: '5em',
         paddingRight: '5em',
@@ -115,8 +105,7 @@ export default function SearchBar() {
                         setSearchText('');
                     }}
                 >
-                    <SearchIcon className={classes.searchIcon}
-                        sx={{ color: 'inherit' }}/>
+                    <SearchIcon sx={{ color: 'inherit' }} />
                 </IconButton>  
             </Paper>
         </React.Fragment>

@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { makeStyles } from '@mui/styles';
-
+import { makeStyles, useTheme } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -12,18 +11,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 
 import WishListItem from './WishListItem';
+import SignIn from '../account/SignIn'; 
+import SignUp from '../account/SignUp';
 
 const useStyles = makeStyles(theme => ({
-    favoriteIcon: {
-        ...theme.typography.tab,
-        height: '50px',
-        width: '50px',
-        marginLeft: '25px',
-        '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
-        }
-    },
     scrollBox: {
         height: '75%',
         // height: 'auto',
@@ -50,6 +41,7 @@ const wishListItemStyle = {
 
 export default function WishList() {
     const classes = useStyles();
+    const theme = useTheme();
     const [openWishList, setOpenWishList] = useState(false);
 
     const favorites = useSelector((state) => {
@@ -82,6 +74,20 @@ export default function WishList() {
         return values.reduce((acc, curr) => acc + curr, 0);
     }; 
 
+    const accountWishlist = (
+        <React.Fragment>
+            <Typography align='center' variant='h4'>My Favorite</Typography>
+            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                Hello {user === undefined ? '' : user.email}
+            </Typography>
+            <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
+
+            <Box className={classes.wishListContentStyle}>
+                {renderFavoriteItems()}
+            </Box>
+        </React.Fragment>
+    );
+
     return (
         <React.Fragment>
             <IconButton onClick={handleOpenWishList} aria-label="wish-list" disableRipple>
@@ -90,7 +96,13 @@ export default function WishList() {
                     badgeContent={totalAmountInWishList()} 
                     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 >
-                   <FavoriteIcon className={classes.favoriteIcon} /> 
+                   <FavoriteIcon 
+                        sx={{ color: theme.palette.common.white, 
+                            '&:hover': {
+                                opacity: 1,
+                                color: theme.palette.common.white
+                        }}}  
+                    /> 
                 </Badge>
             </IconButton>
 
@@ -100,17 +112,14 @@ export default function WishList() {
             >
                 <Box className={classes.scrollBox} sx={wishListItemStyle}>
                     <IconButton onClick={handleCloseWishList}>
-                        <CloseIcon />
+                        <CloseIcon/>
                     </IconButton>
-                    <Typography align='center' variant='h4'>My Favorite</Typography>
-                    <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                        Hello {user === undefined ? '' : user.email}
-                    </Typography>
-                    <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
 
-                    <Box className={classes.wishListContentStyle}>
-                        {renderFavoriteItems()}
-                    </Box>
+                    { user ? accountWishlist : <Box>
+                                        <SignIn/> 
+                                        <SignUp/> 
+                                       </Box> }
+
                 </Box>
             </Modal>
 

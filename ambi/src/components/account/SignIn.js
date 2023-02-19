@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -10,16 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
-
-const useStyles = makeStyles(theme => ({
-    signInButton: {
-        height: 45,
-        width: 245,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        }
-    }
-}));
 
 const signInItemStyle = {
     position: 'absolute',
@@ -35,7 +24,6 @@ const signInItemStyle = {
 };
 
 export default function SignIn() {
-    const classes = useStyles();
     const dispatch = useDispatch();
     const [openSignIn, setOpenSignIn] = useState(false);
     const [email, setEmail] = useState('');
@@ -127,7 +115,12 @@ export default function SignIn() {
 
     return (
         <React.Fragment>
-            <Button aria-label="signin" disableRipple onClick={handleOpenSignIn}>
+            <Button 
+                variant='contained'
+                aria-label="signin" 
+                disableRipple 
+                onClick={handleOpenSignIn}
+            >
                 Sign In
             </Button>
 
@@ -163,7 +156,7 @@ export default function SignIn() {
                         style={{marginBottom: '0.5em', position: 'relative'}}
                     />
                     <Button
-                        className={classes.signInButton}
+                        variant='contained'
                         aria-label="signin" 
                         disabled={checkDisable()}
                         onClick={handleSignIn}

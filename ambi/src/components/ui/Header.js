@@ -73,16 +73,6 @@ const useStyles = makeStyles(theme => ({
         //     selected: true
         // }
     },
-    drawerIcon: {
-        ...theme.typography.tab,
-        height: '50px',
-        width: '50px',
-        marginLeft: '25px',
-        '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
-        }
-    },
     drawerIconContainer: {
         marginLeft: 'auto',
         '&:hover': {
@@ -281,7 +271,13 @@ export default function Header(props) {
                 onClick={() => setOpenDrawer(!openDrawer)}
                 disableRipple
             >
-                <MoreVertIcon className={classes.drawerIcon} />
+                <MoreVertIcon 
+                    sx={{ color: theme.palette.common.white, 
+                        '&:hover': {
+                            opacity: 1,
+                            color: theme.palette.common.white
+                    }}} 
+                />
             </IconButton>
         </React.Fragment>
     );

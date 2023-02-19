@@ -13,25 +13,6 @@ import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles(theme => ({
-    message: {
-        border: `2px solid ${theme.palette.common.green}`,
-        marginTop: '5em',
-        borderRadius: 5
-    },
-    sendButton: {
-        height: 45,
-        width: 245,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            height: 40,
-            width: 225
-        }
-    },
-    icon :{
-        color: theme.palette.common.green
-    },
     contactContainer: {
         display: 'flex',
         flexDirection: 'row',
@@ -164,7 +145,7 @@ export default function Contact(props) {
                         <Grid item container direction='column' style={{marginTop: '2em'}}>
                             <Grid item>
                                 <Box className={classes.contactContainer} >
-                                    <PhoneIcon className={classes.icon} />
+                                    <PhoneIcon/>
                                     <Typography
                                         align='center'
                                         variant='subtitle1'
@@ -183,7 +164,7 @@ export default function Contact(props) {
                         <Grid item container direction='column' style={{marginTop: '1em', marginBottom: '2em'}}>
                             <Grid item>
                                 <Box className={classes.contactContainer}>
-                                    <MailOutlineIcon className={classes.icon} />
+                                    <MailOutlineIcon/>
                                     <Typography
                                         align='center'
                                         variant='subtitle1'
@@ -236,7 +217,6 @@ export default function Contact(props) {
                                 <TextField
                                     label='Message'
                                     value={message}
-                                    className={classes.message}
                                     multiline
                                     fullwidth="true"
                                     minRows={10}
@@ -258,7 +238,6 @@ export default function Contact(props) {
                                 <Button
                                     disabled={checkDisable()}
                                     variant='contained'
-                                    className={classes.sendButton}
                                     onClick={() => {
                                         setMessage('');
                                         setPhone(''); 
@@ -270,7 +249,10 @@ export default function Contact(props) {
                                     }}
                                 >
                                     Send Message
-                                    <SendIcon style={{marginLeft: '1em'}}/>
+                                    <SendIcon 
+                                        style={{marginLeft: '1em'}}
+                                        sx={{ color: theme.palette.common.white }} 
+                                    />
                                 </Button>
                                 {openSuccessAlert ? showMessageDetails(openSuccessAlert) : null}
                             </Grid>

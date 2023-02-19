@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,18 +13,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 
 import CartItem from './CartItem';
+import SignIn from '../account/SignIn'; 
+import SignUp from '../account/SignUp';
 
 const useStyles = makeStyles(theme => ({
-    cartIcon: {
-        ...theme.typography.tab,
-        height: '50px',
-        width: '50px',
-        marginLeft: '25px',
-        '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
-        }
-    },
     scrollBox: {
         height: '75%',
         // height: 'auto',
@@ -34,6 +26,14 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    learnButton: {
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: '2em'
+        }
     }
 }));
 
@@ -51,6 +51,7 @@ const cartItemStyle = {
 
 export default function Cart() {
     const classes = useStyles();
+    const theme = useTheme();
     const dispatch = useDispatch();
     const [openCart, setOpenCart] = useState(false);
     const [resultsArray, setResultsArray] = useState([]);
@@ -139,11 +140,42 @@ export default function Cart() {
         return res;
     };
 
+    const accountCart = (
+        <React.Fragment>
+            <Typography align='center' variant='h4'>My Cart</Typography>
+            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                Hello {user === undefined ? '' : user.email}
+            </Typography>
+            <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+            <Box className={classes.cartContentStyle}>
+                {renderCartItems()}
+                <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
+                    Total:  { totalSum < 0 ? '0': totalSum} $
+                </Typography>
+                <Button 
+                    variant='contained'
+                    // className={classes.learnButton}
+                    sx={{marginTop:"15px"}} 
+                    disabled={checkDisable()} 
+                    onClick={buyProducts}
+                >checkout
+                </Button>
+                {purchaseResults()}
+            </Box>
+        </React.Fragment>
+    );
+
     return (
         <React.Fragment>
             <IconButton onClick={handleOpenCart} aria-label="cart" disableRipple>
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-                    <ShoppingCartIcon className={classes.cartIcon}  />
+                    <ShoppingCartIcon 
+                        sx={{ color: theme.palette.common.white, 
+                            '&:hover': {
+                                opacity: 1,
+                                color: theme.palette.common.white
+                        }}} 
+                    />
                 </Badge>
             </IconButton>
             <Modal
@@ -157,24 +189,12 @@ export default function Cart() {
                     <IconButton onClick={handleCloseCart}>
                         <CloseIcon />
                     </IconButton>
-                    <Typography align='center' variant='h4'>My Cart</Typography>
-                    <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                        Hello {user === undefined ? '' : user.email}
-                    </Typography>
-                    <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
-                    <Box className={classes.cartContentStyle}>
-                        {renderCartItems()}
-                        <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                            Total:  { totalSum < 0 ? '0': totalSum} $
-                        </Typography>
-                        <Button 
-                            sx={{marginTop:"15px"}} 
-                            disabled={checkDisable()} 
-                            onClick={buyProducts}
-                        >checkout
-                        </Button>
-                        {purchaseResults()}
-                    </Box>
+
+                    { user ? accountCart : <Box>
+                                        <SignIn/> 
+                                        <SignUp/> 
+                                       </Box> }
+
                 </Box>
             </Modal>
         </React.Fragment>

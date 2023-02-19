@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { makeStyles } from '@mui/styles';
+
 // import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -10,16 +10,6 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
-
-const useStyles = makeStyles(theme => ({
-    signUpButton: {
-        height: 45,
-        width: 245,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        }
-    }
-}));
 
 const signUpItemStyle = {
     position: 'absolute',
@@ -35,7 +25,6 @@ const signUpItemStyle = {
 };
 
 export default function SignIn() {
-    const classes = useStyles();
     const [openSignUp, setOpenSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
@@ -123,7 +112,12 @@ export default function SignIn() {
 
     return (
         <React.Fragment>
-            <Button aria-label="signin" disableRipple onClick={handleOpenSignUp}>
+            <Button 
+                variant='contained'
+                aria-label="signin" 
+                disableRipple 
+                onClick={handleOpenSignUp}
+            >
                 Sign Up
             </Button>
 
@@ -159,7 +153,7 @@ export default function SignIn() {
                         style={{marginBottom: '0.5em'}}
                     />
                     <Button 
-                        className={classes.signUpButton}
+                        variant='contained'
                         aria-label="signup" 
                         disabled={checkDisable()}
                         onClick={() => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,19 +13,6 @@ import Button from '@mui/material/Button';
 import SignIn from './SignIn'; 
 import SignUp from './SignUp';
 import SignOut from './SignOut';
-
-const useStyles = makeStyles(theme => ({
-    profileIcon: {
-        ...theme.typography.tab,
-        height: '50px',
-        width: '50px',
-        marginLeft: '25px',
-        '&:hover': {
-            opacity: 1,
-            color: theme.palette.common.white
-        }
-    }
-}));
 
 const logInItemStyle = {
     position: 'absolute',
@@ -40,7 +27,7 @@ const logInItemStyle = {
 };
 
 export default function LogIn() {
-    const classes = useStyles();
+    const theme = useTheme();
     let navigate = useNavigate();
     const [openLogIn, setOpenLogIn] = useState(false);
 
@@ -60,6 +47,7 @@ export default function LogIn() {
                 Hello {user === undefined ? '' : user.email}
             </Typography>
             <Button
+                variant='contained'
                 onClick={() => {
                     handleCloseLogIn();
                     navigate('/account');
@@ -74,7 +62,13 @@ export default function LogIn() {
     return (
         <React.Fragment>
             <IconButton onClick={handleOpenLogIn} aria-label="login" disableRipple>
-                <PersonIcon className={classes.profileIcon} />
+                <PersonIcon 
+                    sx={{ color: theme.palette.common.white, 
+                        '&:hover': {
+                            opacity: 1,
+                            color: theme.palette.common.white
+                    }}} 
+                />
             </IconButton>
 
             <Modal

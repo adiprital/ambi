@@ -48,7 +48,7 @@ export default function AddToCart(props) {
         <Button
             disabled={checkDisable()}
             variant='contained'
-            className={classes.learnButton}
+            // className={classes.learnButton}
             onClick={() => {
                 dispatch({ type: 'addProductToCart', product: props.productName })
             }}
