@@ -124,7 +124,7 @@ export default function Cart() {
 
     const checkDisable = () => {
         let res = false;
-        if ( user === undefined ) {
+        if ( user === undefined || totalSum === 0 ) {
                 res = true;
         } else {
             res = false;
