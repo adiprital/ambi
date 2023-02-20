@@ -63,11 +63,7 @@ export default function LogIn() {
         <React.Fragment>
             <IconButton onClick={handleOpenLogIn} aria-label="login" disableRipple>
                 <PersonIcon 
-                    sx={{ color: theme.palette.common.white, 
-                        '&:hover': {
-                            opacity: 1,
-                            color: theme.palette.common.white
-                    }}} 
+                    sx={{ color: theme.palette.common.white }} 
                 />
             </IconButton>
 

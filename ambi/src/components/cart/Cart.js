@@ -161,11 +161,7 @@ export default function Cart() {
             <IconButton onClick={handleOpenCart} aria-label="cart" disableRipple>
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
                     <ShoppingCartIcon 
-                        sx={{ color: theme.palette.common.white, 
-                            '&:hover': {
-                                opacity: 1,
-                                color: theme.palette.common.white
-                        }}} 
+                        sx={{ color: theme.palette.common.white }} 
                     />
                 </Badge>
             </IconButton>

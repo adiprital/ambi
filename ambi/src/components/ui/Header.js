@@ -271,13 +271,7 @@ export default function Header(props) {
                 onClick={() => setOpenDrawer(!openDrawer)}
                 disableRipple
             >
-                <MoreVertIcon 
-                    sx={{ color: theme.palette.common.white, 
-                        '&:hover': {
-                            opacity: 1,
-                            color: theme.palette.common.white
-                    }}} 
-                />
+                <MoreVertIcon sx={{ color: theme.palette.common.white }} />
             </IconButton>
         </React.Fragment>
     );

@@ -83,14 +83,12 @@ export default createTheme({
         MuiSvgIcon: {
             styleOverrides: {
                 root:{
-                    color: ambiGreen,
                     opacity: 0.7,
                     height: '1em',
                     width: '1em',
                     marginLeft: '25px',
                     '&:hover': {
                         opacity: 1,
-                        color: ambiGreen
                     }
                 }
             }

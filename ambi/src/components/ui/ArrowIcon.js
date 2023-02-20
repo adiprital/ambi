@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -22,11 +21,6 @@ const useStyles = makeStyles(theme => ({
             marginTop: '0.5em',
             marginLeft: '0.5em',
             marginRight: '2.5em'
-        }
-    },
-    arrowContainer: {
-        '&:hover': {
-            backgroundColor: 'transparent'
         }
     }
 }))

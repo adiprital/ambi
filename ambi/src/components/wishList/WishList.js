@@ -97,11 +97,7 @@ export default function WishList() {
                     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 >
                    <FavoriteIcon 
-                        sx={{ color: theme.palette.common.white, 
-                            '&:hover': {
-                                opacity: 1,
-                                color: theme.palette.common.white
-                        }}}  
+                        sx={{ color: theme.palette.common.white }}  
                     /> 
                 </Badge>
             </IconButton>
