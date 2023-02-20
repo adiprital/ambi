@@ -26,14 +26,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-    },
-    learnButton: {
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: '2em'
-        }
     }
 }));
 
@@ -154,7 +146,6 @@ export default function Cart() {
                 </Typography>
                 <Button 
                     variant='contained'
-                    // className={classes.learnButton}
                     sx={{marginTop:"15px"}} 
                     disabled={checkDisable()} 
                     onClick={buyProducts}

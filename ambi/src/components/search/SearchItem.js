@@ -26,15 +26,6 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('sm')]: {
             padding: 25
         }
-    },
-    learnButton: {
-        height: 35,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: '2em'
-        }
     }
 }));
 
@@ -85,7 +76,6 @@ export default function SearchItem(props) {
                                 </Typography>
                                 <Button
                                     variant='contained'
-                                    // className={classes.learnButton}
                                     onClick={() => navigate(option.link)}
                                     style={{marginBottom: matchesSM ? '1em' : '5em'}}
                                 >

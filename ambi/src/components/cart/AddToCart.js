@@ -1,21 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 
-const useStyles = makeStyles(theme => ({
-    learnButton: {
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: '2em'
-        }
-    }
-}));
 
 export default function AddToCart(props) {
-    const classes = useStyles();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productsList).products;
 
@@ -48,7 +36,6 @@ export default function AddToCart(props) {
         <Button
             disabled={checkDisable()}
             variant='contained'
-            // className={classes.learnButton}
             onClick={() => {
                 dispatch({ type: 'addProductToCart', product: props.productName })
             }}
