@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 export default function Contact(props) {
     const classes = useStyles();
     const theme = useTheme();
@@ -123,7 +122,7 @@ export default function Contact(props) {
                         marginTop: matchesSM ? '1em' : matchesMD ? '5em' : 0}}
             >
                 <Grid item>
-                    <Grid container direction='column'>
+                    <Grid item container direction='column'>
                         {/*-----Contact Us----- */}
                         <Grid item style={{marginTop: '2em'}}>
                             <Typography
@@ -145,7 +144,7 @@ export default function Contact(props) {
                         <Grid item container direction='column' style={{marginTop: '2em'}}>
                             <Grid item>
                                 <Box className={classes.contactContainer} >
-                                    <PhoneIcon/>
+                                    <PhoneIcon sx={{ color: theme.palette.common.green }} />
                                     <Typography
                                         align='center'
                                         variant='subtitle1'
@@ -164,7 +163,7 @@ export default function Contact(props) {
                         <Grid item container direction='column' style={{marginTop: '1em', marginBottom: '2em'}}>
                             <Grid item>
                                 <Box className={classes.contactContainer}>
-                                    <MailOutlineIcon/>
+                                    <MailOutlineIcon sx={{ color: theme.palette.common.green }} />
                                     <Typography
                                         align='center'
                                         variant='subtitle1'
@@ -188,6 +187,7 @@ export default function Contact(props) {
                                     fullwidth="true"
                                     value={name}
                                     onChange={(event) => setName(event.target.value)}
+                                    sx={{width: '230px'}}
                                 />
                             </Grid>
                             <Grid item style={{marginBottom: '0.5em'}}>
@@ -199,6 +199,7 @@ export default function Contact(props) {
                                     fullwidth="true"
                                     value={email}
                                     onChange={checkValidity}
+                                    sx={{width: '230px'}}
                                 />
                             </Grid>
                             <Grid item style={{marginBottom: '0.5em'}}>
@@ -210,6 +211,7 @@ export default function Contact(props) {
                                     fullwidth="true"
                                     value={phone}
                                     onChange={checkValidity}
+                                    sx={{width: '230px'}}
                                 />
                             </Grid>
                             {/*-----Message----- */}
@@ -220,7 +222,9 @@ export default function Contact(props) {
                                     multiline
                                     fullwidth="true"
                                     minRows={10}
+                                    maxRows={10}
                                     id='message'
+                                    sx={{width: '230px'}}
                                     onChange={(event) => setMessage(event.target.value)}
                                 />
                             </Grid>
@@ -238,6 +242,7 @@ export default function Contact(props) {
                                 <Button
                                     disabled={checkDisable()}
                                     variant='contained'
+                                    endIcon={ <SendIcon/> }
                                     onClick={() => {
                                         setMessage('');
                                         setPhone(''); 
@@ -249,10 +254,6 @@ export default function Contact(props) {
                                     }}
                                 >
                                     Send Message
-                                    <SendIcon 
-                                        style={{marginLeft: '1em'}}
-                                        sx={{ color: theme.palette.common.white }} 
-                                    />
                                 </Button>
                                 {openSuccessAlert ? showMessageDetails(openSuccessAlert) : null}
                             </Grid>

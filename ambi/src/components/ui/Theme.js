@@ -23,6 +23,7 @@ export default createTheme({
         MuiButtonBase:{
             styleOverrides:{
                 root:{
+                    marginBottom: '5px',
                     "&.MuiTab-root":{
                         textTransform: 'none',
                         color: ambiWhite,

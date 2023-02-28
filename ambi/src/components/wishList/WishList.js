@@ -16,8 +16,7 @@ import SignUp from '../account/SignUp';
 
 const useStyles = makeStyles(theme => ({
     scrollBox: {
-        height: '75%',
-        // height: 'auto',
+        height: '65%',
         overflowY: 'scroll'
     },
     wishListContentStyle: {
@@ -32,7 +31,19 @@ const wishListItemStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 280,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+const wishListSignIn = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 280,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -76,17 +87,24 @@ export default function WishList() {
 
     const accountWishlist = (
         <React.Fragment>
-            <Typography align='center' variant='h4'>My Favorite</Typography>
-            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                Hello {user === undefined ? '' : user.email}
-            </Typography>
-            <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
+            <Box className={classes.scrollBox} sx={wishListItemStyle}>
+                <IconButton onClick={handleCloseWishList}>
+                    <CloseIcon/>
+                </IconButton>
+                <Typography align='center' variant='h4'>My Favorite</Typography>
+                <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                    Hello {user === undefined ? '' : user.email}
+                </Typography>
+                <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Favorite's items:</Typography>
 
-            <Box className={classes.wishListContentStyle}>
-                {renderFavoriteItems()}
+                <Box className={classes.wishListContentStyle}>
+                    {renderFavoriteItems()}
+                </Box>
             </Box>
         </React.Fragment>
     );
+
+    
 
     return (
         <React.Fragment>
@@ -96,9 +114,7 @@ export default function WishList() {
                     badgeContent={totalAmountInWishList()} 
                     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 >
-                   <FavoriteIcon 
-                        sx={{ color: theme.palette.common.white }}  
-                    /> 
+                   <FavoriteIcon sx={{ color: theme.palette.common.white }} /> 
                 </Badge>
             </IconButton>
 
@@ -106,17 +122,14 @@ export default function WishList() {
                 open={openWishList}
                 onClose={handleCloseWishList}
             >
-                <Box className={classes.scrollBox} sx={wishListItemStyle}>
-                    <IconButton onClick={handleCloseWishList}>
-                        <CloseIcon/>
-                    </IconButton>
+                { user ? accountWishlist : <Box sx={wishListSignIn}>
+                                                <IconButton onClick={handleCloseWishList}>
+                                                    <CloseIcon/>
+                                                </IconButton> 
+                                                <SignIn/> 
+                                                <SignUp/> 
+                                            </Box> }
 
-                    { user ? accountWishlist : <Box>
-                                        <SignIn/> 
-                                        <SignUp/> 
-                                       </Box> }
-
-                </Box>
             </Modal>
 
         </React.Fragment>

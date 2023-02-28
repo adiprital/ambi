@@ -16,7 +16,7 @@ const signUpItemStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
+    width: 280,
     height: 270,
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -117,6 +117,7 @@ export default function SignIn() {
                 aria-label="signin" 
                 disableRipple 
                 onClick={handleOpenSignUp}
+                style={{ marginLeft: '15px' }}
             >
                 Sign Up
             </Button>
@@ -156,6 +157,7 @@ export default function SignIn() {
                         variant='contained'
                         aria-label="signup" 
                         disabled={checkDisable()}
+                        style={{ marginLeft: '15px' }}
                         onClick={() => {
                             handleSignUp();
                             setEmail('');

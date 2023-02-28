@@ -15,9 +15,7 @@ import { renderImage1 } from '../../utils/functions';
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {
         display: 'flex',
-        width: '340px',
-        // height: '130px',
-        marginBottom: '5px',
+        marginBottom: '10px',
         padding: 0
     }
 }));

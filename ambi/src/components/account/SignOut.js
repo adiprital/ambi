@@ -26,7 +26,7 @@ export default function SignOut() {
     return (
         <React.Fragment>
             <Button 
-                variant='contained'
+                // variant='contained'
                 aria-label="signout" 
                 disabled={checkDisable()} 
                 onClick={handleSignOut}

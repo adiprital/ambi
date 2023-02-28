@@ -15,7 +15,7 @@ const signInItemStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
+    width: 280,
     height: 270,
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -119,6 +119,7 @@ export default function SignIn() {
                 variant='contained'
                 aria-label="signin" 
                 disableRipple 
+                style={{ marginRight: '15px' }}
                 onClick={handleOpenSignIn}
             >
                 Sign In
@@ -141,7 +142,7 @@ export default function SignIn() {
                         fullwidth="true"
                         value={email}
                         onChange={checkValidity}
-                        style={{marginBottom: '0.5em'}}
+                        style={{ marginBottom: '0.5em' }}
                     />
                     <TextField 
                         id="password"
@@ -153,11 +154,12 @@ export default function SignIn() {
                         fullwidth="true"
                         value={password}
                         onChange={checkValidity}
-                        style={{marginBottom: '0.5em', position: 'relative'}}
+                        style={{ marginBottom: '0.5em' }}
                     />
                     <Button
                         variant='contained'
                         aria-label="signin" 
+                        style={{ marginRight: '15px', marginLeft: '20px' }}
                         disabled={checkDisable()}
                         onClick={handleSignIn}
                     >

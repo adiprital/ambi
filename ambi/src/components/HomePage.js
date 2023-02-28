@@ -57,7 +57,7 @@ export default function HomePage(props) {
                                 style={{marginBottom: matchesSM ? '1em' : '5em'}}
                                 onClick={() => { navigate('/about')}}
                             >
-                                <span>About us</span>
+                                About us
                             </Button>
                         </Grid>
                     </Grid>

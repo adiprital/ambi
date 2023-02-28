@@ -121,10 +121,10 @@ export default function About(props) {
                         </Typography>
                         <Button
                             variant='contained'
-                            style={{marginBottom: matchesSM ? '1em' : '5em'}}
+                            style={{marginBottom: matchesSM ? '2em' : '5em'}}
                             onClick={() => { navigate('/products')}}
                         >
-                            <span>Products</span>
+                            Products
                         </Button>
                     </Grid>
                 </Grid>

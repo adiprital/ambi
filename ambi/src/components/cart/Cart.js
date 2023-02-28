@@ -18,8 +18,7 @@ import SignUp from '../account/SignUp';
 
 const useStyles = makeStyles(theme => ({
     scrollBox: {
-        height: '75%',
-        // height: 'auto',
+        height: '65%',
         overflowY: 'scroll'
     },
     cartContentStyle: {
@@ -34,7 +33,19 @@ const cartItemStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 280,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+const cartSignIn = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 280,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -134,24 +145,33 @@ export default function Cart() {
 
     const accountCart = (
         <React.Fragment>
-            <Typography align='center' variant='h4'>My Cart</Typography>
-            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
-                Hello {user === undefined ? '' : user.email}
-            </Typography>
-            <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
-            <Box className={classes.cartContentStyle}>
-                {renderCartItems()}
-                <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                    Total:  { totalSum < 0 ? '0': totalSum} $
+            <Box
+                className={classes.scrollBox}
+                sx={cartItemStyle}
+            >
+                <IconButton onClick={handleCloseCart}>
+                    <CloseIcon />
+                </IconButton>
+
+                <Typography align='center' variant='h4'>My Cart</Typography>
+                <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+                    Hello {user === undefined ? '' : user.email}
                 </Typography>
-                <Button 
-                    variant='contained'
-                    sx={{marginTop:"15px"}} 
-                    disabled={checkDisable()} 
-                    onClick={buyProducts}
-                >checkout
-                </Button>
-                {purchaseResults()}
+                <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+                <Box className={classes.cartContentStyle}>
+                    {renderCartItems()}
+                    <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
+                        Total:  { totalSum < 0 ? '0': totalSum} $
+                    </Typography>
+                    <Button 
+                        variant='contained'
+                        sx={{marginTop:"15px"}} 
+                        disabled={checkDisable()} 
+                        onClick={buyProducts}
+                    >checkout
+                    </Button>
+                    {purchaseResults()}
+                </Box>
             </Box>
         </React.Fragment>
     );
@@ -160,29 +180,20 @@ export default function Cart() {
         <React.Fragment>
             <IconButton onClick={handleOpenCart} aria-label="cart" disableRipple>
                 <Badge color="secondary" badgeContent={totalAmountInCart()} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-                    <ShoppingCartIcon 
-                        sx={{ color: theme.palette.common.white }} 
-                    />
+                    <ShoppingCartIcon sx={{ color: theme.palette.common.white }} />
                 </Badge>
             </IconButton>
             <Modal
                 open={openCart}
                 onClose={handleCloseCart}
             >
-                <Box
-                    className={classes.scrollBox}
-                    sx={cartItemStyle}
-                >
-                    <IconButton onClick={handleCloseCart}>
-                        <CloseIcon />
-                    </IconButton>
-
-                    { user ? accountCart : <Box>
+                { user ? accountCart : <Box sx={cartSignIn}>
+                                        <IconButton onClick={handleCloseCart}>
+                                            <CloseIcon/>
+                                        </IconButton> 
                                         <SignIn/> 
                                         <SignUp/> 
                                        </Box> }
-
-                </Box>
             </Modal>
         </React.Fragment>
     )

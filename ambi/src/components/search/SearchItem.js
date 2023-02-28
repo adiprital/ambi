@@ -79,7 +79,7 @@ export default function SearchItem(props) {
                                     onClick={() => navigate(option.link)}
                                     style={{marginBottom: matchesSM ? '1em' : '5em'}}
                                 >
-                                    <span>Learn More</span>
+                                    Learn More
                                 </Button>
                             </Grid>
                             <Grid item style={{marginRight: matchesSM ? 0 : '5em'}}>

@@ -16,9 +16,7 @@ import AddToWishList from '../wishList/AddToWishList';
 const useStyles = makeStyles(theme => ({
     cardItemContainer: {
         display: 'flex',
-        width: '340px',
-        height: '200px',
-        marginBottom: '5px',
+        marginBottom: '10px',
         padding: 0
     }
 }));
