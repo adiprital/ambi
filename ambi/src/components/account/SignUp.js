@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-// import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -17,7 +15,6 @@ const signUpItemStyle = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 280,
-    height: 270,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,

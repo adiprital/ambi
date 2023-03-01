@@ -23,7 +23,7 @@ const logInItemStyle = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p: 4
 };
 
 export default function LogIn() {
@@ -43,7 +43,7 @@ export default function LogIn() {
 
     const account = (
         <React.Fragment>
-            <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
+            <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
                 Hello {user === undefined ? '' : user.email}
             </Typography>
             <Button
@@ -58,14 +58,12 @@ export default function LogIn() {
             </Button>
             <SignOut/>
         </React.Fragment>
-    )
+    );
 
     return (
         <React.Fragment>
             <IconButton onClick={handleOpenLogIn} aria-label="login" disableRipple>
-                <PersonIcon 
-                    sx={{ color: theme.palette.common.white }} 
-                />
+                <PersonIcon sx={{ color: theme.palette.common.white }} />
             </IconButton>
 
             <Modal

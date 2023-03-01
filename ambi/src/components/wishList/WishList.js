@@ -35,19 +35,7 @@ const wishListItemStyle = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
-};
-
-const wishListSignIn = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 280,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    p: 4
 };
 
 export default function WishList() {
@@ -104,8 +92,6 @@ export default function WishList() {
         </React.Fragment>
     );
 
-    
-
     return (
         <React.Fragment>
             <IconButton onClick={handleOpenWishList} aria-label="wish-list" disableRipple>
@@ -122,7 +108,7 @@ export default function WishList() {
                 open={openWishList}
                 onClose={handleCloseWishList}
             >
-                { user ? accountWishlist : <Box sx={wishListSignIn}>
+                { user ? accountWishlist : <Box sx={wishListItemStyle}>
                                                 <IconButton onClick={handleCloseWishList}>
                                                     <CloseIcon/>
                                                 </IconButton> 

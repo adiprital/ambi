@@ -16,11 +16,10 @@ const signInItemStyle = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 280,
-    height: 270,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p: 4
 };
 
 export default function SignIn() {

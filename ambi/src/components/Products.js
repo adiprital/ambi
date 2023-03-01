@@ -11,9 +11,6 @@ import leftHandIcon from '../assets/noun-left-handed-icon.png';
 import PagesButtons from './ui/PagesButtons';
 
 const useStyles = makeStyles(theme => ({
-    subtitle: {
-        marginBottom: '1em'
-    },
     icon: {
         marginLeft: '2em',
         width: '8em',
@@ -83,7 +80,7 @@ export default function Products(props) {
                                         width: matchesSM ? undefined : '35em'}}
                             >
                                 <Typography variant='h4'>{option.name}</Typography>
-                                <Typography variant='subtitle1' className={classes.subtitle}>
+                                <Typography variant='subtitle1'>
                                     <p dir='rtl'>{option.description}</p>
                                 </Typography>
                                 <Button

@@ -37,19 +37,7 @@ const cartItemStyle = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
-};
-
-const cartSignIn = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 280,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    p: 4
 };
 
 export default function Cart() {
@@ -157,7 +145,8 @@ export default function Cart() {
                 <Typography align='center'variant='subtitle1' sx={{marginBottom: '25px'}}>
                     Hello {user === undefined ? '' : user.email}
                 </Typography>
-                <Typography align='center'variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+                <Typography align='center' variant='subtitle3' sx={{marginBottom: '25px'}}>Cart's items:</Typography>
+
                 <Box className={classes.cartContentStyle}>
                     {renderCartItems()}
                     <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
@@ -172,6 +161,7 @@ export default function Cart() {
                     </Button>
                     {purchaseResults()}
                 </Box>
+
             </Box>
         </React.Fragment>
     );
@@ -187,7 +177,7 @@ export default function Cart() {
                 open={openCart}
                 onClose={handleCloseCart}
             >
-                { user ? accountCart : <Box sx={cartSignIn}>
+                { user ? accountCart : <Box sx={cartItemStyle}>
                                         <IconButton onClick={handleCloseCart}>
                                             <CloseIcon/>
                                         </IconButton> 
