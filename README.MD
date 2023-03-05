@@ -23,4 +23,7 @@ In the root directory run 'docker-compose -f docker-compose-development.yml up' 
 In the root directory run 'docker-compose -f docker-compose-production.yml up' for pulling the images from docker hub and run the services in containers.<br />
 
 
+### **AWS Deployment link:** 
+(http://ec2-44-203-23-164.compute-1.amazonaws.com:3000/)
+
 
