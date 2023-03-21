@@ -13,6 +13,10 @@ const usersSchema = new mongoose.Schema({
     balance: {
         type: Number,
         required: true
+    },
+    purchases: {
+        type: mongoose.SchemaTypes.Mixed,
+        required: false
     }
 });
 

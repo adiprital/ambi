@@ -7,7 +7,8 @@ const { getPagination } = require('../../services/query');
 const { decodeToken, 
     checkTokenValidity, 
     checkUserIdInMongo,
-    updateBalance
+    updateBalance,
+    updatePurchases
 } = require('../../models/users.model');
 
 const productsController = express.Router();
@@ -38,7 +39,7 @@ productsController.post('/buy-products', async (req, res) => {
         });
     }
 
-    let { id, exp } = resultDecode;
+    let { id, exp } = resultDecode; // id = userId
     if(!exp){
         return res.json({
             error: 'invalid session token - login again.'
@@ -57,6 +58,7 @@ productsController.post('/buy-products', async (req, res) => {
     const promises_array = keys.map(async (name) => {
        return await handleSingleProductToBuy(name, cart, id);
     });
+
     const results = await Promise.all(promises_array);
     const filteredResults = results.filter(result => result !== undefined);
 
@@ -67,9 +69,17 @@ productsController.post('/buy-products', async (req, res) => {
         }
     });
 
+    let purchases = {}
+    filteredResults.forEach(result => {
+        if ( result.isSuccess && result.purchases){
+            purchases[result.purchases.productId] = result.purchases.amount        
+        }
+    });
+    
     const mongoUser = await checkUserIdInMongo(id);
     let newBalance = mongoUser.balance-totalSumToPay;
     await updateBalance(mongoUser, newBalance);
+    await updatePurchases(mongoUser, purchases);
     let updatedUser = await checkUserIdInMongo(id);
 
     return res.json({

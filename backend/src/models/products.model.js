@@ -76,12 +76,14 @@ async function handleSingleProductToBuy(name, cart, id){
         const productToBuy = await buyProduct(productAmount, existsProduct);
         
         if ( mongoUser.balance >= totalToPay && productToBuy.isSuccess ) {
+            //
              try {
                 return ({
                     isSuccess: productToBuy.isSuccess,
                     warning: productToBuy.warning,
                     message: productToBuy.message,
-                    totalToPay
+                    totalToPay,
+                    purchases: { productId: existsProduct.id, amount: productAmount }
                 });
             } catch(err) {
                 return ({
@@ -91,7 +93,8 @@ async function handleSingleProductToBuy(name, cart, id){
                 });
             }
         }
-
+        
+        // 
         return ({
             isSuccess: productToBuy.isSuccess,
             warning: productToBuy.warning,
@@ -164,7 +167,6 @@ async function searchProducts(searchText) {
 module.exports = {
     getAllProducts,
     loadAllProducts,
-    buyProduct,
     existssProduct,
     searchProducts,
     handleSingleProductToBuy

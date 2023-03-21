@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -110,6 +111,15 @@ export default function Contact(props) {
         }
     };
 
+    // const sendMessage = async () => {
+    //     let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+    //     let currentUser = await axios.post(`http://${baseUrl}:8000/auth/send-message`, {
+    //         name, email, phone, message
+    //     }); // , {withCredentials: true }
+
+    //     console.log('currentUser', currentUser.data);
+    // };
+
     return (
         <Grid container direction='row'>
             <Grid
@@ -172,7 +182,7 @@ export default function Contact(props) {
                                     >
                                         <a href='mailto:adiprital@gmail.com'
                                             style={{textDecoration: 'none', color: 'inherit'}}>
-                                                contact@ambi.com
+                                                adiprital@gmail.com
                                         </a>
                                     </Typography>
                                 </Box>
@@ -248,9 +258,9 @@ export default function Contact(props) {
                                         setPhone(''); 
                                         setEmail(''); 
                                         setName('');
+                                        // sendMessage();
                                         hendleClickSuccessAlert();
                                         setTimeout(handleCloseSuccessAlert, 5000);
-                                        // setSendMessage(true);
                                     }}
                                 >
                                     Send Message
@@ -269,7 +279,6 @@ export default function Contact(props) {
                                         setName('');
                                         hendleClickErrorAlert();
                                         setTimeout(handleCloseErrorAlert, 5000);
-                                        // setSendMessage(false);
                                     }}
                                 >
                                     Cancel

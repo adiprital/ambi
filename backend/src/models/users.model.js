@@ -110,11 +110,57 @@ async function updateBalance(mongoUser, newBalance) {
     }
 }
 
+async function updatePurchases(mongoUser, purchasesProduct) {
+    try {
+        let res = await usersDatabase.findOne({ email: mongoUser.email });
+
+        // If no product has been purchased in the past by the user.
+        if (!res.purchases) {
+            await usersDatabase.updateOne({
+                email: mongoUser.email
+            }, {
+                purchases: purchasesProduct,
+            }, {
+                upsert: true
+            });
+        }
+
+        // if purchases have been made previously by the user:
+        // res.purchases = previous purchases.
+        // purchasesProduct = current purchase.
+        // newConcatPurchases = previous purchases and current purchase.
+        if (res.purchases) {
+            let newConcatPurchases = {};
+
+            Object.keys(purchasesProduct).forEach(purchas => {
+                if ( purchas in res.purchases  ){
+                    newConcatPurchases[purchas] = purchasesProduct[purchas] + res.purchases[purchas];
+                } else {
+                    newConcatPurchases[purchas] = purchasesProduct[purchas];
+                }
+            });
+
+            await usersDatabase.updateOne({
+                email: mongoUser.email
+            }, {
+                purchases: newConcatPurchases,
+            }, {
+                upsert: true
+            });
+
+        }
+
+    } catch(err) {
+        console.error(`Could not update user's purchases ${err}`);
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
     decodeToken,
     checkTokenValidity,
     checkUserIdInMongo,
-    updateBalance
+    updateBalance,
+    updatePurchases
 }
