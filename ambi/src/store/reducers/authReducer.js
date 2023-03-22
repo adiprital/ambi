@@ -5,7 +5,7 @@ let initial = {
 const authReducer = (state = initial, action) => {
     switch (action.type){
         case "updateCurrentUser":
-            let updatedUser = action.user 
+            let updatedUser = action.user;
             return { ...state, currentUser: updatedUser };
             
         default:

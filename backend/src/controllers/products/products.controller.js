@@ -72,7 +72,7 @@ productsController.post('/buy-products', async (req, res) => {
     let purchases = {}
     filteredResults.forEach(result => {
         if ( result.isSuccess && result.purchases){
-            purchases[result.purchases.productId] = result.purchases.amount        
+            purchases[result.purchases.productId] = result.purchases.amount;
         }
     });
     

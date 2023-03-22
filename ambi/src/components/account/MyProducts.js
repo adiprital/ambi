@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -10,10 +11,33 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 export default function MyOrders() {
     const theme = useTheme();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const user = useSelector((state) => state.userAuth).currentUser;
+    console.log('user: ', user);
+
+    const myPurchases = async () => {
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+        const purchasesArray = await axios.get(`http://${baseUrl}:8000/buy-products`);
+        console.log('purchasesArray: ', purchasesArray.data);
+
+        // dispatch({ type: 'updateCurrentUser',  
+        //     user: {
+        //         email: promises_array.data.email, 
+        //         balance: promises_array.data.balance
+        // }});
+
+    //     // const results = await Promise.all(purchasesArray.data);
+    //     // const filteredResults = results.filter(result => result !== undefined);
+
+    //     // setResultsArray(filteredResults);
+    //     // setTimeout(() => {
+    //     //     setResultsArray([])
+    //     // }, 10000);
+
+    }
 
     return (
         <Grid container direction='row'>
@@ -31,11 +55,11 @@ export default function MyOrders() {
                         <Grid item style={{marginTop: '2em'}}>
                             <Typography align='center' variant='h2' style={{lineHeight: 1, marginBottom: '20px'}}>My Products</Typography>
                             <Typography align='center' variant='subtitle1'>
-                                Hello {user === undefined ? '' : user.email}
+                                Hello { user === undefined ? '' : user.email }
                             </Typography>
                             
                             <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
-                                your balance: {user === undefined ? '0' : user.balance} $
+                                your balance: { user === undefined ? '0' : user.balance } $
                             </Typography>
                         </Grid>
 

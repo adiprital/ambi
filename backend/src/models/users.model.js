@@ -57,7 +57,7 @@ async function verifyUserLogin(email, password) {
     }
 }
 
- function decodeToken(token) {
+function decodeToken(token) {
     try {
         const verify = jwt.verify(token, JWT_SECRET);
         return { id: verify.id, exp: verify.exp }
@@ -67,12 +67,12 @@ async function verifyUserLogin(email, password) {
     }
 }
 
- function checkTokenValidity(exp) {
+function checkTokenValidity(exp) {
     let expiredDate = moment.unix(exp);
     let now = moment();
 
     if(now.isBefore(expiredDate)){
-        // token is stil valid becuase current time is before expiration time
+        // token is still valid because current time is before expiration time
         return true;
     }
     else{
@@ -114,7 +114,7 @@ async function updatePurchases(mongoUser, purchasesProduct) {
     try {
         let res = await usersDatabase.findOne({ email: mongoUser.email });
 
-        // If no product has been purchased in the past by the user.
+        // If no product has been purchased previously by the user - Adds product to user's purchase list.
         if (!res.purchases) {
             await usersDatabase.updateOne({
                 email: mongoUser.email
@@ -128,22 +128,21 @@ async function updatePurchases(mongoUser, purchasesProduct) {
         // if purchases have been made previously by the user:
         // res.purchases = previous purchases.
         // purchasesProduct = current purchase.
-        // newConcatPurchases = previous purchases and current purchase.
         if (res.purchases) {
-            let newConcatPurchases = {};
-
             Object.keys(purchasesProduct).forEach(purchas => {
-                if ( purchas in res.purchases  ){
-                    newConcatPurchases[purchas] = purchasesProduct[purchas] + res.purchases[purchas];
+                if ( purchas in res.purchases ){
+                    // update product's purchase quantity.
+                    res.purchases[purchas] = purchasesProduct[purchas] + res.purchases[purchas];
                 } else {
-                    newConcatPurchases[purchas] = purchasesProduct[purchas];
+                    // Adds product to my purchase list.
+                    res.purchases[purchas] = purchasesProduct[purchas];
                 }
             });
 
             await usersDatabase.updateOne({
                 email: mongoUser.email
             }, {
-                purchases: newConcatPurchases,
+                purchases: res.purchases,
             }, {
                 upsert: true
             });
