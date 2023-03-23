@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
-      console.log('***BASE_URL', baseUrl)
+      console.log('***BASE_URL', baseUrl);
 
       try{
         let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
@@ -58,7 +58,8 @@ function App() {
             store.dispatch({ type: 'updateCurrentUser',  
             user: {
               email: result.data.user.email,
-              balance: result.data.user.balance
+              balance: result.data.user.balance,
+              purchases: result.data.user.purchases //
           }});
         }
       }

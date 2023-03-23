@@ -1,7 +1,8 @@
 const express = require('express');
 const { getAllProducts, 
     searchProducts,
-    handleSingleProductToBuy
+    handleSingleProductToBuy,
+    getProductsById
 } = require('../../models/products.model');
 const { getPagination } = require('../../services/query');
 const { decodeToken, 
@@ -63,18 +64,23 @@ productsController.post('/buy-products', async (req, res) => {
     const filteredResults = results.filter(result => result !== undefined);
 
     let totalSumToPay = 0;
-    filteredResults.forEach((result) => {
-        if ( result.isSuccess ) {
-            totalSumToPay = totalSumToPay + result.totalToPay;
-        }
-    });
-
-    let purchases = {}
+    let purchases = {};
     filteredResults.forEach(result => {
-        if ( result.isSuccess && result.purchases){
+        if ( result.isSuccess && result.purchases ){
+            totalSumToPay = totalSumToPay + result.totalToPay;
             purchases[result.purchases.productId] = result.purchases.amount;
         }
     });
+
+    console.log('filteredResults2: ', filteredResults);
+    console.log('purchases: ', purchases);
+
+    // let purchases = {};
+    // filteredResults.forEach(result => {
+    //     if ( result.isSuccess && result.purchases ){
+    //         purchases[result.purchases.productId] = result.purchases.amount;
+    //     }
+    // });
     
     const mongoUser = await checkUserIdInMongo(id);
     let newBalance = mongoUser.balance-totalSumToPay;
@@ -87,6 +93,11 @@ productsController.post('/buy-products', async (req, res) => {
         email: updatedUser.email,
         balance: updatedUser.balance
     });
+});
+
+productsController.post('/get-products-by-id', async (req, res) => {
+    const products = await getProductsById(req.body);
+    return res.status(200).json(products);
 });
 
 module.exports = productsController;

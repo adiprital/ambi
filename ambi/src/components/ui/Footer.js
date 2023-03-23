@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom';
 import Hidden from '@mui/material/Hidden';
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles(theme => ({
     footer: {
@@ -118,7 +119,11 @@ export default function Footer(props) {
                         href='https://www.linkedin.com/in/adi-pri-tal-3829521b3/'
                         rel='development'
                         target='_blank'
-                    >© Adi Pri-Tal's Development 2022</Grid>
+                    >© Adi Pri-Tal's Development 2022-2023
+                        <Typography>
+                            All rights reserved.
+                        </Typography>
+                    </Grid>
             </Grid>
         </footer>
     );

@@ -85,12 +85,14 @@ export default function SignIn() {
         let currentUser = await axios.post(`http://${baseUrl}:8000/auth/signin`, {
             email, password
         });
+
         if (currentUser.data && currentUser.data.success) {
             localStorage.setItem('token', currentUser.data.token);
             dispatch({ type: 'updateCurrentUser',  
                 user: {
                     email: currentUser.data.user, 
-                    balance: currentUser.data.balance
+                    balance: currentUser.data.balance,
+                    purchases: currentUser.data.purchases //
             }});
         }
         setSignInResult(currentUser.data);

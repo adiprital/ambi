@@ -164,10 +164,21 @@ async function searchProducts(searchText) {
     }
 }
 
+async function getProductsById(productsId) {
+    console.log('productsId', productsId);
+    try {
+        let productsKeysArray = productsId.purchasesProductsId
+        return await productsDatabase.find({'_id': productsKeysArray[0]});
+    } catch(err) {
+        console.error(`Could not find product ${err}`);
+    }
+}
+
 module.exports = {
     getAllProducts,
     loadAllProducts,
     existssProduct,
     searchProducts,
-    handleSingleProductToBuy
+    handleSingleProductToBuy,
+    getProductsById
 }

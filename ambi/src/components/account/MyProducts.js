@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@mui/styles';
@@ -14,31 +14,77 @@ export default function MyOrders() {
     const dispatch = useDispatch();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+    const [purchasesArray, setpurchasesArray] = useState([]);
 
     const user = useSelector((state) => state.userAuth).currentUser;
     console.log('user: ', user);
 
-    const myPurchases = async () => {
-        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
-        const purchasesArray = await axios.get(`http://${baseUrl}:8000/buy-products`);
-        console.log('purchasesArray: ', purchasesArray.data);
+    useEffect(() => {
+        const fetchPurchasesProducts = async () => {
 
-        // dispatch({ type: 'updateCurrentUser',  
-        //     user: {
-        //         email: promises_array.data.email, 
-        //         balance: promises_array.data.balance
-        // }});
+            if (user) {
+                const purchasesProductsId = Object.keys(user.purchases);
+                const purchasesProductsAmount = Object.values(user.purchases);
+                console.log('purchasesProductsId: ', purchasesProductsId);
+                console.log('purchasesProductsAmount: ', purchasesProductsAmount);
 
-    //     // const results = await Promise.all(purchasesArray.data);
-    //     // const filteredResults = results.filter(result => result !== undefined);
+                try { 
+                    let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+                    const response = await axios.post(`http://${baseUrl}:8000/get-products-by-id`, { purchasesProductsId });
+                    console.log('response: ', response);
 
-    //     // setResultsArray(filteredResults);
-    //     // setTimeout(() => {
-    //     //     setResultsArray([])
-    //     // }, 10000);
+                    // dispatch({ type: 'updateCurrentUser',  
+                    // user: {
+                    //     email: currentUser.data.user, 
+                    //     balance: currentUser.data.balance,
+                    //     purchases: currentUser.data.purchases //
+                    // }});
 
+                    setpurchasesArray(response.data);
+                } catch(error){
+                    console.log('error in fetch purchases Products', error)
+                }
+            }
+          }
+
+        fetchPurchasesProducts();
+      }, []);
+
+
+
+    const myPurchases = () => {
+
+        return (
+            <div>purchases</div>
+        )
+
+        // productsPurchases.map((purchase, i) => {
+        //     return (
+        //         <Grid
+        //             key={`${purchase}${i}`}
+        //             container
+        //             direction='row'
+        //             justifyContent={matchesSM ? 'center' : 'flex-end'}
+        //             style={{marginTop: matchesSM ? '1em' : '5em',
+        //                     marginRight: matchesSM ? '1em' : '5em',
+        //                     marginBottom: matchesSM ? '2em' : '3em'}}
+        //         >
+        //             <Grid
+        //                 item
+        //                 style={{textAlign: matchesSM ? 'center' : 'right',
+        //                         width: matchesSM ? undefined : '35em'}}
+        //             >
+        //                 <Typography variant='h4'>{purchase.name}</Typography>
+        //                 <Typography variant='h4'>{purchase.amount}</Typography>
+
+        //             </Grid>
+        //         </Grid>
+        //     )
+        // })
     }
 
+    let purchases = myPurchases();
+    
     return (
         <Grid container direction='row'>
             <Grid
@@ -53,13 +99,21 @@ export default function MyOrders() {
                 <Grid item>            
                     <Grid item container direction='column'>
                         <Grid item style={{marginTop: '2em'}}>
-                            <Typography align='center' variant='h2' style={{lineHeight: 1, marginBottom: '20px'}}>My Products</Typography>
+                            <Typography align='center' variant='h2' style={{lineHeight: 1, marginBottom: '20px'}}>
+                                My Products
+                            </Typography>
+
                             <Typography align='center' variant='subtitle1'>
                                 Hello { user === undefined ? '' : user.email }
                             </Typography>
                             
                             <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
                                 your balance: { user === undefined ? '0' : user.balance } $
+                            </Typography>
+
+                            <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
+                                your purchases: { user === undefined ? '' : purchases }
+                                {/* {purchases} */}
                             </Typography>
                         </Grid>
 
@@ -80,7 +134,6 @@ export default function MyOrders() {
                                         onClick={() => { navigate('/account')}}
                                     >My Account</Button>
                                 </Grid>
-                                
                             </Grid>
                         </Grid>
                     </Grid>
