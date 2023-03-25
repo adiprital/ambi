@@ -1,46 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTheme } from '@mui/styles';
+import { useSelector } from 'react-redux';
+import { makeStyles, useTheme } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
+const useStyles = makeStyles(theme => ({
+    cardContainer: {
+        position: 'center',
+        marginBottom: '35px',
+        boxShadow: theme.shadows[10],
+        borderRadius: 15,
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+            borderRadius: 0,
+            width: '100%'
+        }
+    }
+}));
 
 export default function MyOrders() {
+    const classes = useStyles();
     const theme = useTheme();
     let navigate = useNavigate();
-    const dispatch = useDispatch();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const [purchasesArray, setpurchasesArray] = useState([]);
 
     const user = useSelector((state) => state.userAuth).currentUser;
-    console.log('user: ', user);
 
     useEffect(() => {
         const fetchPurchasesProducts = async () => {
-
             if (user) {
                 const purchasesProductsId = Object.keys(user.purchases);
-                const purchasesProductsAmount = Object.values(user.purchases);
-                console.log('purchasesProductsId: ', purchasesProductsId);
-                console.log('purchasesProductsAmount: ', purchasesProductsAmount);
 
                 try { 
                     let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
-                    const response = await axios.post(`http://${baseUrl}:8000/get-products-by-id`, { purchasesProductsId });
-                    console.log('response: ', response);
+                    const response = await axios.post(`http://${baseUrl}:8000/get-products-by-id`, { purchasesProductsId, user });
 
-                    // dispatch({ type: 'updateCurrentUser',  
-                    // user: {
-                    //     email: currentUser.data.user, 
-                    //     balance: currentUser.data.balance,
-                    //     purchases: currentUser.data.purchases //
-                    // }});
-
-                    setpurchasesArray(response.data);
+                    setpurchasesArray(response.data); 
                 } catch(error){
                     console.log('error in fetch purchases Products', error)
                 }
@@ -48,39 +52,36 @@ export default function MyOrders() {
           }
 
         fetchPurchasesProducts();
-      }, []);
-
-
+      }, [user]);
 
     const myPurchases = () => {
-
         return (
-            <div>purchases</div>
+            <div> 
+                <Grid item> 
+                    {purchasesArray.map((purchase, i) => {
+                        return (
+                            <Grid 
+                                key={`${purchase}${i}`}
+                                container
+                                direction='row'           
+                            >
+                                <Grid item> 
+                                    <Card 
+                                        className={classes.cardContainer} 
+                                        style={{backgroundColor: 'transparent'}}
+                                    >
+                                        <CardContent>
+                                            <Typography variant='h4'>{purchase.name}</Typography>
+                                            <Typography variant='subtitle1'>amount: {purchase.amount}.</Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid> 
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </div>
         )
-
-        // productsPurchases.map((purchase, i) => {
-        //     return (
-        //         <Grid
-        //             key={`${purchase}${i}`}
-        //             container
-        //             direction='row'
-        //             justifyContent={matchesSM ? 'center' : 'flex-end'}
-        //             style={{marginTop: matchesSM ? '1em' : '5em',
-        //                     marginRight: matchesSM ? '1em' : '5em',
-        //                     marginBottom: matchesSM ? '2em' : '3em'}}
-        //         >
-        //             <Grid
-        //                 item
-        //                 style={{textAlign: matchesSM ? 'center' : 'right',
-        //                         width: matchesSM ? undefined : '35em'}}
-        //             >
-        //                 <Typography variant='h4'>{purchase.name}</Typography>
-        //                 <Typography variant='h4'>{purchase.amount}</Typography>
-
-        //             </Grid>
-        //         </Grid>
-        //     )
-        // })
     }
 
     let purchases = myPurchases();
@@ -113,7 +114,6 @@ export default function MyOrders() {
 
                             <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
                                 your purchases: { user === undefined ? '' : purchases }
-                                {/* {purchases} */}
                             </Typography>
                         </Grid>
 

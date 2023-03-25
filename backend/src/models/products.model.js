@@ -164,11 +164,20 @@ async function searchProducts(searchText) {
     }
 }
 
-async function getProductsById(productsId) {
-    console.log('productsId', productsId);
+async function getProductsById(productsIdsArray, user) {
     try {
-        let productsKeysArray = productsId.purchasesProductsId
-        return await productsDatabase.find({'_id': productsKeysArray[0]});
+        let promises_array = productsIdsArray.map(async productsId => {
+            return await productsDatabase.findOne({'_id': productsId});
+        });
+        let products = await Promise.all(promises_array);
+        let purchases = user.purchases;
+
+        products.forEach((product) => {
+            let productId = product._id.valueOf();
+            let userProductsAmount = purchases[productId];
+            product.amount = userProductsAmount;
+        });
+        return products;
     } catch(err) {
         console.error(`Could not find product ${err}`);
     }

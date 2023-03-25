@@ -72,9 +72,6 @@ productsController.post('/buy-products', async (req, res) => {
         }
     });
 
-    console.log('filteredResults2: ', filteredResults);
-    console.log('purchases: ', purchases);
-
     // let purchases = {};
     // filteredResults.forEach(result => {
     //     if ( result.isSuccess && result.purchases ){
@@ -96,7 +93,9 @@ productsController.post('/buy-products', async (req, res) => {
 });
 
 productsController.post('/get-products-by-id', async (req, res) => {
-    const products = await getProductsById(req.body);
+    const { purchasesProductsId, user } = req.body;
+    const products = await getProductsById(purchasesProductsId, user);
+
     return res.status(200).json(products);
 });
 
