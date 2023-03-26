@@ -22,7 +22,7 @@ async function signUp(email, password) {
             password: encryptedPassword,
             balance: 100
         })
-        return {success: true, message: 'sign up successfully! - please Sign In.', user: email, balance: response.balance };
+        return {success: true, message: 'sign up successfully! - please Sign In.', user: email, balance: response.balance.toFixed(2) };
     } catch (error) {
         console.log(JSON.stringify(error));
         return {success: false, message: 'something went wrong'};
@@ -48,7 +48,7 @@ async function verifyUserLogin(email, password) {
                                type:'user' }, 
                             JWT_SECRET, 
                             { expiresIn: '30m' });
-            return { success: true, token, user: email, balance: user.balance, purchases: user.purchases }
+            return { success: true, token, user: email, balance: user.balance.toFixed(2), purchases: user.purchases }
         }
         return {success: false, message: 'invalid password'};
     } catch (error) {
@@ -88,7 +88,7 @@ async function checkUserIdInMongo(id) {
             return { success: false, message: 'user not found' };
         }
         else { 
-            return { success: true, user: id, email: user.email, balance: user.balance, purchases: user.purchases }
+            return { success: true, user: id, email: user.email, balance: user.balance.toFixed(2), purchases: user.purchases }
         } 
     } catch (error) {
         console.log(error);
@@ -101,7 +101,7 @@ async function updateBalance(mongoUser, newBalance) {
         await usersDatabase.updateOne({
             email: mongoUser.email
         }, {
-            balance: newBalance,
+            balance: newBalance.toFixed(2),
         }, {
             upsert: true
         });

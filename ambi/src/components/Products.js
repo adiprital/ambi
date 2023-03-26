@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import leftHandIcon from '../assets/noun-left-handed-icon.png';
 import PagesButtons from './ui/PagesButtons';
+import ProductItem from './ProductItem';
 
 const useStyles = makeStyles(theme => ({
     icon: {
@@ -31,7 +30,6 @@ export default function Products(props) {
     const classes = useStyles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    let navigate = useNavigate();
     const products = useSelector((state) => state.productsList).updatedProducts;
     const totalPages = useSelector((state) => state.paginationList).totalPages;
 
@@ -72,25 +70,14 @@ export default function Products(props) {
                             className={classes.productsContainer}
                             style={{marginTop: matchesSM ? '1em' : '5em',
                                     marginRight: matchesSM ? '1em' : '5em',
-                                    marginBottom: matchesSM ? '2em' : '3em'}}
+                                    marginBottom: matchesSM ? '1em' : '2em'}}
                         >
-                            <Grid
-                                item
-                                style={{textAlign: matchesSM ? 'center' : 'right',
-                                        width: matchesSM ? undefined : '35em'}}
-                            >
-                                <Typography variant='h4'>{option.name}</Typography>
-                                <Typography variant='subtitle1'>
-                                    <p dir='rtl'>{option.description}</p>
-                                </Typography>
-                                <Button
-                                    variant='contained'
-                                    onClick={() => navigate(option.link)}
-                                    style={{marginBottom: matchesSM ? '1em' : '5em'}}
-                                >
-                                    Learn More
-                                </Button>
-                            </Grid>
+                            <ProductItem
+                                productName={option.name} 
+                                description={option.description}
+                                link={`/${option.name.replace(/\s/g, '').toLowerCase()}`}
+                            />
+
                             <Grid item style={{marginRight: matchesSM ? 0 : '5em'}}>
                                 <img className={classes.icon} alt='left hand' src={leftHandIcon} />
                             </Grid>

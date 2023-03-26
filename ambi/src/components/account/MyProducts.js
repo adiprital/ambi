@@ -7,8 +7,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
+import PurchaseProductItem from './PurchaseProductItem';
 
 const useStyles = makeStyles(theme => ({
     cardContainer: {
@@ -37,7 +37,7 @@ export default function MyOrders() {
 
     useEffect(() => {
         const fetchPurchasesProducts = async () => {
-            if (user) {
+            if (user && user.purchases) {
                 const purchasesProductsId = Object.keys(user.purchases);
 
                 try { 
@@ -66,15 +66,11 @@ export default function MyOrders() {
                                 direction='row'           
                             >
                                 <Grid item> 
-                                    <Card 
-                                        className={classes.cardContainer} 
-                                        style={{backgroundColor: 'transparent'}}
-                                    >
-                                        <CardContent>
-                                            <Typography variant='h4'>{purchase.name}</Typography>
-                                            <Typography variant='subtitle1'>amount: {purchase.amount}.</Typography>
-                                        </CardContent>
-                                    </Card>
+                                    <PurchaseProductItem 
+                                        productName={purchase.name} 
+                                        amount={purchase.amount}
+                                        link={`/${purchase.name.replace(/\s/g, '').toLowerCase()}`}
+                                    />
                                 </Grid> 
                             </Grid>
                         )
@@ -104,37 +100,18 @@ export default function MyOrders() {
                                 My Products
                             </Typography>
 
-                            <Typography align='center' variant='subtitle1'>
-                                Hello { user === undefined ? '' : user.email }
-                            </Typography>
-                            
-                            <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
-                                your balance: { user === undefined ? '0' : user.balance } $
-                            </Typography>
+                            <Grid item align='center'>
+                                <Button
+                                    variant='contained'
+                                    style={{marginBottom: matchesSM ? '1em' : '2em', marginTop: '1em'}}
+                                    onClick={() => { navigate('/account')}}
+                                >My Account</Button>
+                            </Grid>
 
                             <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
                                 your purchases: { user === undefined ? '' : purchases }
                             </Typography>
-                        </Grid>
 
-                        <Grid item style={{ marginLeft: matchesSM ? 0 : '5em',
-                                        textAlign: matchesSM ? 'center' : undefined }} >
-                            <Grid
-                                item
-                                container
-                                direction={matchesSM ? 'column' : 'row'}
-                                style={{marginTop: '2em', marginBottom: '5em'}}
-                                alignItems='center'
-                                justifyContent='center'
-                            >
-                                <Grid item>
-                                    <Button
-                                        variant='contained'
-                                        style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
-                                        onClick={() => { navigate('/account')}}
-                                    >My Account</Button>
-                                </Grid>
-                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
