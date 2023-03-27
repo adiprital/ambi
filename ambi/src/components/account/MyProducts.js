@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { makeStyles, useTheme } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
@@ -10,23 +10,7 @@ import Button from '@mui/material/Button';
 
 import PurchaseProductItem from './PurchaseProductItem';
 
-const useStyles = makeStyles(theme => ({
-    cardContainer: {
-        position: 'center',
-        marginBottom: '35px',
-        boxShadow: theme.shadows[10],
-        borderRadius: 15,
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: 0,
-            paddingRight: 0,
-            borderRadius: 0,
-            width: '100%'
-        }
-    }
-}));
-
 export default function MyOrders() {
-    const classes = useStyles();
     const theme = useTheme();
     let navigate = useNavigate();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));

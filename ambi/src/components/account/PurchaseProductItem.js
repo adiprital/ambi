@@ -46,6 +46,10 @@ export default function PurchaseProductItem({ productName, amount, link }) {
                 <Button variant='text' onClick={() => navigate(link)}>view product details</Button>
             </CardActions>
 
+            <CardActions>
+                <Button variant='contained'>for sale</Button>
+            </CardActions>
+
             <CardMedia sx={{ height: 170 }}>
                 {renderImage1(productName, classes)}
             </CardMedia>

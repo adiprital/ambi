@@ -29,8 +29,6 @@ const useStyles = makeStyles(theme => ({
         boxShadow: theme.shadows[10],
         borderRadius: 15,
         [theme.breakpoints.down('sm')]: {
-            // paddingTop: '8em',
-            // paddingBottom: '8em',
             paddingLeft: 0,
             paddingRight: 0,
             borderRadius: 0,
@@ -38,9 +36,6 @@ const useStyles = makeStyles(theme => ({
         }
     },
     productImage: {
-        // backgroundPosition: 'center',
-        // backgroundSize: 'cover',
-        // backgroundRepeat: 'no-repeat',
         marginBottom: '20px'
     }
 }));
@@ -76,7 +71,6 @@ export default function Product(props) {
                         </Typography>
                     </Grid>
                 </Grid>
-
                 <Card className={classes.cardContainer} style={{backgroundColor: 'transparent'}}>
                 {renderImage2(props.productName, classes)}
                     <CardContent>

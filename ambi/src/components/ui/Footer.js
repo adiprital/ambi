@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom';
 import Hidden from '@mui/material/Hidden';
+import CopyrightIcon from '@mui/icons-material/Copyright';
 
 const useStyles = makeStyles(theme => ({
     footer: {
@@ -22,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer(props) {
     const classes = useStyles();
+    const theme = useTheme();
     const products = useSelector((state) => state.productsList).products;
 
     const productsOptions = [{name: 'Products', link: '/products', activeIndex: 2, selectedIndex: 0},
@@ -81,14 +84,6 @@ export default function Footer(props) {
                                     {option.name}
                                 </Grid>
                             ))}
-                            {/* <Grid item> 
-                                <Grid
-                                    item
-                                    component={Link}
-                                    to='/products'
-                                    className={classes.link}
-                                >Show All</Grid>
-                            </Grid>             */}
                         </Grid>
                     </Grid>
                     {/* Contact Us */}
@@ -107,19 +102,21 @@ export default function Footer(props) {
             </Hidden>
             {/* Adi's Link */}
             <Grid
-                    container
-                    justifyContent='left'
-                    rowSpacing={2}
-                >
-                    <Grid
-                        item
-                        className={classes.link}
-                        component={'a'}
-                        href='https://www.linkedin.com/in/adi-pri-tal-3829521b3/'
-                        rel='development'
-                        target='_blank'
-                    >© Adi Pri-Tal's Development 2022-2023. All rights reserved.
-                    </Grid>
+                container
+                justifyContent='left'
+                rowSpacing={2}
+            >
+                <Grid
+                    item
+                    className={classes.link}
+                    component={'a'}
+                    href='https://www.linkedin.com/in/adi-pri-tal-3829521b3/'
+                    rel='development'
+                    target='_blank'
+                > 
+                    <CopyrightIcon sx={{height: '20px', width: '20px', opacity: '100%'}}/> 
+                    Adi Pri-Tal's Development 2022-2023. All rights reserved.
+                </Grid>
             </Grid>
         </footer>
     );
