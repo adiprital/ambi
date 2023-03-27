@@ -71,13 +71,6 @@ productsController.post('/buy-products', async (req, res) => {
             purchases[result.purchases.productId] = result.purchases.amount;
         }
     });
-
-    // let purchases = {};
-    // filteredResults.forEach(result => {
-    //     if ( result.isSuccess && result.purchases ){
-    //         purchases[result.purchases.productId] = result.purchases.amount;
-    //     }
-    // });
     
     const mongoUser = await checkUserIdInMongo(id);
     let newBalance = mongoUser.balance-totalSumToPay;
@@ -88,7 +81,8 @@ productsController.post('/buy-products', async (req, res) => {
     return res.json({
         filteredResults,
         email: updatedUser.email,
-        balance: updatedUser.balance
+        balance: updatedUser.balance,
+        purchases: updatedUser.purchases
     });
 });
 

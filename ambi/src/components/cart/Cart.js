@@ -109,7 +109,8 @@ export default function Cart() {
         dispatch({ type: 'updateCurrentUser',  
                    user: {
                         email: promises_array.data.email, 
-                        balance: promises_array.data.balance
+                        balance: promises_array.data.balance,
+                        purchases: promises_array.data.purchases
                 }});
         
         const results = await Promise.all(promises_array.data.filteredResults);
