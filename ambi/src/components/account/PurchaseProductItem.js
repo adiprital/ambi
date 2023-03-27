@@ -47,7 +47,7 @@ export default function PurchaseProductItem({ productName, amount, link }) {
             </CardActions>
 
             <CardActions>
-                <Button variant='contained'>for sale</Button>
+                <Button variant='contained' disabled={true}>for sale</Button>
             </CardActions>
 
             <CardMedia sx={{ height: 170 }}>
