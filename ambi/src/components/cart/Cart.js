@@ -151,7 +151,7 @@ export default function Cart() {
                 <Box className={classes.cartContentStyle}>
                     {renderCartItems()}
                     <Typography align='center' variant='subtitle3' sx={{marginTop: '25px'}}>
-                        Total:  { totalSum < 0 ? '0': totalSum} $
+                        Total:  { totalSum < 0 ? '0': totalSum.toFixed(2)} $
                     </Typography>
                     <Button 
                         variant='contained'

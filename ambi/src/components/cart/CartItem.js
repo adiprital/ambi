@@ -64,7 +64,7 @@ export default function CartItem({ productName, amount }) {
                 </IconButton>
             </Box>
             <Typography align='left' variant="subtitle3">
-                    Price: {productPriceToPay} $
+                    Price: {productPriceToPay.toFixed(2)} $
             </Typography>
             <AddToWishList productName={productName}/>
         </CardContent>

@@ -56,6 +56,7 @@ export default function Account() {
                                 <Grid item>
                                     <Button
                                         variant='contained'
+                                        disabled={true}
                                         style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
                                         onClick={() => { navigate('/myorders')}}
                                     >My Orders</Button>
@@ -72,6 +73,7 @@ export default function Account() {
                                 <Grid item>
                                     <Button
                                         variant='contained'
+                                        disabled={true}
                                         style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
                                         onClick={() => { navigate('/forsale')}}
                                     >For Sale</Button>
