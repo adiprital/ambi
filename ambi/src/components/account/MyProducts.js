@@ -7,6 +7,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import PurchaseProductItem from './PurchaseProductItem';
 
@@ -15,7 +17,7 @@ export default function MyOrders() {
     let navigate = useNavigate();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-    const [purchasesArray, setpurchasesArray] = useState([]);
+    const [purchasesArray, setpurchasesArray] = useState(undefined);
 
     const user = useSelector((state) => state.userAuth).currentUser;
 
@@ -39,32 +41,42 @@ export default function MyOrders() {
       }, [user]);
 
     const myPurchases = () => {
-        return (
-            <div> 
-                <Grid item> 
-                    {purchasesArray.map((purchase, i) => {
-                        return (
-                            <Grid 
-                                key={`${purchase}${i}`}
-                                container
-                                direction='row'           
-                            >
-                                <Grid item> 
-                                    <PurchaseProductItem 
-                                        productName={purchase.name} 
-                                        amount={purchase.amount}
-                                        link={`/${purchase.name.replace(/\s/g, '').toLowerCase()}`}
-                                    />
-                                </Grid> 
-                            </Grid>
-                        )
-                    })}
-                </Grid>
-            </div>
-        )
+        if (purchasesArray){
+            return (
+                <div> 
+                    <Grid item> 
+                        {purchasesArray.map((purchase, i) => {
+                            return (
+                                <Grid 
+                                    key={`${purchase}${i}`}
+                                    container
+                                    direction='row'           
+                                >
+                                    <Grid item> 
+                                        <PurchaseProductItem 
+                                            productName={purchase.name} 
+                                            amount={purchase.amount}
+                                            link={`/${purchase.name.replace(/\s/g, '').toLowerCase()}`}
+                                        />
+                                    </Grid> 
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </div>
+            )
+        }
     }
 
     let purchases = myPurchases();
+
+    const progress = (
+        <div>
+            <Box>
+                <CircularProgress/>
+            </Box> 
+        </div>
+    );
     
     return (
         <Grid container direction='row'>
@@ -93,7 +105,9 @@ export default function MyOrders() {
                             </Grid>
 
                             <Typography align='center' variant='subtitle1' sx={{marginBottom: '25px'}}>
-                                your purchases: { user === undefined ? '' : purchases }
+                                Your purchases: 
+                                { user && user.purchases === undefined ? ' No purchases were made.' : purchasesArray === undefined ? progress : '' }
+                                { user === undefined ? '' : purchases }
                             </Typography>
 
                         </Grid>

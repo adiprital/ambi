@@ -16,6 +16,16 @@ export default function Account() {
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const user = useSelector((state) => state.userAuth).currentUser;
+
+    const checkDisable = () => {
+        let res = false;
+        if (!user) {
+                res = true;
+            } else {
+            res = false
+        }
+        return res;
+    };
            
     return (
         <Grid container direction='row'>
@@ -65,6 +75,7 @@ export default function Account() {
                                 <Grid item>
                                     <Button
                                         variant='contained'
+                                        disabled={checkDisable()}
                                         style={{marginBottom: matchesSM ? '1em' : '5em', marginLeft: '25px'}}
                                         onClick={() => { navigate('/myproducts')}}
                                     >My Products</Button>
