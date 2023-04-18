@@ -17,7 +17,7 @@ export default function MyOrders() {
     let navigate = useNavigate();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
-    const [purchasesArray, setpurchasesArray] = useState(undefined);
+    const [purchasesArray, setPurchasesArray] = useState(undefined);
 
     const user = useSelector((state) => state.userAuth).currentUser;
 
@@ -30,7 +30,7 @@ export default function MyOrders() {
                     let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
                     const response = await axios.post(`http://${baseUrl}:8000/get-products-by-id`, { purchasesProductsId, user });
 
-                    setpurchasesArray(response.data); 
+                    setPurchasesArray(response.data); 
                 } catch(error){
                     console.log('error in fetch purchases Products', error)
                 }
