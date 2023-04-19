@@ -85,7 +85,7 @@ export default function Product(props) {
                     </CardContent>
                     <CardActions>
                         <AddToCart productName={props.productName}/>
-                        <AddToWishList productName={props.productName}/>
+                        <AddToWishList productName={props.productName} productId={props.productData._id}/>
                     </CardActions>
                 </Card>
             </Grid>

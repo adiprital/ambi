@@ -14,6 +14,14 @@ const usersSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    wishList: {
+        type: mongoose.SchemaTypes.Mixed,
+        required: false
+    },
+    cart: {
+        type: mongoose.SchemaTypes.Mixed,
+        required: false
+    },
     purchases: {
         type: mongoose.SchemaTypes.Mixed,
         required: false

@@ -52,37 +52,41 @@ usersController.post('/validatetoken', async (req, res)=>{
 
 // usersController.post('/send-message', async (req, res) => {
 //     const { name, email, phone, message } = req.body;
-//     console.log('req.body', req.body);
+//     // console.log('req.body: ', req.body);
 
-//     const transporter = nodemailer.createTransport({
-//         service: 'gmail',
-//         auth: {
-//             user: EMAIL_USER,
-//             pass: EMAIL_PASS
-//         }
-//     });
+//   const transporter = nodemailer.createTransport({
+//     // service: 'smtp.gmail.com',
+//     host: 'smtp.gmail.com',
+//     port: 993,
+//     secure: true, // use TLS
+//     auth: {
+//       user: EMAIL_USER,
+//       pass: EMAIL_PASS
+//     }
+//   });
+// //   console.log('transporter: ', transporter);
 
-//     const mailOptions = {
-//         from: `${name} ${email}`,
-//         to: EMAIL_USER,
-//         subject: "from Ambi's website",
-//         text: `${name} (${email}) (${phone})  says: ${message}`
-//     };
+//   const mailOptions = {
+//     host: 'smtp.gmail.com',
+//     secure: true, // use TLS
+//     // port: 465,
+//     from: email,
+//     to: EMAIL_USER,
+//     subject: "from Ambi's website",
+//     text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
+//   };
+//   console.log('mailOptions: ', mailOptions);
 
-//     console.log('mailOptions', mailOptions);
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.error(error);
+//       res.status(500).send('Something went wrong');
+//     } else {
+//       console.log('Email sent: ' + info.response);
+//       res.send('Email sent successfully');
+//     }
+//   });
 
-//     transporter.sendMail(mailOptions, (error, info) => {
-//         console.log('info', info);
-       
-//         if (error) {
-//           console.error(error);
-//           res.status(500).send('Error sending email');
-//         } else {
-//           console.log('Email sent: ' + info.response);
-//           res.sendStatus(200);
-//         }
-//     });
 // });
-
 
 module.exports = usersController;

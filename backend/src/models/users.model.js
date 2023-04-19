@@ -154,6 +154,61 @@ async function updatePurchases(mongoUser, purchasesProduct) {
     }
 }
 
+async function addToWishList(mongoUser, wishListProductId) {
+    // console.log('addToWishList - mongoUser: ', mongoUser);
+    // console.log('addToWishList - wishListProduct: ', wishListProductId);
+
+    try {
+        let res = await usersDatabase.findOne({ email: mongoUser.email });
+        console.log('addToWishList - res: ', res.wishList);
+
+        // If product is not in wishlist - Adds product to user's wish list.
+        if (!res.wishList) {
+            await usersDatabase.updateOne({
+                email: mongoUser.email
+            }, {
+                wishList: wishListProductId,
+            }, {
+                upsert: true
+            });
+        }
+
+        // If the product is in the wishlist: ????????????????????
+        if (res.wishList) {
+
+            await usersDatabase.updateOne({
+                email: mongoUser.email
+            }, {
+                wishList: res.wishList,
+            }, {
+                upsert: true
+            });
+        }
+
+    } catch(err) {
+        console.error(`Could not update user's wishlist ${err}`);
+    }
+}
+
+async function removeFromWishList(mongoUser, wishListProduct) {
+    try {
+        let res = await usersDatabase.findOne({ email: mongoUser.email });
+
+        // If user wants to remove the product from wishlist: 
+        // The product is in the wishlist:
+        if (res.wishList) {
+            await usersDatabase.deleteOne({
+                email: mongoUser.email
+            }, { 
+                wishList: wishListProduct 
+            });
+        }
+
+    } catch(err) {
+        console.error(`Could not delete from user's wishlist ${err}`);
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
@@ -161,5 +216,7 @@ module.exports = {
     checkTokenValidity,
     checkUserIdInMongo,
     updateBalance,
-    updatePurchases
+    updatePurchases,
+    addToWishList,
+    removeFromWishList
 }
