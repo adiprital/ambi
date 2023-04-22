@@ -1,5 +1,5 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
@@ -42,12 +42,32 @@ export default function WishList() {
     const classes = useStyles();
     const theme = useTheme();
     const [openWishList, setOpenWishList] = useState(false);
+    const [wishListArray, setWishListArray] = useState([])
 
     const favorites = useSelector((state) => {
         return state.wishList
     }).wishListData;
 
     const user = useSelector((state) => state.userAuth).currentUser;
+
+    useEffect(() => {
+        const fetchWishListItems = async () => {
+            try{
+                let token = localStorage.getItem('token');
+                let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+                const result = await axios.get(`http://${baseUrl}:8000/auth/get-user-wishlist`, 
+                                                { withCredentials: true, 
+                                                  headers: {token} });
+                if (result.data.success) {
+                    setWishListArray(result.data.wishList);
+                }
+            }
+            catch(error){
+              console.log('error in fetch wish list', error)
+            }
+          }
+          fetchWishListItems();
+    }, [favorites]);
 
     const handleOpenWishList = () => {
         setOpenWishList(true);
@@ -58,19 +78,15 @@ export default function WishList() {
     };
 
     const renderFavoriteItems = () => {
-        const keys = Object.keys(favorites);
-        return keys.map((productName, index) => {
-            if (favorites[productName] > 0) {
+        return wishListArray.map((product, index) => {
                 return (
-                    <WishListItem key={index} productName={productName} />
+                    <WishListItem key={index} productName={product.name} />
                 );
-            }
         });
     };
 
     const totalAmountInWishList = () => {
-        const values = Object.values(favorites);
-        return values.reduce((acc, curr) => acc + curr, 0);
+        return wishListArray.length;
     }; 
 
     const accountWishlist = (

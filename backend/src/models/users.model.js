@@ -1,4 +1,5 @@
 const usersDatabase = require('./users.mongo');
+const productsDatabase = require('./products.mongo');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
@@ -154,35 +155,68 @@ async function updatePurchases(mongoUser, purchasesProduct) {
     }
 }
 
-async function addToWishList(mongoUser, wishListProductId) {
-    // console.log('addToWishList - mongoUser: ', mongoUser);
-    // console.log('addToWishList - wishListProduct: ', wishListProductId);
+async function getUserWishList(mongoUserId) {
+    try {
+        let res = await usersDatabase.findOne({ '_id': mongoUserId });
+        let wishListIds = res.wishList;
+        let promises_array = wishListIds.map(async productId => {
+            try {
+                return await productsDatabase.findOne({'_id': productId});
+            } catch(err) {
+                console.error(`Could not find product ${err}`);
+                return undefined;
+            }
+        })
+
+        let wishListItemsArr = await Promise.all(promises_array);
+        let filterArray = wishListItemsArr.filter(product => product !== undefined);
+
+        if (res) {
+            return {
+                success: true,
+                wishList: filterArray
+            };
+        }
+    } catch(err) {
+        console.error(`Error in GET wishList ${err}`);
+        return {
+            success: false,
+            error: err
+        };
+    }
+
+}
+
+async function addToWishList(mongoUserId, wishListProductId) {
+
 
     try {
-        let res = await usersDatabase.findOne({ email: mongoUser.email });
-        console.log('addToWishList - res: ', res.wishList);
+        let res = await usersDatabase.findOne({ _id: mongoUserId});
 
         // If product is not in wishlist - Adds product to user's wish list.
-        if (!res.wishList) {
+        if (Array.isArray(res.wishList) && res.wishList.length === 0) {
             await usersDatabase.updateOne({
-                email: mongoUser.email
+                _id: mongoUserId
             }, {
-                wishList: wishListProductId,
+                wishList: [wishListProductId],
             }, {
                 upsert: true
             });
         }
 
         // If the product is in the wishlist: ????????????????????
-        if (res.wishList) {
-
-            await usersDatabase.updateOne({
-                email: mongoUser.email
-            }, {
-                wishList: res.wishList,
-            }, {
-                upsert: true
-            });
+        if (Array.isArray(res.wishList) && res.wishList.length > 0) {
+            let newWishList = [...res.wishList];
+            if (!newWishList.includes(wishListProductId)) {
+                newWishList.push(wishListProductId);
+                await usersDatabase.updateOne({
+                    _id: mongoUserId
+                }, {
+                    wishList: newWishList
+                }, {
+                    upsert: true
+                });
+            }
         }
 
     } catch(err) {
@@ -217,6 +251,7 @@ module.exports = {
     checkUserIdInMongo,
     updateBalance,
     updatePurchases,
+    getUserWishList,
     addToWishList,
     removeFromWishList
 }

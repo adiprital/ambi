@@ -183,11 +183,22 @@ async function getProductsById(productsIdsArray, user) {
     }
 }
 
+async function getProductById(productId) {
+    try {
+        console.log('hereeeeeee')
+        return await productsDatabase.findOne({'_id': productId});
+    } catch(err) {
+        console.error(`Could not find product ${err}`);
+        return undefined;
+    }
+}
+
 module.exports = {
     getAllProducts,
     loadAllProducts,
     existssProduct,
     searchProducts,
     handleSingleProductToBuy,
-    getProductsById
+    getProductsById,
+    getProductById
 }

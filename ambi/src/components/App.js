@@ -59,7 +59,9 @@ function App() {
             user: {
               email: result.data.user.email,
               balance: result.data.user.balance,
-              purchases: result.data.user.purchases //
+              wishList: result.data.user.wishList,
+              cart: result.data.user.cart,
+              purchases: result.data.user.purchases
           }});
         }
       }

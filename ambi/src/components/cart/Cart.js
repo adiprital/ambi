@@ -110,6 +110,8 @@ export default function Cart() {
                    user: {
                         email: promises_array.data.email, 
                         balance: promises_array.data.balance,
+                        wishList: promises_array.data.wishList, //
+                        cart: promises_array.data.cart, //
                         purchases: promises_array.data.purchases
                 }});
         

@@ -15,7 +15,7 @@ const usersSchema = new mongoose.Schema({
         required: true
     },
     wishList: {
-        type: mongoose.SchemaTypes.Mixed,
+        type: [String],
         required: false
     },
     cart: {

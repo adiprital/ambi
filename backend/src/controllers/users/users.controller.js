@@ -4,7 +4,10 @@ const { signUp,
     signIn,
     decodeToken,
     checkTokenValidity,
-    checkUserIdInMongo
+    checkUserIdInMongo,
+    getUserWishList,
+    addToWishList,
+    removeFromWishList
 } = require('../../models/users.model');
 
 const usersController = express.Router();
@@ -49,6 +52,85 @@ usersController.post('/validatetoken', async (req, res)=>{
         res.json(error);
     }
 });
+
+usersController.post('/add-to-wishlist', async (req, res) => {
+    let token = req.headers['token'];
+    let productId = req.body.wishListProductId;
+    if(!token){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let resultDecode = decodeToken(token);
+    if(!resultDecode) {
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let { id, exp } = resultDecode; // id = userId
+    if(!exp){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    if(!checkTokenValidity(exp)){
+        return res.json({
+            error: 'session token expired - login again.'
+        });
+    }
+
+
+    // let result = getUserWishList(id);
+    await addToWishList(id, productId);
+
+    return res.status(200).json('OK');
+
+});
+
+usersController.post('/remove-from-wishlist', async (req, res) => {
+    const { user,  wishListProductId} = req.body;
+    let products = await addToWishList( user, wishListProductId);
+    return res.status(200).json(products);
+});
+
+usersController.get('/get-user-wishlist', async (req, res) => {
+    let token = req.headers['token'];
+    if(!token){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let resultDecode = decodeToken(token);
+    if(!resultDecode) {
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let { id, exp } = resultDecode; // id = userId
+    if(!exp){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    if(!checkTokenValidity(exp)){
+        return res.json({
+            error: 'session token expired - login again.'
+        });
+    }
+
+
+    let result = await getUserWishList(id);
+
+    return res.status(200).json(result);
+});
+
+
 
 // usersController.post('/send-message', async (req, res) => {
 //     const { name, email, phone, message } = req.body;

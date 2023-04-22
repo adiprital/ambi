@@ -92,7 +92,9 @@ export default function SignIn() {
                 user: {
                     email: currentUser.data.user, 
                     balance: currentUser.data.balance,
-                    purchases: currentUser.data.purchases //
+                    wishList: currentUser.data.wishList,
+                    cart: currentUser.data.cart,
+                    purchases: currentUser.data.purchases
             }});
         }
         setSignInResult(currentUser.data);

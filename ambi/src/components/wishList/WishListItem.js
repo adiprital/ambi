@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
@@ -24,6 +25,8 @@ export default function FavoriteItem({ productName }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const user = useSelector((state) => state.userAuth).currentUser;
+
     const products = useSelector((state) => state.productsList).products;
     let productPrice;
 
@@ -32,6 +35,26 @@ export default function FavoriteItem({ productName }) {
             productPrice = product.price;
         }
     });
+
+    // const removeProductFromWishList = async () => {
+    //     let wishListProductId = props.productId;
+    //     let token = localStorage.getItem('token');
+    //     let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+    //     const promises_array = await axios.post(`http://${baseUrl}:8000/auth'/remove-from-wishlist'` , { user, wishListProductId } ,
+    //                                             { withCredentials: true, 
+    //                                                 headers: {token} }
+    //                                                 );
+    //     console.log('promises_array: ', promises_array);
+    //     dispatch({ type: 'addProductToWishList', product: props.productName });
+        
+        // const results = await Promise.all(promises_array.data);
+        // const filteredResults = results.filter(result => result !== undefined);
+
+        // setResultsArray(filteredResults);
+        // setTimeout(() => {
+        //     setResultsArray([])
+        // }, 10000);
+    // }; 
 
     return (
         <Card className={classes.cardItemContainer} style={{backgroundColor: 'transparent'}}>
