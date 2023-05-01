@@ -27,10 +27,12 @@ export default function CartItem({ productName, amount }) {
 
     const products = useSelector((state) => state.productsList).products;
     let productPrice;
+    let productId;
 
     products.forEach((product) => {
         if (product.name === productName) {
             productPrice = product.price;
+            productId = product._id;
         }
     });
 
@@ -66,7 +68,7 @@ export default function CartItem({ productName, amount }) {
             <Typography align='left' variant="subtitle3">
                     Price: {productPriceToPay.toFixed(2)} $
             </Typography>
-            <AddToWishList productName={productName}/>
+            <AddToWishList productName={productName} productId={productId}/>
         </CardContent>
         <CardMedia sx={{width: '100%', marginLeft: '20px'}}>
             {renderImage1(productName, classes)}

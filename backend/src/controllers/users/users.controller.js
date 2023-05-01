@@ -82,18 +82,42 @@ usersController.post('/add-to-wishlist', async (req, res) => {
         });
     }
 
-
-    // let result = getUserWishList(id);
     await addToWishList(id, productId);
-
     return res.status(200).json('OK');
 
 });
 
 usersController.post('/remove-from-wishlist', async (req, res) => {
-    const { user,  wishListProductId} = req.body;
-    let products = await addToWishList( user, wishListProductId);
-    return res.status(200).json(products);
+    let token = req.headers['token'];
+    let productId = req.body.wishListProductId;
+    if(!token){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let resultDecode = decodeToken(token);
+    if(!resultDecode) {
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    let { id, exp } = resultDecode; // id = userId
+    if(!exp){
+        return res.json({
+            error: 'invalid session token - login again.'
+        });
+    }
+
+    if(!checkTokenValidity(exp)){
+        return res.json({
+            error: 'session token expired - login again.'
+        });
+    }
+
+    await removeFromWishList(id, productId);
+    return res.status(200).json('OK');
 });
 
 usersController.get('/get-user-wishlist', async (req, res) => {
@@ -126,7 +150,6 @@ usersController.get('/get-user-wishlist', async (req, res) => {
 
 
     let result = await getUserWishList(id);
-
     return res.status(200).json(result);
 });
 

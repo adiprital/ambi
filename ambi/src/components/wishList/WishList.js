@@ -80,7 +80,7 @@ export default function WishList() {
     const renderFavoriteItems = () => {
         return wishListArray.map((product, index) => {
                 return (
-                    <WishListItem key={index} productName={product.name} />
+                    <WishListItem key={index} productName={product.name} productId={product._id}/>
                 );
         });
     };

@@ -188,15 +188,12 @@ async function getUserWishList(mongoUserId) {
 }
 
 async function addToWishList(mongoUserId, wishListProductId) {
-
-
     try {
-        let res = await usersDatabase.findOne({ _id: mongoUserId});
-
+        let res = await usersDatabase.findOne({ '_id': mongoUserId});
         // If product is not in wishlist - Adds product to user's wish list.
         if (Array.isArray(res.wishList) && res.wishList.length === 0) {
             await usersDatabase.updateOne({
-                _id: mongoUserId
+                '_id': mongoUserId
             }, {
                 wishList: [wishListProductId],
             }, {
@@ -204,7 +201,6 @@ async function addToWishList(mongoUserId, wishListProductId) {
             });
         }
 
-        // If the product is in the wishlist: ????????????????????
         if (Array.isArray(res.wishList) && res.wishList.length > 0) {
             let newWishList = [...res.wishList];
             if (!newWishList.includes(wishListProductId)) {
@@ -224,22 +220,20 @@ async function addToWishList(mongoUserId, wishListProductId) {
     }
 }
 
-async function removeFromWishList(mongoUser, wishListProduct) {
+async function removeFromWishList(mongoUserId, wishListProductId) {
     try {
-        let res = await usersDatabase.findOne({ email: mongoUser.email });
-
+        let res = await usersDatabase.findOne({ '_id': mongoUserId });
+        console.log('res', res.wishList);
         // If user wants to remove the product from wishlist: 
         // The product is in the wishlist:
-        if (res.wishList) {
-            await usersDatabase.deleteOne({
-                email: mongoUser.email
-            }, { 
-                wishList: wishListProduct 
-            });
+
+        if (res.wishList.includes(wishListProductId)) {
+            console.log('in res.wishList', wishListProductId);
+            // await usersDatabase.deleteOne({ wishList: wishListProductId });
         }
 
     } catch(err) {
-        console.error(`Could not delete from user's wishlist ${err}`);
+        console.error(`Could not delete product from user's wishlist ${err}`);
     }
 }
 

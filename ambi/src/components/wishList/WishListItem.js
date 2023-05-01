@@ -21,46 +21,36 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function FavoriteItem({ productName }) {
+export default function FavoriteItem(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
-
-    const user = useSelector((state) => state.userAuth).currentUser;
 
     const products = useSelector((state) => state.productsList).products;
     let productPrice;
 
     products.forEach((product) => {
-        if (product.name === productName) {
+        if (product.name === props.productName) {
             productPrice = product.price;
         }
     });
 
-    // const removeProductFromWishList = async () => {
-    //     let wishListProductId = props.productId;
-    //     let token = localStorage.getItem('token');
-    //     let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
-    //     const promises_array = await axios.post(`http://${baseUrl}:8000/auth'/remove-from-wishlist'` , { user, wishListProductId } ,
-    //                                             { withCredentials: true, 
-    //                                                 headers: {token} }
-    //                                                 );
-    //     console.log('promises_array: ', promises_array);
-    //     dispatch({ type: 'addProductToWishList', product: props.productName });
-        
-        // const results = await Promise.all(promises_array.data);
-        // const filteredResults = results.filter(result => result !== undefined);
-
-        // setResultsArray(filteredResults);
-        // setTimeout(() => {
-        //     setResultsArray([])
-        // }, 10000);
-    // }; 
+    const removeProductFromWishList = async () => {
+        let wishListProductId = props.productId;
+        let token = localStorage.getItem('token');
+        let baseUrl = (window.location.href).includes('localhost') ? 'localhost': 'ec2-44-203-23-164.compute-1.amazonaws.com';
+        const promises_array = await axios.post(`http://${baseUrl}:8000/auth/remove-from-wishlist` , { wishListProductId } ,
+                                                { withCredentials: true, 
+                                                    headers: {token} }
+                                                    );
+        console.log('promises_array: ', promises_array);
+        dispatch({ type: 'removeProductFromWishList', product: props.productName });
+    };
 
     return (
         <Card className={classes.cardItemContainer} style={{backgroundColor: 'transparent'}}>
             <CardContent variant='favorite-item'>
                 <Typography align='center' variant="subtitle1">
-                    {productName}
+                    {props.productName}
                 </Typography>
                 <Typography align='left' variant="subtitle3">
                     Price: {productPrice} $
@@ -69,18 +59,21 @@ export default function FavoriteItem({ productName }) {
                 <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                     <IconButton
                         aria-label="reduce-amount"
-                        onClick={() => dispatch({
-                            type: 'removeProductFromWishList',
-                            product: productName
-                        })}
+                        onClick={ 
+                            removeProductFromWishList
+                        //     () => dispatch({
+                        //     type: 'removeProductFromWishList',
+                        //     product: props.productName
+                        // })
+                    }
                     >
                         <DeleteIcon/>
                     </IconButton>
-                    <AddToCart productName={productName}/>
+                    <AddToCart productName={props.productName}/>
                 </Box>
             </CardContent>
             <CardMedia sx={{width: '100%', marginLeft: '20px'}}>
-                {renderImage1(productName, classes)}
+                {renderImage1(props.productName, classes)}
             </CardMedia>
         </Card>
     )
