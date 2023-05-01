@@ -223,13 +223,11 @@ async function addToWishList(mongoUserId, wishListProductId) {
 async function removeFromWishList(mongoUserId, wishListProductId) {
     try {
         let res = await usersDatabase.findOne({ '_id': mongoUserId });
-        console.log('res', res.wishList);
         // If user wants to remove the product from wishlist: 
         // The product is in the wishlist:
-
         if (res.wishList.includes(wishListProductId)) {
-            console.log('in res.wishList', wishListProductId);
-            // await usersDatabase.deleteOne({ wishList: wishListProductId });
+            await usersDatabase.updateMany({ '_id': mongoUserId },
+            { $pull: { wishList: { $in: [wishListProductId]}}});
         }
 
     } catch(err) {
