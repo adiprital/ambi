@@ -49,7 +49,12 @@ async function verifyUserLogin(email, password) {
                                type:'user' }, 
                             JWT_SECRET, 
                             { expiresIn: '30m' });
-            return { success: true, token, user: email, balance: user.balance.toFixed(2), purchases: user.purchases }
+            return { success: true, 
+                    token, 
+                    user: email, 
+                    balance: user.balance.toFixed(2), 
+                    purchases: user.purchases, 
+                    wishList: user.wishList }
         }
         return {success: false, message: 'invalid password'};
     } catch (error) {
@@ -89,7 +94,12 @@ async function checkUserIdInMongo(id) {
             return { success: false, message: 'user not found' };
         }
         else { 
-            return { success: true, user: id, email: user.email, balance: user.balance.toFixed(2), purchases: user.purchases }
+            return { success: true, 
+                    user: id, 
+                    email: user.email, 
+                    balance: user.balance.toFixed(2), 
+                    purchases: user.purchases, 
+                    wishList: user.wishList }
         } 
     } catch (error) {
         console.log(error);

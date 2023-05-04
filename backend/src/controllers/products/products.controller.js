@@ -9,9 +9,7 @@ const { decodeToken,
     checkTokenValidity, 
     checkUserIdInMongo,
     updateBalance,
-    updatePurchases,
-    addToWishList,
-    removeFromWishList
+    updatePurchases
 } = require('../../models/users.model');
 
 const productsController = express.Router();

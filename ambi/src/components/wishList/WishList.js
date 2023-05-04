@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
@@ -41,12 +41,14 @@ const wishListItemStyle = {
 export default function WishList() {
     const classes = useStyles();
     const theme = useTheme();
+    const dispatch = useDispatch();
     const [openWishList, setOpenWishList] = useState(false);
     const [wishListArray, setWishListArray] = useState([])
 
     const favorites = useSelector((state) => {
         return state.wishList
     }).wishListData;
+    // console.log('favorites: ', favorites);
 
     const user = useSelector((state) => state.userAuth).currentUser;
 
@@ -60,6 +62,7 @@ export default function WishList() {
                                                   headers: {token} });
                 if (result.data.success) {
                     setWishListArray(result.data.wishList);
+                    // dispatch({ type: 'updateUserWishList', wishListData: result.data.wishList });
                 }
             }
             catch(error){
@@ -67,7 +70,7 @@ export default function WishList() {
             }
           }
           fetchWishListItems();
-    }, [favorites]);
+    }, [user, favorites]);
 
     const handleOpenWishList = () => {
         setOpenWishList(true);
