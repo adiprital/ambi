@@ -63,7 +63,6 @@ function App() {
               cart: result.data.user.cart,
               purchases: result.data.user.purchases
           }});
-          // store.dispatch({ type: 'updateUserWishList', wishListData: result.data.user.wishList }); // only productId
         }
       }
     }

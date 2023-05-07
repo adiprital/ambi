@@ -185,11 +185,23 @@ async function getProductsById(productsIdsArray, user) {
 
 async function getProductById(productId) {
     try {
-        console.log('hereeeeeee')
         return await productsDatabase.findOne({'_id': productId});
     } catch(err) {
         console.error(`Could not find product ${err}`);
         return undefined;
+    }
+}
+
+async function getProductsNamesById(productsIdsArray) {
+    try {
+        let promises_array = productsIdsArray.map(async productsId => {
+            return await productsDatabase.findOne({'_id': productsId});
+        });
+
+        let products = await Promise.all(promises_array);
+        return products;
+    } catch(err) {
+        console.error(`Could not find product ${err}`);
     }
 }
 
@@ -200,5 +212,6 @@ module.exports = {
     searchProducts,
     handleSingleProductToBuy,
     getProductsById,
-    getProductById
+    getProductById,
+    getProductsNamesById
 }

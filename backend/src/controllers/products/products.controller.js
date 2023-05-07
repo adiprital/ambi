@@ -2,7 +2,8 @@ const express = require('express');
 const { getAllProducts, 
     searchProducts,
     handleSingleProductToBuy,
-    getProductsById
+    getProductsById,
+    getProductsNamesById
 } = require('../../models/products.model');
 const { getPagination } = require('../../services/query');
 const { decodeToken, 
@@ -89,6 +90,14 @@ productsController.post('/buy-products', async (req, res) => {
 productsController.post('/get-products-by-id', async (req, res) => {
     const { purchasesProductsId, user } = req.body;
     const products = await getProductsById(purchasesProductsId, user);
+
+    return res.status(200).json(products);
+});
+
+// not used
+productsController.post('/get-wishlist-products-by-id', async (req, res) => {
+    const { wishlistProductsId } = req.body;
+    const products = await getProductsNamesById(wishlistProductsId);
 
     return res.status(200).json(products);
 });

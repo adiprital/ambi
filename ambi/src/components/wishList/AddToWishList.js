@@ -31,7 +31,7 @@ export default function AddToWishList(props) {
                                                 { withCredentials: true, 
                                                     headers: {token} }
                                                     );
-        console.log('promises_array: ', promises_array);
+        // console.log('promises_array: ', promises_array);
         dispatch({ type: 'addProductToWishList', product: props.productName });
     }; 
 

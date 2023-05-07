@@ -42,7 +42,7 @@ export default function FavoriteItem(props) {
                                                 { withCredentials: true, 
                                                     headers: {token} }
                                                     );
-        console.log('promises_array: ', promises_array);
+        // console.log('promises_array: ', promises_array);
         dispatch({ type: 'removeProductFromWishList', product: props.productName });
     };
 
@@ -59,13 +59,7 @@ export default function FavoriteItem(props) {
                 <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                     <IconButton
                         aria-label="reduce-amount"
-                        onClick={ 
-                            removeProductFromWishList
-                        //     () => dispatch({
-                        //     type: 'removeProductFromWishList',
-                        //     product: props.productName
-                        // })
-                    }
+                        onClick={ removeProductFromWishList }
                     >
                         <DeleteIcon/>
                     </IconButton>

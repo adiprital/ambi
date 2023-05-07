@@ -14,15 +14,6 @@ const wishListReducer = (state = initial, action) => {
             updatedWishListData[action.product] = 0;
             return { ...state, wishListData: updatedWishListData};
 
-        case "updateUserWishList":
-            const userWishListArray = action.wishListData;
-            console.log('userWishListArray', userWishListArray);
-
-            userWishListArray.forEach((product) => {
-                updatedWishListData[product.name] = 1;
-            });
-            return { ...state, wishListData: updatedWishListData };
-
         case "wishListInitialize":
             const productArray = action.wishListData;
             let newWishListData = {};
